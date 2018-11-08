@@ -16,6 +16,6 @@ namespace fa18Team28_FinalProject.Models
         public DateTime EndDate { get; set; }
 
         //navigational property
-        public List<>  { get; set; }
+        public List<DiscountDetail> DiscountDetails { get; set; }
     }
 }

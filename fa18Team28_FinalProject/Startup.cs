@@ -15,6 +15,9 @@ namespace fa18Team28_FinalProject
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = "Server=tcp:fa18team28bevosbooks.database.windows.net,1433;Initial Catalog=fa18Team28BevosBooks;Persist Security Info=False;User ID=MISAdmin;Password=MISpassword123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
