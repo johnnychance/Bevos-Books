@@ -1,0 +1,90 @@
+@model DePass_Malik_HW5.Models.Repository
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>Book Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BookID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BookID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PublishedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PublishedDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UniqueId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UniqueID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt>
+            Genre Name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Genre.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Reordered)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Reordered)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CopiesOnHand)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CopiesOnHand)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastOrdered)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastOrdered)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
