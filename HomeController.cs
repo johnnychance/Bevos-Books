@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bedford_Ashley_HW5.Controllers
 {
-    public enum SortOrder { GreaterThan, LessThan };
+    public enum SortOrder { MOSTPOPULAR, TITLE, AUTHOR, LOWPRICEFIRST, HIGHPRICEFIRST };
 
     public class HomeController : Controller
     {
@@ -27,47 +27,15 @@ namespace Bedford_Ashley_HW5.Controllers
         {
             _db = context;
         }
-
-        // GET: Home
-        public IActionResult Index(string SearchString)
-        {
-            //create list of required repos
-            List<Repository> SelectedRepositories = new List<Repository>();
-
-            //start the query
-            var query = from r in _db.Repositories
-                        select r;
-
-            if (_db.Repositories.Count() == 0) //there aren't any repos yet 
-            {
-                return RedirectToAction("Index", "Seed");
-            }
-
-            //if the user searched for something, limit the query
-            if (SearchString != null && SearchString != "")
-            {
-                query = query.Where(r => r.RepositoryName.Contains(SearchString) || r.UserName.Contains(SearchString));
-            }
-
-            //execute the query
-            SelectedRepositories = query.Include(r => r.Language).ToList();
-
-            //get counts for ViewBag
-            ViewBag.SelectedRecords = SelectedRepositories.Count;
-            ViewBag.TotalRecords = _db.Repositories.Count();
-
-            //send data back to the view
-            return View(SelectedRepositories.OrderByDescending(r => r.StarCount));
-        }
-
+        
         public IActionResult DetailedSearch()
         {
-            ViewBag.AllLanguages = GetAllLanguages();
+            ViewBag.AllGenres = GetAllGenres();
             return View();
         }
 
-        public IActionResult DisplaySearchResults(string SearchName, string SearchDescription,
-            int SearchLanguage, string SearchStars, SortOrder SortOrder, DateTime? SearchModifiedAfter)
+        public IActionResult DisplaySearchResults(string UniqueID, string Title,
+            int Genre, string Author, SortOrder SortOrder)
         {
             //create list of required repos
             List<Repository> SelectedRepositories = new List<Repository>();
@@ -77,49 +45,41 @@ namespace Bedford_Ashley_HW5.Controllers
                         select r;
 
             //if the user searched for something, limit the query
-            if (SearchName != null && SearchName != "")
+            if (UniqueID != null && UniqueID != "")
             {
-                query = query.Where(r => r.RepositoryName.Contains(SearchName) || r.UserName.Contains(SearchName));
+                query = query.Where(r => r.UniqueID.Contains(UniqueID);
             }
 
             //if the user searched for something, limit the query
-            if (SearchDescription != null && SearchDescription != "")
+            if (Title != null && Title != "")
             {
-                query = query.Where(r => r.Description.Contains(SearchDescription));
+                query = query.Where(r => r.Title.Contains(Title));
             }
 
-            if (SearchLanguage == 0) // they chose "all languages from the drop-down
+            if (Genre == 0) // they chose "all languages from the drop-down
             {
-                ViewBag.SearchLanguage = "No language was selected";
+                ViewBag.SearchGenre = "No language was selected";
             }
             else //language was chosen
             {
-                Language LanguageToDisplay = _db.Languages.Find(SearchLanguage);
-                ViewBag.SearchLanguage = "The selected language is " + LanguageToDisplay.Name;
-                query = query.Where(r => r.Language.Name.Contains(LanguageToDisplay.Name));
-
+                Genre GenreToDisplay = _db.Genres.Find(Genre);
+                ViewBag.SearchGenre = "The selected genre is " + GenreToDisplay.Name;
+                query = query.Where(r => r.Genre.Name.Contains(GenreToDisplay.Name));
             }
 
             //TODO: Code for textbox with numeric input
             //see if they specified something for Stars
-            if (SearchStars != null && SearchStars != "")
+            if (Title != null && Title != "" && Author != null && Author!= "")
             //make sure string is a valid number
-            {                
-                try
-                {
-                    _decStars = Convert.ToDecimal(SearchStars);                    
-                }
-                catch  //this code will display when something is wrong
-                {
-                    //Add a message for the viewbag
-                    ViewBag.Message = SearchStars + " is not valid number. Please try again";
+            {
+                query = query.Where(r => r.Title.Contains(title) || r => r.Author.Contains(Author);
 
-                    //Re-populate dropdown
-                    ViewBag.AllLanguages = GetAllLanguages();
+                //Re-populate dropdown
+                ViewBag.AllGenres = GetAllGenres();
 
-                    //Send user back to home page
-                    return View("DetailedSearch");
-                }
+                //Send user back to home page
+                return View("DetailedSearch");
+            }
 
                 //Add value to ViewBag
                 ViewBag.UpdatedStars = "The desired number of Stars is " + _decStars.ToString("n2");
