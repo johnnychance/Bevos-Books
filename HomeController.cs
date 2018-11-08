@@ -1,9 +1,4 @@
-﻿//Author: Ashley Bedford
-//Date: November 1, 2018
-//Assignment: Homework 5 
-//Description: Search Code
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
