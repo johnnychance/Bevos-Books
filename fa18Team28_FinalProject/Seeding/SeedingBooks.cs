@@ -1,10 +1,10 @@
-﻿using (ProjectName).Models;
-using (ProjectName).DAL;
+﻿using fa18Team28_FinalProject.Models;
+using fa18Team28_FinalProject.DAL;
 using System.Collections.Generic;
 using System;
 using System.Linq;
 
-namespace (ProjectName).Seeding
+namespace fa18Team28_FinalProject.Seeding
 {
     public static class SeedingBooks
     {
@@ -23,41 +23,41 @@ namespace (ProjectName).Seeding
             {
                 Book b1 = new Book();
                 b1.PublishedDate = new DateTime(2008, 5, 24);
-                b1.UniqueID = "789001";
+                b1.UniqueID = 789001;
                 b1.Title = "The Art Of Racing In The Rain";
                 b1.Author = "Garth Stein";
-                b1.Genre = db.Genres.FirstOrDefault(x => x.Name == "Contemporary Fiction");
+                b1.Genre = db.Genres.FirstOrDefault(x => x.GenreName == "Contemporary Fiction");
                 b1.Description = "A Lab-terrier mix with great insight into the human condition helps his owner, a struggling race car driver.";
-                b1.Price = "23.95";
-                b1.Cost = "10.30";
-                b1.Reordered = "1";
-                b1.CopiesOnHand = "2";
+                b1.Price = 23.95m;
+                b1.Cost = 10.30m;
+                b1.Reordered = 1;
+                b1.CopiesOnHand = 2;
                 b1.LastOrdered = new DateTime(2018, 10, 1);
                 Books.Add(b1);
 
                 Book b2 = new Book();
                 b2.PublishedDate = new DateTime(2008, 5, 24);
-                b2.UniqueID = "789002";
+                b2.UniqueID = 789002;
                 b2.Title = "The Host";
                 b2.Author = "Stephenie Meyer";
-                b2.Genre = db.Genres.FirstOrDefault(x => x.Name == "Science Fiction");
+                b2.Genre = db.Genres.FirstOrDefault(x => x.GenreName == "Science Fiction");
                 b2.Description = "Aliens have taken control of the minds and bodies of most humans, but one woman won’t surrender.";
-                b2.Price = "25.99";
-                b2.Cost = "13.25";
-                b2.Reordered = "7";
-                b2.CopiesOnHand = "8";
+                b2.Price = 25.99m;
+                b2.Cost = 13.25m;
+                b2.Reordered = 7;
+                b2.CopiesOnHand = 8;
                 b2.LastOrdered = new DateTime(2018, 10, 1);
                 Books.Add(b2);
 
                 Book b3 = new Book();
                 b3.PublishedDate = new DateTime(2008, 7, 5);
-                b3.UniqueID = "789003";
+                b3.UniqueID = 789003;
                 b3.Title = "Chasing Darkness";
                 b3.Author = "Robert Crais";
                 b3.Genre = db.Genres.FirstOrDefault(x => x.Name == "Mystery");
                 b3.Description = "The Los Angeles private eye Elvis Cole responsible for the release of a serial killer?";
-                b3.Price = "25.95";
-                b3.Cost = "9.08";
+                b3.Price = 25.95m;
+                b3.Cost = 9.08m;
                 b3.Reordered = "7";
                 b3.CopiesOnHand = "10";
                 b3.LastOrdered = new DateTime(2018, 10, 1);
@@ -232,7 +232,7 @@ namespace (ProjectName).Seeding
                 Books.Add(b15);
 
                 Book b16 = new Book();
-                b16.PublishedDate = new DateTimee(2008, 10, 25);
+                b16.PublishedDate = new DateTime(2008, 10, 25);
                 b16.UniqueID = "789016";
                 b16.Title = "Bones";
                 b16.Author = "Jonathan Kellerman";
@@ -765,33 +765,33 @@ namespace (ProjectName).Seeding
 
 
                 //loop through repos
-                foreach (Book bok in Books)
+                foreach (Book book in Books)
                 {
                     //set name of repo to help debug
-                    bookName = bok.Title;
+                    bookName = book.Title;
 
                     //see if repo exists in database
-                    Book dbbok = db.Books.FirstOrDefault(b => b.Title == bok.Title);
+                    Book dbBook = db.Books.FirstOrDefault(b => b.Title == book.Title);
 
                     if (dbBook == null) //repository does not exist in database
                     {
-                        db.Books.Add(bok);
+                        db.Books.Add(book);
                         db.SaveChanges();
                         intBooksAdded += 1;
                     }
                     else
                     {
-                        dbBook.PublishedDate = bok.Description;
-                        dbBook.UniqueID = bok.UniqueId;
-                        dbBook.Title = bok.Title;
-                        dbBook.Author = bok.Author;
-                        dbBook.Genre = db.Genres.FirstOrDefault(l => l.GenreID == bok.Genre.GenreID);
-                        dbBook.Description = bok.Description;
-                        dbBook.Price = bok.Price;
-                        dbBook.Cost = bok.Cost;
-                        dbBook.Reordered = bok.Reordered;
-                        dbBook.CopiesOnHand = bok.CopiesOnHand;
-                        dbBook.LastOrdered = bok.LastOrdered;
+                        dbBook.PublishedDate = book.PublishedDate;
+                        dbBook.UniqueID = book.UniqueID;
+                        dbBook.Title = book.Title;
+                        dbBook.Author = book.Author;
+                        dbBook.Genre = db.Genres.FirstOrDefault(l => l.GenreID == book.Genre.GenreID);
+                        dbBook.Description = book.Description;
+                        dbBook.Price = book.Price;
+                        dbBook.Cost = book.Cost;
+                        dbBook.Reordered = book.Reordered;
+                        dbBook.CopiesOnHand = book.CopiesOnHand;
+                        dbBook.LastOrdered = book.LastOrdered;
                         db.Update(dbBook);
                         db.SaveChanges();
                     }

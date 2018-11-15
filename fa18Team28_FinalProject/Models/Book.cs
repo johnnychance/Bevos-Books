@@ -3,28 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using fa18Team28_FinalProject.DAL;
+using fa18Team28_FinalProject.Models;
+
 
 namespace fa18Team28_FinalProject.Models
 {
     public class Book
     {
+        [Key]
         public Int32 BookID { get; set; }
-
+        
         [Display(Name = "Published Date")]
         [DataType(DataType.Date)]
         public DateTime PublishedDate { get; set; }
 
+        [Display(Name = "Unique ID")]
         public Int32 UniqueID { get; set; }
+                
+        public string Title { get; set; }
+                
+        public string Author { get; set; }
 
-        public String Title { get; set; }
+        public string Description { get; set; }
 
-        public String Author { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal Price { get; set; }
 
-        public String Description { get; set; }
-
-        public Decimal Price { get; set; }
-
-        public Decimal Cost { get; set; }
+        [DisplayFormat(DataFormatString ="{0:C}")]
+        public decimal Cost { get; set; }
 
         public Int32 Reordered { get; set; }
 
@@ -35,8 +42,10 @@ namespace fa18Team28_FinalProject.Models
         [DataType(DataType.Date)]
         public DateTime LastOrdered { get; set; }
 
-        //navigational property for language
+        //navigational properties for book
         public Genre Genre { get; set; }
+        public List<CustomerOrderDetail> CustomerOrderDetails { get; set; }
+        public List<ManagerOrderDetail> ManagerOrderDetails { get; set; }
 
     }
 }

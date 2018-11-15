@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using (ProjectName).DAL;
-using (ProjectName).Models;
+using fa18Team28_FinalProject.DAL;
+using fa18Team28_FinalProject.Models;
 using System.Linq;
 
 
-namespace (ProjectName).Seeding
+namespace fa18Team28_FinalProject.Seeding
 {
     public static class SeedGenres
     {
