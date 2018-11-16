@@ -46,7 +46,7 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
         // GET: Home
-        public ActionResult Index(String SearchString) //gets books
+        public ActionResult Index(String Title, String Author, Int32 UniqueID, int SelectedGenre) //gets books
         {
             //Create list of required books
             List<Book> SelectedBooks;
@@ -75,7 +75,8 @@ namespace fa18Team28_FinalProject.Controllers
             ViewBag.TotalBooks = _db.Books.Count();
 
             //send the data back to view
-            return View(SelectedBooks.OrderByDescending.Include(r => r.Reviews.Rating));//return View(SelectedBooks.OrderByDescending(r => r.Reviews.Rating));
+            return View(); //this needs to be changed - see line below
+            //return View(SelectedBooks.OrderByDescending.Include(r => r.Reviews.Rating));//return View(SelectedBooks.OrderByDescending(r => r.Reviews.Rating));
             //return View(_db.Books.Include(r => r.Genre).ToList());
         }
 

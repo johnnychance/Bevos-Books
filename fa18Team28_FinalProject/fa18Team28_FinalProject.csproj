@@ -45,6 +45,7 @@
     <Content Remove="Views\Home\Details.cshtml" />
     <Content Remove="Views\Home\Index.cshtml" />
     <Content Remove="Views\Home\DetailedSearch.cshtml" />
+    <Content Remove="Views\Search\DetailedSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\lib\jquery\jquery-3.3.1.js" />
@@ -66,5 +67,8 @@
     <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.js.map" />
     <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.min.js" />
     <None Include="wwwroot\lib\twitter-bootstrap\js\bootstrap.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Seeding\SeedingBooks.cs" />
   </ItemGroup>
 </Project>

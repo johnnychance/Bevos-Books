@@ -43,11 +43,11 @@ namespace fa18Team28_FinalProject.Controllers
             return View("Confirm");
         }
 
-        public IActionResult SeedingBooks()
+        public IActionResult SeedBooks()
         {
             try
             {
-                Seeding.SeedingBooks.SeedAllBooks(_db);
+                Seeding.SeedBooks.SeedAllBooks(_db);
             }
             catch (NotSupportedException ex)
             {
