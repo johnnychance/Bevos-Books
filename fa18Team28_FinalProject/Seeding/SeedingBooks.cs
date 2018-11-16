@@ -58,8 +58,13 @@ namespace fa18Team28_FinalProject.Seeding
                 b3.Description = "The Los Angeles private eye Elvis Cole responsible for the release of a serial killer?";
                 b3.Price = 25.95m;
                 b3.Cost = 9.08m;
+<<<<<<< HEAD
                 b3.Reordered = 7;
                 b3.CopiesOnHand = 10;
+=======
+                b3.Reordered = "7";
+                b3.CopiesOnHand = "10";
+>>>>>>> d5efbb6cdc0bd8f1c12a33149c4cb91a79e132a4
                 b3.LastOrdered = new DateTime(2018, 10, 1);
                 Books.Add(b3);
 
@@ -233,7 +238,11 @@ namespace fa18Team28_FinalProject.Seeding
 
                 Book b16 = new Book();
                 b16.PublishedDate = new DateTime(2008, 10, 25);
+<<<<<<< HEAD
                 b16.UniqueID = 789016;
+=======
+                b16.UniqueID = "789016";
+>>>>>>> d5efbb6cdc0bd8f1c12a33149c4cb91a79e132a4
                 b16.Title = "Bones";
                 b16.Author = "Jonathan Kellerman";
                 b16.Genre = db.Genres.FirstOrDefault(x => x.GenreName == "Mystery");

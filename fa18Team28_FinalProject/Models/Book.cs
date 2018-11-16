@@ -26,10 +26,17 @@ namespace fa18Team28_FinalProject.Models
         public string Author { get; set; }
 
         public string Description { get; set; }
+<<<<<<< HEAD
 
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Price { get; set; }
 
+=======
+
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal Price { get; set; }
+
+>>>>>>> d5efbb6cdc0bd8f1c12a33149c4cb91a79e132a4
         [DisplayFormat(DataFormatString ="{0:C}")]
         public decimal Cost { get; set; }
 
@@ -46,6 +53,10 @@ namespace fa18Team28_FinalProject.Models
         public Genre Genre { get; set; }
         public List<CustomerOrderDetail> CustomerOrderDetails { get; set; }
         public List<ManagerOrderDetail> ManagerOrderDetails { get; set; }
+<<<<<<< HEAD
         public List<Review> Reviews { get; set; }
+=======
+
+>>>>>>> d5efbb6cdc0bd8f1c12a33149c4cb91a79e132a4
     }
 }
