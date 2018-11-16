@@ -6,6 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using fa18Team28_FinalProject.DAL;
+using fa18Team28_FinalProject.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace fa18Team28_FinalProject
 {
@@ -23,7 +29,20 @@ namespace fa18Team28_FinalProject
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+                app.UseStaticFiles();
+                app.UseMvc(routes =>
+                {
+                    routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index" });
+                });
+            }
+
+            /*if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -31,7 +50,7 @@ namespace fa18Team28_FinalProject
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
-            });
+            });*/
         }
     }
 }

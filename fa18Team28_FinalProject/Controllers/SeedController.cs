@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using (ProjectName).Seeding;
-using (ProjectName).DAL;
+using fa18Team28_FinalProject.Seeding;
+using fa18Team28_FinalProject.DAL;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace (ProjectName).Controllers
+namespace fa18Team28_FinalProject.Controllers
 {
     public class SeedController : Controller
     {
@@ -43,11 +43,11 @@ namespace (ProjectName).Controllers
             return View("Confirm");
         }
 
-        public IActionResult SeedBooks()
+        public IActionResult SeedingBooks()
         {
             try
             {
-                Seeding.SeedBooks.SeedAllBooks(_db);
+                Seeding.SeedingBooks.SeedAllBooks(_db);
             }
             catch (NotSupportedException ex)
             {

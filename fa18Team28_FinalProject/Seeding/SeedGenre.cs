@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using (ProjectName).DAL;
-using (ProjectName).Models;
+using fa18Team28_FinalProject.DAL;
+using fa18Team28_FinalProject.Models;
 using System.Linq;
 
 
-namespace (ProjectName).Seeding
+namespace fa18Team28_FinalProject.Seeding
 {
     public static class SeedGenres
     {
         public static void SeedAllGenres(AppDbContext db)
         {
             //check to see if all the languages have already been added
-            if (db.Genres.Count() == 21)
+            if (db.Genres.Count() == 13)
             {
                 //exit the program - we don't need to do any of this
-                NotSupportedException ex = new NotSupportedException("Genre record count is already 21!");
+                NotSupportedException ex = new NotSupportedException("Genre record count is already 13!");
                 throw ex;
             }
             Int32 intGenresAdded = 0;
@@ -24,43 +24,43 @@ namespace (ProjectName).Seeding
                 //Create a list of languages
                 List<Genre> Genres = new List<Genre>();
 
-                Genre g1 = new Genre { Name = "Adventure" };
+                Genre g1 = new Genre { GenreName = "Adventure" };
                 Genres.Add(g1);
 
-                Genre g2 = new Genre { Name = "Contemporary Fiction" };
+                Genre g2 = new Genre { GenreName = "Contemporary Fiction" };
                 Genres.Add(g2);
 
-                Genre g3 = new Genre { Name = "Fantasy" };
+                Genre g3 = new Genre { GenreName = "Fantasy" };
                 Genres.Add(g3);
 
-                Genre g4 = new Genre { Name = "Historical Fition" };
+                Genre g4 = new Genre { GenreName = "Historical Fition" };
                 Genres.Add(g4);
 
-                Genre g5 = new Genre { Name = "Horror" };
+                Genre g5 = new Genre { GenreName = "Horror" };
                 Genres.Add(g5);
 
-                Genre g6 = new Genre { Name = "Humor" };
+                Genre g6 = new Genre { GenreName = "Humor" };
                 Genres.Add(g6);
 
-                Genre g7 = new Genre { Name = "Mystery" };
+                Genre g7 = new Genre { GenreName = "Mystery" };
                 Genres.Add(g7);
 
-                Genre g8 = new Genre { Name = "Poetry" };
+                Genre g8 = new Genre { GenreName = "Poetry" };
                 Genres.Add(g8);
 
-                Genre g9 = new Genre { Name = "Romance" };
+                Genre g9 = new Genre { GenreName = "Romance" };
                 Genres.Add(g9);
 
-                Genre g10 = new Genre { Name = "ScienceFiction" };
+                Genre g10 = new Genre { GenreName = "ScienceFiction" };
                 Genres.Add(g10);
 
-                Genre g11 = new Genre { Name = "Shakespeare" };
+                Genre g11 = new Genre { GenreName = "Shakespeare" };
                 Genres.Add(g11);
 
-                Genre g12 = new Genre { Name = "Suspense" };
+                Genre g12 = new Genre { GenreName = "Suspense" };
                 Genres.Add(g12);
 
-                Genre g13 = new Genre { Name = "Thriller" };
+                Genre g13 = new Genre { GenreName = "Thriller" };
                 Genres.Add(g13);
 
                 Genre l;
@@ -69,7 +69,7 @@ namespace (ProjectName).Seeding
                 foreach (Genre gen in Genres)
                 {
                     //see if the language already exists in the database
-                    l = db.Genres.FirstOrDefault(x => x.Name == gen.Name);
+                    l = db.Genres.FirstOrDefault(x => x.GenreName == gen.GenreName);
 
                     //language was not found
                     if (l == null)

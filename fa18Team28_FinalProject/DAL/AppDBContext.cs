@@ -1,4 +1,5 @@
-﻿using fa18Team28_FinalProject.Models;
+﻿using System;
+using fa18Team28_FinalProject.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace fa18Team28_FinalProject.DAL

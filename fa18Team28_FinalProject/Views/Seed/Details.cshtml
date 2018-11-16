@@ -1,4 +1,4 @@
-@model DePass_Malik_HW5.Models.Repository
+@model fa18Team28_FinalProject.Models.Book
 
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -23,7 +23,7 @@
             @Html.DisplayFor(model => model.PublishedDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.UniqueId)
+            @Html.DisplayNameFor(model => model.UniqueID)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.UniqueID)
@@ -44,7 +44,7 @@
             Genre Name
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Genre.Name)
+            @Html.DisplayFor(model => model.Genre.GenreName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Description)
