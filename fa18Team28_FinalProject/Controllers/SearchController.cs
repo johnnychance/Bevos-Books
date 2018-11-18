@@ -31,7 +31,7 @@ namespace fa18Team28_FinalProject.Controllers
         {
             if (id == null) //bk id not specified
             {
-                return View("Error", new String[] { "Genre ID not specified - which bk do you want to view?" });
+                return View("Error", new String[] { "Book ID not specified - which bk do you want to view?" });
             }
 
             Book bk = _db.Books.Include(r => r.Genre).FirstOrDefault(r => r.BookID == id);
@@ -46,7 +46,7 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
         // GET: Home
-        public ActionResult Index(String Title, String Author, Int32 UniqueID, int SelectedGenre) //gets books
+        public ActionResult Index() 
         {
             //Create list of required books
             List<Book> SelectedBooks;
@@ -60,15 +60,8 @@ namespace fa18Team28_FinalProject.Controllers
                 return RedirectToAction("Index", "Seed"); //redirects to index seed - tells you if no books 
             }
 
-            /*//simple search code
-            //if the user searched for something, limit query
-            if (SearchString != null && SearchString != "")
-            {
-                query = query.Where(r => r.Title.Contains(SearchString) || r.Author.Contains(SearchString)); //if its not null or empty, all that you put into serach criteria will actually be queried
-            } //simple search code ends */
-
             //execute the query 
-            SelectedBooks = query.Include(r => r.Genre).ToList(); //includes languages
+            SelectedBooks = query.Include(r => r.Genre).ToList(); //includes genres
 
             //get counts for viewbag
             ViewBag.SelectedBooks = SelectedBooks.Count;
@@ -78,10 +71,7 @@ namespace fa18Team28_FinalProject.Controllers
             ViewBag.AllGenres = GetAllGenres();
 
             //send the data back to view
-            ViewBag.AllGenres = GetAllGenres();
-            return View(); //this needs to be changed - see line below
-            //return View(SelectedBooks.OrderByDescending.Include(r => r.Reviews.Rating));//return View(SelectedBooks.OrderByDescending(r => r.Reviews.Rating));
-            //return View(_db.Books.Include(r => r.Genre).ToList());
+            return View(SelectedBooks); //this needs to be changed - see line below
         }
 
         //Detailed Search method 1
@@ -163,7 +153,7 @@ namespace fa18Team28_FinalProject.Controllers
                 {
                     query = query.Where(r => r.Reviews <= intStarString);
                 }
-            }*/
+            }*/ 
 
             if (SelectedGenre != 0)
             {
