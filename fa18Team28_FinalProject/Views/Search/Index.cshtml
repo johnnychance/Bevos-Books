@@ -1,10 +1,8 @@
 ﻿@model IEnumerable<fa18Team28_FinalProject.Models.Book>
 @using fa18Team28_FinalProject.Controllers
 
-<form asp-action="Index" asp-controller="Home" method="get">
+<form asp-action="Index" asp-controller="Search" method="get">
     <p class="form-group">
-        Search: <input name="SearchString" class="form-control" /><br />
-        <button type="submit" class="btn btn-secondary">Search</button>
         <a asp-action="DetailedSearch" class="btn btn-success">Detailed Search</a>
         <a asp-action="Index" class="btn btn-danger">Show All</a>
     </p>
@@ -42,29 +40,29 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PublishedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Reviews)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.BookID">Details</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genre.GenreName)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reviews)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre.GenreName)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.BookID">Details</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

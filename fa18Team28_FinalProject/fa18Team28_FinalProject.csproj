@@ -44,7 +44,7 @@
     <Content Remove="wwwroot\lib\twitter-bootstrap\css\bootstrap.min.css" />
     <Content Remove="Views\Home\Details.cshtml" />
     <Content Remove="Views\Home\DetailedSearch.cshtml" />
-    <Content Remove="Views\Search\DetailedSearch.cshtml" />
+    <Content Remove="Views\Search\SearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\lib\jquery\jquery-3.3.1.js" />

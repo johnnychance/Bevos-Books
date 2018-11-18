@@ -17,7 +17,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace fa18Team28_FinalProject.Controllers
 {
-    public enum Classification { GreaterThan, LessThan };
+    public enum Classification { Title, Author, MostPopular, NewestFirst, OldestFirst, HighestRated };
+
     public class SearchController : Controller
     {
         private AppDbContext _db;
@@ -74,95 +75,86 @@ namespace fa18Team28_FinalProject.Controllers
             return View(SelectedBooks); //this needs to be changed - see line below
         }
 
+        //GET: Detailed Search
+        public ActionResult DetailedSearch()
+        {
+            ViewBag.AllGenres = GetAllGenres();
+            return View();
+        }
+
+        /*
         //Detailed Search method 1
         public ActionResult DetailedSearch(String SearchString)
         {
             ViewBag.AllGenres = GetAllGenres();
             //send the data back to view
             return View();
-        }
+        }*/
 
-        //gets all languages
-        public SelectList GetAllGenres()
+        //Detailed Search method 2 
+        public ActionResult DisplaySearchResults(String searchTitle, String searchAuthor, /*String searchString*/ Int32 searchUniqueID, int SelectedGenre)
         {
-            List<Genre> Genres = _db.Genres.ToList();
-
-            //add record for all months
-            Genre SelectNone = new Genre() { GenreID = 0, GenreName = "All Genres" };
-            Genres.Add(SelectNone);
-
-            SelectList AllGenres = new SelectList(Genres.OrderBy(l => l.GenreID), "GenreID", "Name");
-            return AllGenres;
-
-        }
-
-        //Detailed Search method 2
-        public ActionResult DisplaySearchResults(String SearchString, String myDescription, String StarString, int SelectedGenre, Classification Star, DateTime? datSelectedDate)
-        {
-
+            //Create a list of books, this puts ALL books into a list and then we filter it with a query
             List<Book> SelectedBooks = _db.Books.ToList();
+
+            //Start the query
             var query = from r in _db.Books
                         select r;
 
-            //search string
-            if (SearchString == null || SearchString == "") //no selection made
+            //Filter query using:
+            //Title only
+            if (searchTitle == null || searchTitle == "") //no selection made
             {
-
                 ViewBag.SearchString = "Name search string was null";
-
             }
 
             else //something was selected
             {
-                query = query.Where(r => r.Title.Contains(SearchString) || r.Author.Contains(SearchString));
+                query = query.Where(r => r.Title == searchTitle );
             }
 
-            //description
-            if (myDescription == null || myDescription == "") //no selection made
+            //Author only
+            if (searchAuthor == null || searchAuthor == "") //no selection made
             {
-
                 ViewBag.Description = "Name description string was null";
+            }
+
+            else //something was selected
+            {
+                query = query.Where(r => r.Author.Contains(searchAuthor));
+            }
+
+            /*
+            //Author AND Title
+            if ((searchAuthor == null || searchAuthor == "") && (searchTitle == null || searchTitle == "")) //no selection made
+            {
+                ViewBag.Description = "Title and Author string was null";
+            }
+
+            else //something was selected
+            {
+                query = query.Where(r => r.Author.Contains(searchString) || r.Title.Contains(searchString));
+            }*/
+
+            //UniqueID
+            if (searchUniqueID == 0) //no selection made
+            {
+
+                ViewBag.Description = "Unique ID was null";
 
             }
 
             else //something was selected
             {
-                query = query.Where(r => r.Description.Contains(myDescription));
+                query = query.Where(r => r.UniqueID == searchUniqueID);
             }
 
-            /*//starstring
-            if (StarString != null || StarString != "") //no selection made
-            {
-
-                int intStarString;
-                try
-                {
-                    intStarString = Convert.ToInt32(StarString);
-                }
-                catch
-                {
-                    ViewBag.Message = StarString + "is not a valid number.";
-                    ViewBag.AllGenres = GetAllGenres();
-                    return View("DetailedSearch");
-                }
-                if (Star == Classification.GreaterThan)
-                {
-                    query = query.Where(r => r.Reviews >= intStarString);
-                }
-                if (Star == Classification.LessThan)
-                {
-                    query = query.Where(r => r.Reviews <= intStarString);
-                }
-            }*/ 
-
+           
             if (SelectedGenre != 0)
             {
                 query = query.Where(r => r.Genre.GenreID == SelectedGenre);
             }
-            if (datSelectedDate != null)
-            {
-                query = query.Where(r => r.PublishedDate == datSelectedDate);
-            }
+           
 
             SelectedBooks = query.ToList(); //new
             SelectedBooks = query.Include(r => r.Genre).ToList();
@@ -171,8 +163,24 @@ namespace fa18Team28_FinalProject.Controllers
             ViewBag.TotalBooks = _db.Books.Count();
             ViewBag.SelectedBooks = SelectedBooks.Count();
 
-            return View("Index", SelectedBooks);
+            //repopulate the view bag
+            ViewBag.AllGenres = GetAllGenres();
 
+            //returns a redirect view to the index showing the list of filtered books
+            return View("Index", SelectedBooks);
+        }
+
+        //This method gets all genres
+        public SelectList GetAllGenres()
+        {
+            List<Genre> Genres = _db.Genres.ToList();
+
+            //add record for all months
+            Genre SelectNone = new Genre() { GenreID = 0, GenreName = "All Genres" };
+            Genres.Add(SelectNone);
+
+            SelectList AllGenres = new SelectList(Genres.OrderBy(l => l.GenreID), "GenreID", "GenreName");
+            return AllGenres;
         }
     }
 }
