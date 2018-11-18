@@ -12,6 +12,7 @@
     <Folder Include="DAL\" />
     <Folder Include="wwwroot\lib\" />
     <Folder Include="Views\Search\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\_ViewStart.cshtml" />
     <Content Remove="wwwroot\wwwroot\lib\twitter-bootstrap\css\bootstrap.min.css" />
     <Content Remove="wwwroot\lib\jquery\jquery-3.3.1.js" />
     <Content Remove="wwwroot\lib\twitter-bootstrap\css\bootstrap.css.map" />
@@ -43,7 +43,6 @@
     <Content Remove="wwwroot\lib\twitter-bootstrap\js\bootstrap.min.js.map" />
     <Content Remove="wwwroot\lib\twitter-bootstrap\css\bootstrap.min.css" />
     <Content Remove="Views\Home\Details.cshtml" />
-    <Content Remove="Views\Home\Index.cshtml" />
     <Content Remove="Views\Home\DetailedSearch.cshtml" />
     <Content Remove="Views\Search\DetailedSearch.cshtml" />
   </ItemGroup>

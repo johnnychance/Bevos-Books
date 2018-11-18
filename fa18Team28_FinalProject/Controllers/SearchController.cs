@@ -75,6 +75,7 @@ namespace fa18Team28_FinalProject.Controllers
             ViewBag.TotalBooks = _db.Books.Count();
 
             //send the data back to view
+            ViewBag.AllGenres = GetAllGenres();
             return View(); //this needs to be changed - see line below
             //return View(SelectedBooks.OrderByDescending.Include(r => r.Reviews.Rating));//return View(SelectedBooks.OrderByDescending(r => r.Reviews.Rating));
             //return View(_db.Books.Include(r => r.Genre).ToList());
@@ -159,15 +160,16 @@ namespace fa18Team28_FinalProject.Controllers
                 {
                     query = query.Where(r => r.Reviews <= intStarString);
                 }
-            }
+            }*/
+
             if (SelectedGenre != 0)
             {
                 query = query.Where(r => r.Genre.GenreID == SelectedGenre);
             }
             if (datSelectedDate != null)
             {
-                query = query.Where(r => r.LastUpdate == datSelectedDate);
-            }*/
+                query = query.Where(r => r.PublishedDate == datSelectedDate);
+            }
 
             SelectedBooks = query.ToList(); //new
             SelectedBooks = query.Include(r => r.Genre).ToList();

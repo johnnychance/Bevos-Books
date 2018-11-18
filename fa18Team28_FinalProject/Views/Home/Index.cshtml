@@ -1,0 +1,16 @@
+﻿@model IEnumerable<fa18Team28_FinalProject.Models.Book>
+@using fa18Team28_FinalProject.Controllers
+
+<form asp-action="Index" asp-controller="Home" method="get">
+    <p class="form-group">
+        Search: <input name="SearchString" class="form-control" /><br />
+        <button type="submit" class="btn btn-secondary">Search</button>
+        <a asp-action="DetailedSearch" class="btn btn-success">Detailed Search</a>
+        <a asp-action="Index" class="btn btn-danger">Show All</a>
+    </p>
+</form>
+
+
+@{
+    ViewData["Title"] = "Welcome";
+}
