@@ -74,6 +74,9 @@ namespace fa18Team28_FinalProject.Controllers
             ViewBag.SelectedBooks = SelectedBooks.Count;
             ViewBag.TotalBooks = _db.Books.Count();
 
+            //populating drop down list
+            ViewBag.AllGenres = GetAllGenres();
+
             //send the data back to view
             ViewBag.AllGenres = GetAllGenres();
             return View(); //this needs to be changed - see line below
