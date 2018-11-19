@@ -33,7 +33,7 @@ namespace fa18Team28_FinalProject.Seeding
                 Genre g3 = new Genre { GenreName = "Fantasy" };
                 Genres.Add(g3);
 
-                Genre g4 = new Genre { GenreName = "Historical Fition" };
+                Genre g4 = new Genre { GenreName = "Historical Fiction" };
                 Genres.Add(g4);
 
                 Genre g5 = new Genre { GenreName = "Horror" };
@@ -51,7 +51,7 @@ namespace fa18Team28_FinalProject.Seeding
                 Genre g9 = new Genre { GenreName = "Romance" };
                 Genres.Add(g9);
 
-                Genre g10 = new Genre { GenreName = "ScienceFiction" };
+                Genre g10 = new Genre { GenreName = "Science Fiction" };
                 Genres.Add(g10);
 
                 Genre g11 = new Genre { GenreName = "Shakespeare" };

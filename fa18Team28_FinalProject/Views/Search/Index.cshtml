@@ -17,22 +17,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Author)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PublishedDate)
+                @Html.DisplayNameFor(model => model.UniqueID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CopiesOnHand)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Reviews)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre.GenreName)
             </th>
             <th></th>
         </tr>
@@ -42,22 +39,19 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Author)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PublishedDate)
+                @Html.DisplayFor(modelItem => item.UniqueID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CopiesOnHand)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Reviews)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre.GenreName)
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.BookID">Details</a>
