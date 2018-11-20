@@ -92,7 +92,7 @@ namespace fa18Team28_FinalProject.Controllers
         }*/
 
         //Detailed Search method 2 
-        public ActionResult DisplaySearchResults(String searchTitle, String searchAuthor, /*String searchString*/ Int32 searchUniqueID, int SelectedGenre)
+        public ActionResult DisplaySearchResults(String searchTitle, String searchAuthor, Int32 searchUniqueID, int intRatingOrder, int SelectedGenre, Classification Filter, int intPurchaseCount, DateTime datPublishedDate)
         {
             //Create a list of books, this puts ALL books into a list and then we filter it with a query
             List<Book> SelectedBooks = _db.Books.ToList();
@@ -100,6 +100,11 @@ namespace fa18Team28_FinalProject.Controllers
             //Start the query
             var query = from r in _db.Books
                         select r;
+
+
+            //start the query
+            var queryTwo = from a in _db.Reviews
+                        select a;
 
             //Filter query using:
             //Title only
@@ -154,7 +159,30 @@ namespace fa18Team28_FinalProject.Controllers
             {
                 query = query.Where(r => r.Genre.GenreID == SelectedGenre);
             }
-           
+
+            //created filter for highest rated books (decending order)
+            if (Filter == Classification.HighestRated )
+            {
+                queryTwo = queryTwo.Where(a => a.Rating <= intRatingOrder);
+            }
+
+            //created filter for most popular books (decending order)
+            if (Filter == Classification.MostPopular)
+            {
+                query = query.Where(r => r.PurchaseCount <= intPurchaseCount);
+            }
+
+            //created filter for newest books (decending order)
+            if (Filter == Classification.NewestFirst)
+            {
+                query = query.Where(r => r.PublishedDate <= datPublishedDate);
+            }
+
+            //created filter for oldest books (ascending order)
+            if (Filter == Classification.OldestFirst)
+            {
+                query = query.Where(r => r.PublishedDate >= datPublishedDate);
+            }
 
             SelectedBooks = query.ToList(); //new
             SelectedBooks = query.Include(r => r.Genre).ToList();
@@ -166,8 +194,23 @@ namespace fa18Team28_FinalProject.Controllers
             //repopulate the view bag
             ViewBag.AllGenres = GetAllGenres();
 
-            //returns a redirect view to the index showing the list of filtered books
-            return View("Index", SelectedBooks);
+            //created filter for title of books (decending order)
+            if (Filter == Classification.Title)
+            {
+                return View(SelectedBooks.OrderByDescending(r => r.Title));
+            }
+            
+            //created filter for author of books (decending order)
+            else if (Filter == Classification.Author)
+            {
+                return View(SelectedBooks.OrderByDescending(r => r.Author));
+            }
+
+            else
+            {
+                //returns a redirect view to the index showing the list of filtered books
+                return View("Index", SelectedBooks);
+            }       
         }
 
         //This method gets all genres

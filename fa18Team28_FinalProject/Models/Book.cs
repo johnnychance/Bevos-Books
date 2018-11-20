@@ -27,7 +27,6 @@ namespace fa18Team28_FinalProject.Models
 
         public string Description { get; set; }
 
-
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Price { get; set; }
 
@@ -35,6 +34,8 @@ namespace fa18Team28_FinalProject.Models
         public decimal Cost { get; set; }
 
         public Int32 Reordered { get; set; }
+
+        public Int32 PurchaseCount { get; set; }
 
         [Display(Name = "Copies On Hand")]
         public Int32 CopiesOnHand { get; set; }
