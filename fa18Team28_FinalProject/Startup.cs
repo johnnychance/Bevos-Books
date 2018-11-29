@@ -45,7 +45,7 @@ namespace fa18Team28_FinalProject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider service)
         {
             {
                 app.UseDeveloperExceptionPage();
@@ -58,6 +58,8 @@ namespace fa18Team28_FinalProject
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
                 });
+
+                Seeding.SeedIdentity.AddAdmin(service).Wait();
             }
 
             /*if (env.IsDevelopment())
