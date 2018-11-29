@@ -38,7 +38,7 @@ namespace fa18Team28_FinalProject
                     routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Search", action = "Index" });
+                    defaults: new { controller = "Home", action = "Index" });
                 });
             }
 

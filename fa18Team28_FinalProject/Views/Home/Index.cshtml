@@ -1,16 +1,5 @@
-﻿@model IEnumerable<fa18Team28_FinalProject.Models.Book>
-@using fa18Team28_FinalProject.Controllers
+﻿<h2>Welcome to Bevo's Books</h2>
 
-<form asp-action="Index" asp-controller="Home" method="get">
-    <p class="form-group">
-        Search: <input name="SearchString" class="form-control" /><br />
-        <button type="submit" class="btn btn-secondary">Search</button>
-        <a asp-action="DetailedSearch" class="btn btn-success">Detailed Search</a>
-        <a asp-action="Index" class="btn btn-danger">Show All</a>
-    </p>
-</form>
+<a asp-controller="Books" asp-action="Index" class="btn btn-info">Library</a>
 
-
-@{
-    ViewData["Title"] = "Welcome";
-}
+<a asp-controller="CustomerOrders" asp-action="Index" class="btn btn-info">Place an Order</a>
