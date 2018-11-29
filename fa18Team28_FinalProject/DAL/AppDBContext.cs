@@ -1,10 +1,11 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using fa18Team28_FinalProject.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace fa18Team28_FinalProject.DAL
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -18,7 +19,7 @@ namespace fa18Team28_FinalProject.DAL
         public DbSet<ManagerOrder> ManagerOrders { get; set; }
         public DbSet<ManagerOrderDetail> ManagerOrderDetails { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
         public DbSet<Supplier> Supplier { get; set; }
     }
 }

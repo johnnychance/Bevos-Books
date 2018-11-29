@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 
 namespace fa18Team28_FinalProject
 {
@@ -21,8 +22,25 @@ namespace fa18Team28_FinalProject
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = "Server=tcp:fa18team28bevosbooks.database.windows.net,1433;Initial Catalog=fa18Team28BevosBooks;Persist Security Info=False;User ID=MISAdmin;Password=MISpassword123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            var connectionString = "Server=tcp:fa18team28bevosbooks.database.windows.net,1433;Initial Catalog=fa18Team28BevosBooks;Persist Security Info=False;User ID=MISAdmin;Password=MISpassword123;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
+            //NOTE: This is where you would change your password requirements
+            services.AddIdentity<AppUser, IdentityRole>(opts => {
+                opts.User.RequireUniqueEmail = true;
+                opts.Password.RequiredLength = 6;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+            })
+
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddMvc();
+
+
             services.AddMvc();
         }
 

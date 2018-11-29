@@ -45,7 +45,7 @@ namespace fa18Team28_FinalProject.Models
         }
 
         //navigation properties
-        public User User { get; set; }
+        public AppUser AppUser { get; set; }
         public List<ManagerOrderDetail> ManagerOrderDetails { get; set; }
 
         public ManagerOrder()

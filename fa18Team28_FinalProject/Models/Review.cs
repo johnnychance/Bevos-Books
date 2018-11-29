@@ -25,8 +25,8 @@ namespace fa18Team28_FinalProject.Models
         public string Approver_user { get; set; }
 
         //navigation properties
-        public User Author { get; set; }
-        public User Approver { get; set; }
+        public AppUser Author { get; set; }
+        public AppUser Approver { get; set; }
         public Book Book { get; set; }
 
     }
