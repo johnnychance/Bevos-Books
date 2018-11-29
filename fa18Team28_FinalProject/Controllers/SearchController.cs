@@ -82,16 +82,7 @@ namespace fa18Team28_FinalProject.Controllers
             return View();
         }
 
-        /*
-        //Detailed Search method 1
-        public ActionResult DetailedSearch(String SearchString)
-        {
-            ViewBag.AllGenres = GetAllGenres();
-            //send the data back to view
-            return View();
-        }*/
-
-        //Detailed Search method 2 
+        //Detailed Search Method
         public ActionResult DisplaySearchResults(String searchTitle, String searchAuthor, Int32 searchUniqueID, int intRatingOrder, int SelectedGenre, Classification Filter, int intPurchaseCount, DateTime datPublishedDate)
         {
             //Create a list of books, this puts ALL books into a list and then we filter it with a query
@@ -128,18 +119,6 @@ namespace fa18Team28_FinalProject.Controllers
             {
                 query = query.Where(r => r.Author.Contains(searchAuthor));
             }
-
-            /*
-            //Author AND Title
-            if ((searchAuthor == null || searchAuthor == "") && (searchTitle == null || searchTitle == "")) //no selection made
-            {
-                ViewBag.Description = "Title and Author string was null";
-            }
-
-            else //something was selected
-            {
-                query = query.Where(r => r.Author.Contains(searchString) || r.Title.Contains(searchString));
-            }*/
 
             //UniqueID
             if (searchUniqueID == 0) //no selection made

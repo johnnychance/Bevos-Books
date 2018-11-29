@@ -19,10 +19,10 @@ namespace fa18Team28_FinalProject.Controllers
             _context = context;
         }
 
-        // GET: CustomerOrders
+        // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CustomerOrders.ToListAsync());
+            return View(await _context.CustomerOrders.Include(o => o.CustomerOrderDetails).ToListAsync());
         }
 
         // GET: CustomerOrders/Details/5
