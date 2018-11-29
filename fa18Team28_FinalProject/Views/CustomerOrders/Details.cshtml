@@ -1,0 +1,76 @@
+﻿@model fa18Team28_FinalProject.Models.CustomerOrder
+@using fa18Team28_FinalProject.Models
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CustomerOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerOrderDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerOrderDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerOrderNotes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerOrderNotes)
+        </dd>
+    </dl>
+</div>
+<div>
+    <table class="table table-hover table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Extended Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CustomerOrderDetail cd in Model.CustomerOrderDetails)
+            {
+            <tr>
+                <td>@cd.Book.Title</td>
+                <td>@cd.Book.Author</td>
+                <td>@cd.Book.Price</td>
+                <td>@cd.Quantity</td>
+                <td>@cd.ExtendedPrice</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <table class="table table-sm table-bordered" style="width:30%">
+        <tr>
+            <th colspan="2" style="text-align:center">Order Summary</th>
+        </tr>
+        <tr>
+            <td>Order Subtotal</td>
+            <td>@Html.DisplayFor(r => r.CustomerOrderSubtotal)</td>
+        </tr>
+        <tr>
+            <td>Sales Tax (8.25%)</td>
+            <td>@Html.DisplayFor(r => r.SalesTax)</td>
+        </tr>
+        <tr>
+            <td>Order Total</td>
+            <td>@Html.DisplayFor(r => r.CustomerOrderTotal)</td>
+        </tr>
+
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CustomerOrderID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

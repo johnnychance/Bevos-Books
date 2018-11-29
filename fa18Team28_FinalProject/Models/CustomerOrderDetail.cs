@@ -9,9 +9,7 @@ using fa18Team28_FinalProject.Models;
 namespace fa18Team28_FinalProject.Models
 {    
     public class CustomerOrderDetail
-    {
-        private const Decimal TAX_RATE = 0.0825m;
-
+    {        
         [Key]
         public Int32 CustomerOrderDetailID { get; set; }
 
@@ -27,15 +25,9 @@ namespace fa18Team28_FinalProject.Models
 
         [Display(Name = "Customer Order Detail Notes")]
         public Int32 CustomerOrderDetailNotes { get; set; }
-
-        /*[Display(Name = "Order Subtotal")]        [DisplayFormat(DataFormatString = "{0:C}")]        public Decimal OrderSubtotal        {            get { return CustomerOrderDetail.Sum(od => od.ExtendedPrice); }        }
-
-        [Display(Name = "OrderTax")]        [DisplayFormat(DataFormatString = "{0:C}")]        public Decimal OrderTax        {            get { return OrderSubtotal * TAX_RATE; }        }
-
-        [Display(Name = "Order Total")]        [DisplayFormat(DataFormatString = "{0:C}")]        public Decimal OrderTotal        {            get { return OrderSubtotal + OrderTax; }        }*/
                
         //navigational property
-        public CustomerOrder Order { get; set; }
+        public CustomerOrder CustomerOrder { get; set; }
         public Book Book { get; set; }
     }
 }

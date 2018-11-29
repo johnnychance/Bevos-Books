@@ -10,6 +10,9 @@ namespace fa18Team28_FinalProject.Models
 {
     public class ManagerOrder
     {
+
+        public const Decimal M_SALES_TAX = 0.0825m;
+
         [Key]
         public int ManagerOrderID { get; set; }
 
@@ -20,9 +23,37 @@ namespace fa18Team28_FinalProject.Models
         [Display(Name = "Manager Order Detail Notes")]
         public String ManagerOrderDetailNotes { get; set; }
 
+        [Display(Name = "Manager Order Subtotal")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal ManagerOrderSubtotal
+        {
+            get { return ManagerOrderDetails.Sum(rd => rd.ExtendedCost); }
+        }
+
+        [Display(Name = "Sales Tax (8.25%)")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal SalesTax
+        {
+            get { return ManagerOrderSubtotal * M_SALES_TAX; }
+        }
+
+        [Display(Name = "Manager Total")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal ManagerOrderTotal
+        {
+            get { return ManagerOrderSubtotal + M_SALES_TAX; }
+        }
+
         //navigation properties
         public User User { get; set; }
         public List<ManagerOrderDetail> ManagerOrderDetails { get; set; }
 
+        public ManagerOrder()
+        {
+            if (ManagerOrderDetails == null)
+            {
+                ManagerOrderDetails = new List<ManagerOrderDetail>();
+            }
+        }
     }
 }

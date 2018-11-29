@@ -1,6 +1,7 @@
 ﻿using System;
 using fa18Team28_FinalProject.Models;
 using Microsoft.EntityFrameworkCore;
+using fa18Team28_FinalProject.Models;
 
 namespace fa18Team28_FinalProject.DAL
 {
@@ -19,5 +20,6 @@ namespace fa18Team28_FinalProject.DAL
         public DbSet<ManagerOrderDetail> ManagerOrderDetails { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<fa18Team28_FinalProject.Models.Supplier> Supplier { get; set; }
     }
 }

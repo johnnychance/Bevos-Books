@@ -1,0 +1,47 @@
+﻿@model IEnumerable<fa18Team28_FinalProject.Models.ManagerOrder>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ManagerOrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManagerOrderDetailNotes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManagerOrderTotal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManagerOrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManagerOrderDetailNotes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManagerOrderTotal)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ManagerOrderID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ManagerOrderID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ManagerOrderID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
