@@ -10,6 +10,8 @@
     <Folder Include="wwwroot\lib\" />
     <Folder Include="Views\Search\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Views\RoleAdmin\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +45,7 @@
     <Content Remove="Views\Home\Details.cshtml" />
     <Content Remove="Views\Home\DetailedSearch.cshtml" />
     <Content Remove="Views\Search\SearchResults.cshtml" />
+    <Content Remove="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\lib\jquery\jquery-3.3.1.js" />

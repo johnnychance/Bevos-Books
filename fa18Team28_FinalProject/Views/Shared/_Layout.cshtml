@@ -1,6 +1,5 @@
 ﻿@addTagHelper "* , Microsoft.AspNetCore.Mvc.TagHelpers"
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -8,31 +7,57 @@
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Book Search</a>
-            </div>
-            <div class="collapse navbar-collapse" id="nav-content">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a asp-controller="Home" asp-action="Index" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a asp-controller="Seed" asp-action="Index" class="nav-link">Seed Data</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="nav-content">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Products", "Index", "Products", null, new { @class = "nav-link" })
+                            </li>
+                            @*add code for the buttons here*@
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    @Html.ActionLink("Orders", "Index", "Orders", null, new { @class = "nav-link" })
+                                </li>
+                                if (User.IsInRole("Manager"))
+                                {
+                                    <li class="nav-item">
+                                        @Html.ActionLink("Suppliers", "Index", "Suppliers", null, new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("Manage Users", "Index", "RoleAdmin", null, new { @class = "nav-link" })
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    @Html.ActionLink("Log In", "Index", "Account", null, new { @class = "nav-link" })
+                                </li>
+                            }
+                        </ul>
 
-
-
-    <div class="container">
+                    </div>
+                    @await Html.PartialAsync("_LoginPartial")
+        </nav>
+    </div>
+    <div class="container body-content">
         @RenderBody()
+        <hr />
+        <footer>
+            <p>© @DateTime.Now.Year - BevoSoft Consultants</p>
+        </footer>
     </div>
     <script src="~/lib/jquery/jquery-3.3.1.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
-
-    @RenderSection("Scripts", required: false)
 </body>
 </html>

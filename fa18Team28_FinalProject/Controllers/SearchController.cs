@@ -106,7 +106,7 @@ namespace fa18Team28_FinalProject.Controllers
 
             else //something was selected
             {
-                query = query.Where(r => r.Title == searchTitle );
+                query = query.Where(r => r.Title.Contains(searchTitle));
             }
 
             //Author only
@@ -133,7 +133,7 @@ namespace fa18Team28_FinalProject.Controllers
                 query = query.Where(r => r.UniqueID == searchUniqueID);
             }
 
-           
+          
             if (SelectedGenre != 0)
             {
                 query = query.Where(r => r.Genre.GenreID == SelectedGenre);
@@ -163,6 +163,7 @@ namespace fa18Team28_FinalProject.Controllers
                 query = query.Where(r => r.PublishedDate >= datPublishedDate);
             }
 
+
             SelectedBooks = query.ToList(); //new
             SelectedBooks = query.Include(r => r.Genre).ToList();
 
@@ -176,13 +177,13 @@ namespace fa18Team28_FinalProject.Controllers
             //created filter for title of books (decending order)
             if (Filter == Classification.Title)
             {
-                return View(SelectedBooks.OrderByDescending(r => r.Title));
+                return View("Index", SelectedBooks.OrderBy(r => r.Title));
             }
-            
+
             //created filter for author of books (decending order)
             else if (Filter == Classification.Author)
             {
-                return View(SelectedBooks.OrderByDescending(r => r.Author));
+                return View("Index", SelectedBooks.OrderBy(r => r.Author));
             }
 
             else

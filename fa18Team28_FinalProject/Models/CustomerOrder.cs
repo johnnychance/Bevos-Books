@@ -45,9 +45,10 @@ namespace fa18Team28_FinalProject.Models
         }
 
         //navigational properties
-        public User User { get; set; }
+        public AppUser AppUser { get; set; }
         public List<CustomerOrderDetail> CustomerOrderDetails { get; set; }
         public List<DiscountDetail> DiscountDetails { get; set; }
+        
 
         public CustomerOrder()
         {
