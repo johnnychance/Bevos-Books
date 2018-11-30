@@ -16,6 +16,9 @@ namespace fa18Team28_FinalProject.Models
         [Key]
         public int ManagerOrderID { get; set; }
 
+        [Display(Name = "Manager Order Number")]
+        public int ManagerOrderNumber { get; set; }
+
         [Display(Name = "Manager Order Date")]
         [DisplayFormat(DataFormatString = "{0:MM/DD/YYYY}")]
         public DateTime ManagerOrderDate { get; set; }

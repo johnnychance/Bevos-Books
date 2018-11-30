@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
+using Bedford_Ashley_HW7.Utilities;
 
 namespace fa18Team28_FinalProject.Controllers
 {
@@ -33,8 +34,8 @@ namespace fa18Team28_FinalProject.Controllers
                 return NotFound();
             }
 
-            var customerOrder = await _context.CustomerOrders
-                .FirstOrDefaultAsync(m => m.CustomerOrderID == id);
+            var customerOrder = await _context.CustomerOrders.Include(o => o.CustomerOrderDetails).ThenInclude(o => o.Book).FirstOrDefaultAsync(m => m.CustomerOrderID == id);
+
             if (customerOrder == null)
             {
                 return NotFound();
@@ -56,11 +57,14 @@ namespace fa18Team28_FinalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CustomerOrderID,CustomerOrderDate,CustomerOrderNotes")] CustomerOrder customerOrder)
         {
+            customerOrder.CustomerOrderNumber = GenerateNextOrderNumber.GetNextOrderNumber(_context);
+            customerOrder.CustomerOrderDate = System.DateTime.Today;
+
             if (ModelState.IsValid)
             {
                 _context.Add(customerOrder);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("AddToOrder", new { id = customerOrder.CustomerOrderID });
             }
             return View(customerOrder);
         }

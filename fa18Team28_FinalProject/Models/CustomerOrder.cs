@@ -16,6 +16,9 @@ namespace fa18Team28_FinalProject.Models
         [Key]
         public Int32 CustomerOrderID { get; set; }
 
+        [Display(Name = "Customer Order Number")]
+        public int CustomerOrderNumber { get; set; }
+
         [Display(Name="Customer Order Date")]
         [DisplayFormat(DataFormatString = "{0:MM/DD/YYYY}")]
         public DateTime CustomerOrderDate { get; set; }

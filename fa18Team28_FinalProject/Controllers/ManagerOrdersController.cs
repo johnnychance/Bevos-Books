@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
+using Bedford_Ashley_HW7.Utilities;
 
 namespace fa18Team28_FinalProject.Controllers
 {
@@ -56,6 +57,9 @@ namespace fa18Team28_FinalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ManagerOrderID,ManagerOrderDate,ManagerOrderDetailNotes")] ManagerOrder managerOrder)
         {
+            managerOrder.ManagerOrderNumber = GenerateNextOrderNumber.GetNextOrderNumber(_context);
+            managerOrder.ManagerOrderDate = System.DateTime.Today;
+
             if (ModelState.IsValid)
             {
                 _context.Add(managerOrder);

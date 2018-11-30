@@ -1,4 +1,4 @@
-using fa18Team28_FinalProject.Models;
+/*using fa18Team28_FinalProject.Models;
 using fa18Team28_FinalProject.DAL;
 using System.Collections.Generic;
 using System;
@@ -12,7 +12,7 @@ namespace fa18Team28_FinalProject.Seeding
 		{
 			if (db.Customers.Count() == 300)
 			{
-				throw new NotSupportedException("The database already contains all 51 customers!");
+				throw new NotSupportedException("The database already contains all 300 customers!");
 			}
 
 			Int32 intCustomersAdded = 0;
@@ -878,4 +878,4 @@ namespace fa18Team28_FinalProject.Seeding
 			}
 		}
 	}
-}
+}*/
