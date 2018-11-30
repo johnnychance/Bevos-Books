@@ -12,6 +12,7 @@
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\RoleAdmin\" />
+    <Folder Include="Views\CustomerOrderDetail\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +47,8 @@
     <Content Remove="Views\Home\DetailedSearch.cshtml" />
     <Content Remove="Views\Search\SearchResults.cshtml" />
     <Content Remove="Views\Account\Index.cshtml" />
+    <Content Remove="Views\OrderDetails\Delete.cshtml" />
+    <Content Remove="Views\OrderDetails\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\lib\jquery\jquery-3.3.1.js" />

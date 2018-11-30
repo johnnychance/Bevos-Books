@@ -35,9 +35,12 @@ namespace fa18Team28_FinalProject.Seeding
                 await _roleManager.CreateAsync(new IdentityRole("Customer"));
             }
 
+            //****Start here
             //check to see if the manager has been added
+            //is there someone w this email add
             AppUser manager = _db.Users.FirstOrDefault(u => u.Email == "admin@example.com");
 
+            //if no one with that email, add them 
             //if manager hasn't been created, then add them
             if (manager == null)
             {
@@ -71,6 +74,8 @@ namespace fa18Team28_FinalProject.Seeding
             //save changes
             _db.SaveChanges();
         }
+        //**end here 
+
 
     }
 }

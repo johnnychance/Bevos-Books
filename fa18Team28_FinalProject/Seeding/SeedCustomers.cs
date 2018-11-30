@@ -10,9 +10,9 @@ namespace fa18Team28_FinalProject.Seeding
 	{
 		public static void SeedAllCustomers(AppDbContext db)
 		{
-			if (db.Customers.Count() == 300)
+			if (db.Customers.Count() == 300) //change this number
 			{
-				throw new NotSupportedException("The database already contains all 300 customers!");
+				throw new NotSupportedException("The database already contains all 300 customers!"); //change error text
 			}
 
 			Int32 intCustomersAdded = 0;

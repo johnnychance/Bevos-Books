@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
-using Bedford_Ashley_HW7.Utilities;
+using fa18Team28_FinalProject.Utilities;
 
 namespace fa18Team28_FinalProject.Controllers
 {
@@ -118,8 +118,9 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
 
+        //async warning - removed keyword async
         // GET: CustomerOrders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -150,12 +151,13 @@ namespace fa18Team28_FinalProject.Controllers
             return View(customerOrder);*/
         }
 
+        //async warning - removed keyword async
         // POST: CustomerOrders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerOrderID,CustomerOrderDate,CustomerOrderNotes")] CustomerOrder customerOrder)
+        public IActionResult Edit(int id, [Bind("CustomerOrderID,CustomerOrderDate,CustomerOrderNotes")] CustomerOrder customerOrder)
         {
             //Find the related registration in the database
             CustomerOrder DbCustOrd = _context.CustomerOrders.Find(customerOrder.CustomerOrderID);

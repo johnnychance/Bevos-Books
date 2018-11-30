@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
+using fa18Team28_FinalProject.Utilities;
 
 namespace fa18Team28_FinalProject.Controllers
 {
@@ -58,8 +59,12 @@ namespace fa18Team28_FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Generate next course number
+                book.UniqueID = GenerateUniqueID.GetNextUniqueID(_context);
+
                 _context.Add(book);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(book);

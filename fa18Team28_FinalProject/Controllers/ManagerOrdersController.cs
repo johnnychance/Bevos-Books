@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
-using Bedford_Ashley_HW7.Utilities;
+using fa18Team28_FinalProject.Utilities;
 
 namespace fa18Team28_FinalProject.Controllers
 {

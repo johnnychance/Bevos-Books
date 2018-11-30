@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Food Truck</title>
+    <title>@ViewBag.Title - Bevo's Books</title>
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
@@ -22,7 +22,7 @@
                         @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
-                        @Html.ActionLink("Books", "Index", "Books", null, new { @class = "nav-link" })
+                        @Html.ActionLink("Inventory", "Index", "Books", null, new { @class = "nav-link" })
                     </li>
                     @if (User.Identity.IsAuthenticated)
                     {
