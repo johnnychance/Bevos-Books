@@ -20,7 +20,7 @@ namespace fa18Team28_FinalProject.Models
         public int CustomerOrderNumber { get; set; }
 
         [Display(Name="Customer Order Date")]
-        [DisplayFormat(DataFormatString = "{0:MM/DD/YYYY}")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime CustomerOrderDate { get; set; }
 
         [Display(Name = "Customer Order Notes")]        
