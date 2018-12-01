@@ -12,7 +12,7 @@
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\RoleAdmin\" />
-    <Folder Include="Views\CustomerOrderDetail\" />
+    <Folder Include="Views\CustomerOrderDetails\" />
   </ItemGroup>
 
   <ItemGroup>

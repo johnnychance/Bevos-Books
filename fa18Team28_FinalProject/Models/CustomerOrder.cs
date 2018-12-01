@@ -23,6 +23,9 @@ namespace fa18Team28_FinalProject.Models
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime CustomerOrderDate { get; set; }
 
+        [Display(Name = "Customer Order Status")]
+        public bool CustomerOrderStatus { get; set; }
+
         [Display(Name = "Customer Order Notes")]        
         public String CustomerOrderNotes { get; set; }
 

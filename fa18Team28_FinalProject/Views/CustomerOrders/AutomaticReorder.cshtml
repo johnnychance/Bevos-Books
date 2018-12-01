@@ -1,0 +1,50 @@
+﻿@model fa18Team28_FinalProject.Models.CustomerOrder
+
+@{
+    ViewData["Title"] = "AutomaticReorder";
+}
+
+<h2>AutomaticReorder</h2>
+
+<h4>CustomerOrder</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AutomaticReorder">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustomerOrderNumber" class="control-label"></label>
+                <input asp-for="CustomerOrderNumber" class="form-control" />
+                <span asp-validation-for="CustomerOrderNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerOrderDate" class="control-label"></label>
+                <input asp-for="CustomerOrderDate" class="form-control" />
+                <span asp-validation-for="CustomerOrderDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="CustomerOrderStatus" /> @Html.DisplayNameFor(model => model.CustomerOrderStatus)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerOrderNotes" class="control-label"></label>
+                <input asp-for="CustomerOrderNotes" class="form-control" />
+                <span asp-validation-for="CustomerOrderNotes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

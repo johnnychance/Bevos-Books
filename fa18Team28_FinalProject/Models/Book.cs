@@ -5,7 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace fa18Team28_FinalProject.Models
 {
@@ -28,9 +28,11 @@ namespace fa18Team28_FinalProject.Models
         public string Description { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:C}")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         [DisplayFormat(DataFormatString ="{0:C}")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Cost { get; set; }
 
         public Int32 Reordered { get; set; }

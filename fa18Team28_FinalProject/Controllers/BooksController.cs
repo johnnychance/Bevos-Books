@@ -34,8 +34,7 @@ namespace fa18Team28_FinalProject.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Books
-                .FirstOrDefaultAsync(m => m.BookID == id);
+            var book = _context.Books.Include(c => c.ProductDetails).ThenInclude(c => c.Book).FirstOrDefault(m => m.BookID == id);
             if (book == null)
             {
                 return NotFound();

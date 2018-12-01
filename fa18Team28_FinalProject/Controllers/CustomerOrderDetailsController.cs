@@ -44,8 +44,8 @@ namespace fa18Team28_FinalProject.Controllers
         public IActionResult Edit(CustomerOrderDetail orderDetail)
         {
             //Find the related order detail in the database
-            CustomerOrderDetail DbOrdDet = _context.CustomerOrderDetails.Include(o => o.Book).Include(o => o.CustomerOrder).FirstOrDefault(o => o.CustomerOrderDetailID ==
-                                                            orderDetail.CustomerOrderDetailID);
+            CustomerOrderDetail DbOrdDet = _context.CustomerOrderDetails.Include(o => o.Book).Include(o => o.CustomerOrder).
+                FirstOrDefault(o => o.CustomerOrderDetailID ==orderDetail.CustomerOrderDetailID);
 
             //update the related fields
             DbOrdDet.Quantity = orderDetail.Quantity;

@@ -261,5 +261,23 @@ namespace fa18Team28_FinalProject.Controllers
             SelectList allBooks = new SelectList(Books, "BookID", "Title");
             return allBooks;
         }
+
+        public IActionResult AutomaticReorder(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customerOrder = _context.CustomerOrders
+                .FirstOrDefaultAsync(m => m.CustomerOrderID == id);
+
+            if (customerOrder == null)
+            {
+                return NotFound();
+            }
+
+            return View(customerOrder);
+        }
     }
 }
