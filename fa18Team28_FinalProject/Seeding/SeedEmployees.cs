@@ -12,14 +12,14 @@ namespace fa18Team28_FinalProject.Seeding
 	{
         public static async Task AddAdmin(IServiceProvider serviceProvider)
         {
-            /*if (db.User.Count() == 28)
-			{
-				throw new NotSupportedException("The database already contains all 28 employees!");
-			}*/
             AppDbContext _db = serviceProvider.GetRequiredService<AppDbContext>();
             UserManager<AppUser> _userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
             RoleManager<IdentityRole> _roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
+            if (await _roleManager.RoleExistsAsync("Manager") == false)
+            {
+                await _roleManager.CreateAsync(new IdentityRole("Manager"));
+            }
             if (await _roleManager.RoleExistsAsync("Employee") == false)
             {
                 await _roleManager.CreateAsync(new IdentityRole("Employee"));
