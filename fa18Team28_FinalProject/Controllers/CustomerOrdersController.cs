@@ -269,13 +269,42 @@ namespace fa18Team28_FinalProject.Controllers
                 return NotFound();
             }
 
-            var customerOrder = _context.CustomerOrders
-                .FirstOrDefaultAsync(m => m.CustomerOrderID == id);
+            var customerOrder = _context.CustomerOrders.Include(r => r.CustomerOrderDetails).ThenInclude(r => r.Book).
+                FirstOrDefault(r => r.CustomerOrderID == id);
 
             if (customerOrder == null)
             {
                 return NotFound();
             }
+
+            //find the product associated with the selected product id
+            Book book = new Book();
+
+            _context.Books.Find(SelectedBook);
+
+            //set the registration detail's course equal to the course we just found
+            cod.Book = book;
+
+            //find the registration based on the id
+            CustomerOrder reg = _context.CustomerOrders.Find(cod.CustomerOrder.CustomerOrderID);
+
+            //set the registration detail's registration equal to the registration we just found
+            cod.CustomerOrder = reg;
+
+            //set the course fee for this detail equal to the current course fee
+            cod.ProductPrice = cod.Book.Price;
+
+            //add total fees
+            cod.ExtendedPrice = cod.Quantity * cod.ProductPrice;
+
+            if (ModelState.IsValid)
+            {
+                _context.CustomerOrderDetails.Add(cod);
+                _context.SaveChanges();
+                return RedirectToAction("Details", new { id = cod.CustomerOrder.CustomerOrderID });
+            }
+            return View(cod);
+        }
 
             return View(customerOrder);
         }

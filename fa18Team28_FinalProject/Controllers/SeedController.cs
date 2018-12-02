@@ -60,5 +60,41 @@ namespace fa18Team28_FinalProject.Controllers
 
             return View("Confirm");
         }
+
+        public IActionResult SeedEmployees(IServiceProvider service)
+        {
+            try
+            {
+                Seeding.SeedEmployees.AddAdmin(service).Wait();
+            }
+            catch (NotSupportedException ex)
+            {
+                return View("Error", new String[] { "The data has already been added", ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return View("Error", new String[] { "There was an error adding data to the database", ex.Message });
+            }
+
+            return View("Confirm");
+        }
+
+        /*public IActionResult SeedCustomers(IServiceProvider service)
+        {
+            try
+            {
+                Seeding.SeedCustomers.SeedAllCustomers(service).Wait();
+            }
+            catch (NotSupportedException ex)
+            {
+                return View("Error", new String[] { "The data has already been added", ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return View("Error", new String[] { "There was an error adding data to the database", ex.Message });
+            }
+
+            return View("Confirm");
+        }*/
     }
 }
