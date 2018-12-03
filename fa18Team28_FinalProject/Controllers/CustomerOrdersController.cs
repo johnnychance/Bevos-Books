@@ -69,40 +69,56 @@ namespace fa18Team28_FinalProject.Controllers
             return View(customerOrder);
         }
 
+
+        //******took out the int? id for now for testing
+        //GET: AddToOrder
         public IActionResult AddToOrder(int? id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return View("Error", new string[] { "You must specify an order to add!" });
-            }
+            }*/
+
+            //Creating a new customer order 
+            //Booleans are automatically false
+
+            CustomerOrder cust_ord = new CustomerOrder() { CustomerOrderStatus = false };
+
             CustomerOrder cod = _context.CustomerOrders.Find(id);
             if (cod == null)
             {
                 return View("Error", new string[] { "Order not found!" });
             }
 
+            //Creating a new order detail
             CustomerOrderDetail cd = new CustomerOrderDetail() { CustomerOrder = cod };
 
-            ViewBag.AllCustomerBooks = GetAllCustomerBooks();
+            //ViewBag.AllCustomerBooks = GetAllCustomerBooks();
+            //Change the view to make sure there's no list that requires something to be passed to it
             return View("AddToOrder", cd);
         }
 
+        //POST: AddToOrder
         [HttpPost]
         public IActionResult AddToOrder(CustomerOrderDetail cod, int SelectedBook)
         {
+            //Change it select the book id from details/the list
+
             //find the product associated with the selected product id
             Book book = _context.Books.Find(SelectedBook);
 
-            //set the registration detail's course equal to the course we just found
+            //set the order detail's book equal to the book we just found
             cod.Book = book;
 
-            //find the registration based on the id
+            //find the order based on the id and the property is pending
+            //Set this status equal to false
+            //**False will mean "Pending" and True will mean "Finished"
             CustomerOrder reg = _context.CustomerOrders.Find(cod.CustomerOrder.CustomerOrderID);
 
-            //set the registration detail's registration equal to the registration we just found
+            //set the order detail's order equal to the order we just found
             cod.CustomerOrder = reg;
 
-            //set the course fee for this detail equal to the current course fee
+            //set the book price for this detail equal to the current book fee
             cod.ProductPrice = cod.Book.Price;
 
             //add total fees
@@ -262,6 +278,23 @@ namespace fa18Team28_FinalProject.Controllers
             return allBooks;
         }
 
+        /*
+        //POST: Add a book to the shopping cart
+        public IActionResult ShoppingCart(int? id)
+        {
+            //created a list to be put into the cart
+            List<Book> Cart = new List<Book>;
+
+            var scart = _context.CustomerOrders.Include(r => r.CustomerOrderDetails).ThenInclude(r => r.Book).
+                FirstOrDefault(r => r.CustomerOrderID == id);
+
+            Cart = scart.ToList();
+            
+
+            return RedirectToAction(nameof(Index));
+        }*/
+
+        /*
         public IActionResult AutomaticReorder(int? id)
         {
             if (id == null)
@@ -307,6 +340,25 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
             return View(customerOrder);
+        }*/
+
+        public IActionResult GenerateCart()
+        {
+
+            var query = from o in _context.CustomerOrders
+                        select o;
+
+            query = query.Where(o => o.CustomerOrderStatus == false); 
+
+            if (query.Count() == 0)
+            {
+                CustomerOrder co = new CustomerOrder();
+            }
+            else
+            {
+                return View(Index);
+            }
+
         }
     }
 }
