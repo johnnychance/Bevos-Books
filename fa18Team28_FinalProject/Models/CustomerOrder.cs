@@ -23,6 +23,9 @@ namespace fa18Team28_FinalProject.Models
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime CustomerOrderDate { get; set; }
 
+        [Display(Name = "Customer Order Status")]
+        public bool CustomerOrderStatus { get; set; }
+
         [Display(Name = "Customer Order Notes")]        
         public String CustomerOrderNotes { get; set; }
 
@@ -44,14 +47,13 @@ namespace fa18Team28_FinalProject.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public Decimal CustomerOrderTotal
         {
-            get { return CustomerOrderSubtotal + SALES_TAX; }
+            get { return CustomerOrderSubtotal + SalesTax; } 
         }
 
         //navigational properties
         public AppUser AppUser { get; set; }
         public List<CustomerOrderDetail> CustomerOrderDetails { get; set; }
         public List<DiscountDetail> DiscountDetails { get; set; }
-        
 
         public CustomerOrder()
         {

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fa18Team28_FinalProject.DAL;
 
 namespace fa18Team28_FinalProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181201063928_InitialCreate8")]
+    partial class InitialCreate8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,8 +30,6 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<string>("Birthday");
-
                     b.Property<string>("City");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -40,8 +40,6 @@ namespace fa18Team28_FinalProject.Migrations
                     b.Property<int>("CreditCard2");
 
                     b.Property<int>("CreditCard3");
-
-                    b.Property<string>("CustomerNumber");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);

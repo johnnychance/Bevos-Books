@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
+using fa18Team28_FinalProject.Controllers;
 
 namespace fa18Team28_FinalProject
 {
@@ -60,6 +61,8 @@ namespace fa18Team28_FinalProject
                 });
 
                 Seeding.SeedIdentity.AddAdmin(service).Wait();
+
+                //Controllers.CustomerOrdersController.
             }
 
             /*if (env.IsDevelopment())

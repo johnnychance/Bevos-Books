@@ -23,6 +23,9 @@ namespace fa18Team28_FinalProject.Models
         [DisplayFormat(DataFormatString = "{0:MM/DD/YYYY}")]
         public DateTime ManagerOrderDate { get; set; }
 
+        [Display(Name = "Manager Order Status")]
+        public bool ManagerOrderStatus { get; set; }
+
         [Display(Name = "Manager Order Detail Notes")]
         public String ManagerOrderDetailNotes { get; set; }
 

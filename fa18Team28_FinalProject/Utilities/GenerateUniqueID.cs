@@ -10,16 +10,16 @@ namespace fa18Team28_FinalProject.Utilities
     {
         public static Int32 GetNextUniqueID(AppDbContext db)
         {
-            Int32 intMaxUniqueID; //the current maximum course number
-            Int32 intNextUniqueID; //the course number for the next class
+            Int32 intMaxUniqueID; //the maximum book id number
+            Int32 intNextUniqueID; //the id number for the next book
 
-            if (db.Books.Count() == 0) //there are no products in the database yet
+            if (db.Books.Count() == 0) //there are no books in the database yet
             {
-                intMaxUniqueID = 5000; //course numbers start at 3001
+                intMaxUniqueID = 789000; //book id numbers start at 5001
             }
             else
             {
-                intMaxUniqueID = Convert.ToInt32(db.Books.Max(c => c.UniqueID)); //this is the highest number in the database right now
+                intMaxUniqueID = db.Books.Max(c => c.UniqueID); //this is the highest number in the database right now
             }
 
             //add one to the current max to find the next one
