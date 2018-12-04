@@ -73,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Seeding\SeedingBooks.cs" />
+    <Compile Remove="Migrations\20181116195140_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20181116195140_InitialCreate.cs" />
+    <Compile Remove="Migrations\20181116202512_InitialCreate1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\CustomerOrders\ShoppingCart.cshtml">
