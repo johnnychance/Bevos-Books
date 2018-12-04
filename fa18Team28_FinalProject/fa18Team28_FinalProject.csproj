@@ -74,4 +74,9 @@
   <ItemGroup>
     <Compile Remove="Seeding\SeedingBooks.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="Views\CustomerOrders\ShoppingCart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
 </Project>

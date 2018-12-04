@@ -278,21 +278,12 @@ namespace fa18Team28_FinalProject.Controllers
             return allBooks;
         }
 
-        /*
+        
         //POST: Add a book to the shopping cart
-        public IActionResult ShoppingCart(int? id)
+        public async Task<IActionResult> ShoppingCart(int? id)
         {
-            //created a list to be put into the cart
-            List<Book> Cart = new List<Book>;
-
-            var scart = _context.CustomerOrders.Include(r => r.CustomerOrderDetails).ThenInclude(r => r.Book).
-                FirstOrDefault(r => r.CustomerOrderID == id);
-
-            Cart = scart.ToList();
-            
-
-            return RedirectToAction(nameof(Index));
-        }*/
+            return View(await _context.CustomerOrders.Where(o => o.CustomerOrderStatus == false).Include(o => o.CustomerOrderDetails).ToListAsync());
+        }
 
         /*
         public IActionResult AutomaticReorder(int? id)
@@ -342,7 +333,7 @@ namespace fa18Team28_FinalProject.Controllers
             return View(customerOrder);
         }*/
 
-        public IActionResult GenerateCart()
+        /*public IActionResult GenerateCart()
         {
 
             var query = from o in _context.CustomerOrders
@@ -353,12 +344,14 @@ namespace fa18Team28_FinalProject.Controllers
             if (query.Count() == 0)
             {
                 CustomerOrder co = new CustomerOrder();
+                co.CustomerOrderStatus = false;
+                return View("Index", co);
             }
             else
             {
-                return View(Index);
+                return View("Index");
             }
 
-        }
+        }*/
     }
 }

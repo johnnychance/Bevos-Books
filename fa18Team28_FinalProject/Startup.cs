@@ -41,8 +41,6 @@ namespace fa18Team28_FinalProject
 
             services.AddMvc();
 
-
-            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,8 +59,6 @@ namespace fa18Team28_FinalProject
                 });
 
                 Seeding.SeedIdentity.AddAdmin(service).Wait();
-
-                //Controllers.CustomerOrdersController.
             }
 
             /*if (env.IsDevelopment())
