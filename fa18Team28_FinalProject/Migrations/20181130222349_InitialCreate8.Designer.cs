@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fa18Team28_FinalProject.DAL;
 
 namespace fa18Team28_FinalProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181130222349_InitialCreate8")]
+    partial class InitialCreate8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,8 +116,7 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.Property<int>("CopiesOnHand");
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Cost");
 
                     b.Property<string>("Description");
 
@@ -123,8 +124,7 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.Property<DateTime>("LastOrdered");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Price");
 
                     b.Property<DateTime>("PublishedDate");
 
@@ -157,8 +157,6 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.Property<int>("CustomerOrderNumber");
 
-                    b.Property<bool>("CustomerOrderStatus");
-
                     b.HasKey("CustomerOrderID");
 
                     b.HasIndex("AppUserId");
@@ -178,11 +176,9 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.Property<int?>("CustomerOrderID");
 
-                    b.Property<decimal>("ExtendedPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("ExtendedPrice");
 
-                    b.Property<decimal>("ProductPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("ProductPrice");
 
                     b.Property<int>("Quantity");
 
@@ -257,8 +253,6 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.Property<int>("ManagerOrderNumber");
 
-                    b.Property<bool>("ManagerOrderStatus");
-
                     b.HasKey("ManagerOrderID");
 
                     b.HasIndex("AppUserId");
@@ -274,15 +268,13 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.Property<int?>("BookID");
 
-                    b.Property<decimal>("ExtendedCost")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("ExtendedCost");
 
                     b.Property<int>("ManagerOrderDetailsNotes");
 
                     b.Property<int?>("ManagerOrderID");
 
-                    b.Property<decimal>("ProductCost")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("ProductCost");
 
                     b.Property<int>("Quantity");
 
