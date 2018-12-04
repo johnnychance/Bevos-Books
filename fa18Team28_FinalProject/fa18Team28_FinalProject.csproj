@@ -6,17 +6,13 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Include="DAL\" />
     <Folder Include="wwwroot\lib\" />
     <Folder Include="Views\Search\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\RoleAdmin\" />
     <Folder Include="Views\CustomerOrderDetails\" />
-<<<<<<< HEAD
-    <Folder Include="Views\Reports\" />
-=======
-    <Folder Include="Views\Reviews\" />
->>>>>>> e554cca993dc2dd1831e02ce7c5faffe8908061b
   </ItemGroup>
 
   <ItemGroup>
@@ -53,11 +49,6 @@
     <Content Remove="Views\Account\Index.cshtml" />
     <Content Remove="Views\OrderDetails\Delete.cshtml" />
     <Content Remove="Views\OrderDetails\Details.cshtml" />
-    <Content Remove="Views\Seed %28copy%29\Confirm.cshtml" />
-    <Content Remove="Views\Search %28copy%29\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Views\Seed %28copy%29\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\lib\jquery\jquery-3.3.1.js" />
@@ -87,9 +78,6 @@
     <Compile Remove="Migrations\20181116202512_InitialCreate1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Views\CartItems\AddToCart.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\CustomerOrders\ShoppingCart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

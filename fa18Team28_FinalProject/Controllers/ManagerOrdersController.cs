@@ -153,40 +153,5 @@ namespace fa18Team28_FinalProject.Controllers
         {
             return _context.ManagerOrders.Any(e => e.ManagerOrderID == id);
         }
-        //GET
-        public IActionResult AutomaticReorder(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customerOrder = _context.ManagerOrders.Include(r => r.ManagerOrderDetails).ThenInclude(r => r.Book).
-                FirstOrDefault(r => r.ManagerOrderID == id);
-
-            if (customerOrder == null)
-            {
-                return NotFound();
-            }
-
-            return View(customerOrder);
-        }
-
-        //POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AutomaticReorder([Bind("ManagerOrderID,ManagerOrderDate,ManagerOrderDetailNotes")] ManagerOrder managerOrder)
-        {
-            managerOrder.ManagerOrderNumber = GenerateNextOrderNumber.GetNextOrderNumber(_context);
-            managerOrder.ManagerOrderDate = System.DateTime.Today;
-
-            if (ModelState.IsValid)
-            {
-                _context.Add(managerOrder);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(managerOrder);
-        }
     }
 }

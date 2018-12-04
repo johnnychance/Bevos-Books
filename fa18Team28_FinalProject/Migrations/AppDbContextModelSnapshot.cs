@@ -137,26 +137,6 @@ namespace fa18Team28_FinalProject.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("fa18Team28_FinalProject.Models.CartItem", b =>
-                {
-                    b.Property<string>("ItemID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("BookID");
-
-                    b.Property<string>("CartID");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<int>("Quantity");
-
-                    b.HasKey("ItemID");
-
-                    b.HasIndex("BookID");
-
-                    b.ToTable("CartItems");
-                });
-
             modelBuilder.Entity("fa18Team28_FinalProject.Models.CustomerOrder", b =>
                 {
                     b.Property<int>("CustomerOrderID")
@@ -382,7 +362,7 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.HasKey("SupplierID");
 
-                    b.ToTable("Suppliers");
+                    b.ToTable("Supplier");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -500,13 +480,6 @@ namespace fa18Team28_FinalProject.Migrations
                     b.HasOne("fa18Team28_FinalProject.Models.Genre", "Genre")
                         .WithMany("Books")
                         .HasForeignKey("GenreID");
-                });
-
-            modelBuilder.Entity("fa18Team28_FinalProject.Models.CartItem", b =>
-                {
-                    b.HasOne("fa18Team28_FinalProject.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookID");
                 });
 
             modelBuilder.Entity("fa18Team28_FinalProject.Models.CustomerOrder", b =>

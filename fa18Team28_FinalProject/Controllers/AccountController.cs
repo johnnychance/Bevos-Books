@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
 
+
+
 //TODO: Change this namespace to match your project
 namespace fa18Team28_FinalProject.Controllers
 {
@@ -100,9 +102,6 @@ namespace fa18Team28_FinalProject.Controllers
                     State = model.State,
                     Zipcode = model.Zipcode,
                     PhoneNumber = model.PhoneNumber,
-                    Birthday = model.Birthday,
-                    SSN = model.SSN,
-                    MiddleInitial = model.MiddleInitial,
 
                     //TODO: You will need to add all of the properties for your User model here
                     //Make sure that you have included ALL of the properties and that they match

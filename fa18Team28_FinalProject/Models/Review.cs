@@ -18,8 +18,11 @@ namespace fa18Team28_FinalProject.Models
         [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5")]
         public int Rating { get; set; }
 
-        [Display(Name = "Approval Status")]
-        public bool ApprovalStatus { get; set; }
+        [Display(Name = "Author User")]
+        public string Author_user { get; set; }
+
+        [Display(Name = "Approver User")]
+        public string Approver_user { get; set; }
 
         //navigation properties
         public AppUser Author { get; set; }

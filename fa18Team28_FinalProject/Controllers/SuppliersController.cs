@@ -22,7 +22,7 @@ namespace fa18Team28_FinalProject.Controllers
         // GET: Suppliers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Suppliers.ToListAsync());
+            return View(await _context.Supplier.ToListAsync());
         }
 
         // GET: Suppliers/Details/5
@@ -33,7 +33,7 @@ namespace fa18Team28_FinalProject.Controllers
                 return NotFound();
             }
 
-            var supplier = await _context.Suppliers
+            var supplier = await _context.Supplier
                 .FirstOrDefaultAsync(m => m.SupplierID == id);
             if (supplier == null)
             {
@@ -73,7 +73,7 @@ namespace fa18Team28_FinalProject.Controllers
                 return NotFound();
             }
 
-            var supplier = await _context.Suppliers.FindAsync(id);
+            var supplier = await _context.Supplier.FindAsync(id);
             if (supplier == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace fa18Team28_FinalProject.Controllers
                 return NotFound();
             }
 
-            var supplier = await _context.Suppliers
+            var supplier = await _context.Supplier
                 .FirstOrDefaultAsync(m => m.SupplierID == id);
             if (supplier == null)
             {
@@ -139,15 +139,15 @@ namespace fa18Team28_FinalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var supplier = await _context.Suppliers.FindAsync(id);
-            _context.Suppliers.Remove(supplier);
+            var supplier = await _context.Supplier.FindAsync(id);
+            _context.Supplier.Remove(supplier);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SupplierExists(int id)
         {
-            return _context.Suppliers.Any(e => e.SupplierID == id);
+            return _context.Supplier.Any(e => e.SupplierID == id);
         }
     }
 }
