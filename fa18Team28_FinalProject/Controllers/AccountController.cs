@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-//TODO: Change this using statement to match your project
+
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
 
 
 
-//TODO: Change this namespace to match your project
+
 namespace fa18Team28_FinalProject.Controllers
 {
     [Authorize]
@@ -123,7 +123,7 @@ namespace fa18Team28_FinalProject.Controllers
                     await _userManager.AddToRoleAsync(user, "Customer");
                     //another example
                     //await _userManager.AddToRoleAsync(user, "Manager");
-
+                    await _userManager.AddToRoleAsync(user, "Employee");
 
                     return RedirectToAction("Index", "Home");
                 }
