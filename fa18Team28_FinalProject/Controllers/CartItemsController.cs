@@ -22,8 +22,7 @@ namespace fa18Team28_FinalProject.Controllers
         // GET: CartItems
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.CartItems.Include(c => c.Book);
-            return View(await appDbContext.ToListAsync());
+            return View(await _context.CartItems.ToListAsync());
         }
 
         // GET: CartItems/Details/5
@@ -35,7 +34,6 @@ namespace fa18Team28_FinalProject.Controllers
             }
 
             var cartItem = await _context.CartItems
-                .Include(c => c.Book)
                 .FirstOrDefaultAsync(m => m.ItemID == id);
             if (cartItem == null)
             {
@@ -48,7 +46,6 @@ namespace fa18Team28_FinalProject.Controllers
         // GET: CartItems/Create
         public IActionResult Create()
         {
-            ViewData["BookID"] = new SelectList(_context.Books, "BookID", "BookID");
             return View();
         }
 
@@ -57,7 +54,7 @@ namespace fa18Team28_FinalProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemID,CartID,Quantity,DateCreated,BookID")] CartItem cartItem)
+        public async Task<IActionResult> Create([Bind("ItemID,CartID,Quantity,DateCreated")] CartItem cartItem)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +62,6 @@ namespace fa18Team28_FinalProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookID"] = new SelectList(_context.Books, "BookID", "BookID", cartItem.BookID);
             return View(cartItem);
         }
 
@@ -82,7 +78,6 @@ namespace fa18Team28_FinalProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["BookID"] = new SelectList(_context.Books, "BookID", "BookID", cartItem.BookID);
             return View(cartItem);
         }
 
@@ -91,7 +86,7 @@ namespace fa18Team28_FinalProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ItemID,CartID,Quantity,DateCreated,BookID")] CartItem cartItem)
+        public async Task<IActionResult> Edit(string id, [Bind("ItemID,CartID,Quantity,DateCreated")] CartItem cartItem)
         {
             if (id != cartItem.ItemID)
             {
@@ -118,7 +113,6 @@ namespace fa18Team28_FinalProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookID"] = new SelectList(_context.Books, "BookID", "BookID", cartItem.BookID);
             return View(cartItem);
         }
 
@@ -131,7 +125,6 @@ namespace fa18Team28_FinalProject.Controllers
             }
 
             var cartItem = await _context.CartItems
-                .Include(c => c.Book)
                 .FirstOrDefaultAsync(m => m.ItemID == id);
             if (cartItem == null)
             {
@@ -156,5 +149,83 @@ namespace fa18Team28_FinalProject.Controllers
         {
             return _context.CartItems.Any(e => e.ItemID == id);
         }
+
+        public string ShoppingCartID { get; set; }
+
+        public const string CartSessionKey = "CartID";
+
+        public IActionResult AddToCart(int id)
+        {
+            // Retrieve the product from the database.           
+            ShoppingCartID = GetCartID();
+
+            var cartItem = _context.CartItems.SingleOrDefault(
+                c => c.CartID == ShoppingCartID
+                && c.Book.BookID == id);
+
+            if (cartItem == null)
+            {
+                // Create a new cart item if no cart item exists.                 
+                cartItem = new CartItem
+                {
+                    ItemID = Guid.NewGuid().ToString(),                    
+                    CartID = ShoppingCartID,
+                    Book = _context.Books.SingleOrDefault(
+                   p => p.BookID == id),
+                    Quantity = 1,
+                    DateCreated = DateTime.Now
+                };
+
+                _context.CartItems.Add(cartItem);
+            }
+            else
+            {
+                // If the item does exist in the cart,                  
+                // then add one to the quantity.                 
+                cartItem.Quantity++;
+            }
+            _context.SaveChanges();
+
+            return View();
+        }
+
+        /*public void Dispose()
+        {
+            if (_context != null)
+            {
+                _context.Dispose();
+                _context = null;
+            }
+        }*/
+
+        public string GetCartID()
+        {
+            if (ShoppingCartID == null)
+            {
+                //a user is logged in, set a cart id to their username
+                if (User.Identity.IsAuthenticated)
+                {
+                    ShoppingCartID = User.Identity.Name;
+                }
+                //give the non-logged in user a GUID id
+                else
+                {
+                    // Generate a new random GUID using System.Guid class.     
+                    Guid tempCartID = Guid.NewGuid();
+                    ShoppingCartID = tempCartID.ToString();
+                }
+            }
+            return ShoppingCartID;
+        }
+
+        public List<CartItem> GetCartItems()
+        {
+            ShoppingCartID = GetCartID();
+
+            return _context.CartItems.Where(
+                c => c.CartID == ShoppingCartID).ToList();
+        }
     }
 }
+    
+

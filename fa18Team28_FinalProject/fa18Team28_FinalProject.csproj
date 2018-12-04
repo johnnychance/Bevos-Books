@@ -77,6 +77,9 @@
     <Compile Remove="Migrations\20181116202512_InitialCreate1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Views\CartItems\AddToCart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\CustomerOrders\ShoppingCart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

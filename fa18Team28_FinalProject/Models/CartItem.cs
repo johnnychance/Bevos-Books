@@ -17,7 +17,7 @@ namespace fa18Team28_FinalProject.Models
 
         public System.DateTime DateCreated { get; set; }
 
-        public int BookID { get; set; }
+        //public int BookID { get; set; }
 
         public Book Book { get; set; }
 
