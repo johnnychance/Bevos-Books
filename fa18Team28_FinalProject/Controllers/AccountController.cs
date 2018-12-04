@@ -122,7 +122,7 @@ namespace fa18Team28_FinalProject.Controllers
                 
                     await _userManager.AddToRoleAsync(user, "Customer");
                     //another example
-                    //await _userManager.AddToRoleAsync(user, "Manager");
+                    await _userManager.AddToRoleAsync(user, "Manager");
                     await _userManager.AddToRoleAsync(user, "Employee");
 
                     return RedirectToAction("Index", "Home");
