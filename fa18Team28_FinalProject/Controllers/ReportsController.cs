@@ -41,7 +41,7 @@ namespace fa18Team28_FinalProject.Controllers
             return View(bk);
         }
 
-        // GET: Home
+        /*// GET: Home
         public ActionResult Index() 
         {
             //Create list of required books
@@ -131,7 +131,7 @@ namespace fa18Team28_FinalProject.Controllers
             {
                 //returns a redirect view to the index showing the list of filtered books
                 return View("Index", SelectedBooks);
-            }*/
+            }//end comments here
 
 
         //This method gets all genres
@@ -145,6 +145,6 @@ namespace fa18Team28_FinalProject.Controllers
 
             SelectList AllGenres = new SelectList(Genres.OrderBy(l => l.GenreID), "GenreID", "GenreName");
             return AllGenres;
-        }
+        }*/
     }
 }

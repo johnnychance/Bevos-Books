@@ -74,6 +74,7 @@
     <Compile Remove="Migrations\20181116195140_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20181116195140_InitialCreate.cs" />
     <Compile Remove="Migrations\20181116202512_InitialCreate1.cs" />
+    <Compile Remove="Migrations\20181204010043_InitialCreate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\CartItems\AddToCart.cshtml">

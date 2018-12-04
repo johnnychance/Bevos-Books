@@ -41,6 +41,8 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.Property<int>("CreditCard3");
 
+                    b.Property<string>("CustomerNumber");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -334,13 +336,11 @@ namespace fa18Team28_FinalProject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("ApprovalStatus");
+
                     b.Property<string>("ApproverId");
 
-                    b.Property<string>("Approver_user");
-
                     b.Property<string>("AuthorId");
-
-                    b.Property<string>("Author_user");
 
                     b.Property<int?>("BookID");
 

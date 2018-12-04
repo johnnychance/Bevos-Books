@@ -21,6 +21,7 @@ namespace fa18Team28_FinalProject.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Zipcode { get; set; }
+        public string CustomerNumber { get; set; }
         public string Birthday { get; set; }
         public Int32 CreditCard1 { get; set; }
         public Int32 CreditCard2 { get; set; }

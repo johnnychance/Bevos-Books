@@ -49,6 +49,7 @@ namespace fa18Team28_FinalProject.Migrations
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
                     Zipcode = table.Column<string>(nullable: true),
+                    CustomerNumber = table.Column<string>(nullable: true),
                     Birthday = table.Column<string>(nullable: true),
                     CreditCard1 = table.Column<int>(nullable: false),
                     CreditCard2 = table.Column<int>(nullable: false),
@@ -89,7 +90,7 @@ namespace fa18Team28_FinalProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Supplier",
+                name: "Suppliers",
                 columns: table => new
                 {
                     SupplierID = table.Column<int>(nullable: false)
@@ -103,7 +104,7 @@ namespace fa18Team28_FinalProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Supplier", x => x.SupplierID);
+                    table.PrimaryKey("PK_Suppliers", x => x.SupplierID);
                 });
 
             migrationBuilder.CreateTable(
@@ -315,6 +316,27 @@ namespace fa18Team28_FinalProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CartItems",
+                columns: table => new
+                {
+                    ItemID = table.Column<string>(nullable: false),
+                    CartID = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    BookID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartItems", x => x.ItemID);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Books_BookID",
+                        column: x => x.BookID,
+                        principalTable: "Books",
+                        principalColumn: "BookID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CustomerOrderDetails",
                 columns: table => new
                 {
@@ -393,9 +415,9 @@ namespace fa18Team28_FinalProject.Migrations
                         principalColumn: "BookID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ProductDetail_Supplier_SupplierID",
+                        name: "FK_ProductDetail_Suppliers_SupplierID",
                         column: x => x.SupplierID,
-                        principalTable: "Supplier",
+                        principalTable: "Suppliers",
                         principalColumn: "SupplierID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -408,8 +430,7 @@ namespace fa18Team28_FinalProject.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ReviewText = table.Column<string>(nullable: true),
                     Rating = table.Column<int>(nullable: false),
-                    Author_user = table.Column<string>(nullable: true),
-                    Approver_user = table.Column<string>(nullable: true),
+                    ApprovalStatus = table.Column<bool>(nullable: false),
                     AuthorId = table.Column<string>(nullable: true),
                     ApproverId = table.Column<string>(nullable: true),
                     BookID = table.Column<int>(nullable: true)
@@ -480,6 +501,11 @@ namespace fa18Team28_FinalProject.Migrations
                 name: "IX_Books_GenreID",
                 table: "Books",
                 column: "GenreID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartItems_BookID",
+                table: "CartItems",
+                column: "BookID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerOrderDetails_BookID",
@@ -565,6 +591,9 @@ namespace fa18Team28_FinalProject.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CartItems");
+
+            migrationBuilder.DropTable(
                 name: "CustomerOrderDetails");
 
             migrationBuilder.DropTable(
@@ -592,7 +621,7 @@ namespace fa18Team28_FinalProject.Migrations
                 name: "ManagerOrders");
 
             migrationBuilder.DropTable(
-                name: "Supplier");
+                name: "Suppliers");
 
             migrationBuilder.DropTable(
                 name: "Books");
