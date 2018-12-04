@@ -5,90 +5,95 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using fa18Team28_FinalProject.Models;
 using fa18Team28_FinalProject.DAL;
+using fa18Team28_FinalProject.Models;
 
 namespace fa18Team28_FinalProject.Controllers
 {
-    public class SuppliersController : Controller
+    public class CartItemsController : Controller
     {
         private readonly AppDbContext _context;
 
-        public SuppliersController(AppDbContext context)
+        public CartItemsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Suppliers
+        // GET: CartItems
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Suppliers.ToListAsync());
+            var appDbContext = _context.CartItems.Include(c => c.Book);
+            return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Suppliers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: CartItems/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var supplier = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.SupplierID == id);
-            if (supplier == null)
+            var cartItem = await _context.CartItems
+                .Include(c => c.Book)
+                .FirstOrDefaultAsync(m => m.ItemID == id);
+            if (cartItem == null)
             {
                 return NotFound();
             }
 
-            return View(supplier);
+            return View(cartItem);
         }
 
-        // GET: Suppliers/Create
+        // GET: CartItems/Create
         public IActionResult Create()
         {
+            ViewData["BookID"] = new SelectList(_context.Books, "BookID", "BookID");
             return View();
         }
 
-        // POST: Suppliers/Create
+        // POST: CartItems/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SupplierID,SupplierName,SupplierEmail,SupplierPhone,EstablishedDate,PreferredSupplier,SupplierNotes")] Supplier supplier)
+        public async Task<IActionResult> Create([Bind("ItemID,CartID,Quantity,DateCreated,BookID")] CartItem cartItem)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(supplier);
+                _context.Add(cartItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(supplier);
+            ViewData["BookID"] = new SelectList(_context.Books, "BookID", "BookID", cartItem.BookID);
+            return View(cartItem);
         }
 
-        // GET: Suppliers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: CartItems/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var supplier = await _context.Suppliers.FindAsync(id);
-            if (supplier == null)
+            var cartItem = await _context.CartItems.FindAsync(id);
+            if (cartItem == null)
             {
                 return NotFound();
             }
-            return View(supplier);
+            ViewData["BookID"] = new SelectList(_context.Books, "BookID", "BookID", cartItem.BookID);
+            return View(cartItem);
         }
 
-        // POST: Suppliers/Edit/5
+        // POST: CartItems/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SupplierID,SupplierName,SupplierEmail,SupplierPhone,EstablishedDate,PreferredSupplier,SupplierNotes")] Supplier supplier)
+        public async Task<IActionResult> Edit(string id, [Bind("ItemID,CartID,Quantity,DateCreated,BookID")] CartItem cartItem)
         {
-            if (id != supplier.SupplierID)
+            if (id != cartItem.ItemID)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace fa18Team28_FinalProject.Controllers
             {
                 try
                 {
-                    _context.Update(supplier);
+                    _context.Update(cartItem);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SupplierExists(supplier.SupplierID))
+                    if (!CartItemExists(cartItem.ItemID))
                     {
                         return NotFound();
                     }
@@ -113,41 +118,43 @@ namespace fa18Team28_FinalProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(supplier);
+            ViewData["BookID"] = new SelectList(_context.Books, "BookID", "BookID", cartItem.BookID);
+            return View(cartItem);
         }
 
-        // GET: Suppliers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: CartItems/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var supplier = await _context.Suppliers
-                .FirstOrDefaultAsync(m => m.SupplierID == id);
-            if (supplier == null)
+            var cartItem = await _context.CartItems
+                .Include(c => c.Book)
+                .FirstOrDefaultAsync(m => m.ItemID == id);
+            if (cartItem == null)
             {
                 return NotFound();
             }
 
-            return View(supplier);
+            return View(cartItem);
         }
 
-        // POST: Suppliers/Delete/5
+        // POST: CartItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var supplier = await _context.Suppliers.FindAsync(id);
-            _context.Suppliers.Remove(supplier);
+            var cartItem = await _context.CartItems.FindAsync(id);
+            _context.CartItems.Remove(cartItem);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SupplierExists(int id)
+        private bool CartItemExists(string id)
         {
-            return _context.Suppliers.Any(e => e.SupplierID == id);
+            return _context.CartItems.Any(e => e.ItemID == id);
         }
     }
 }

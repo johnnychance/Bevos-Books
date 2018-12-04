@@ -284,24 +284,9 @@ namespace fa18Team28_FinalProject.Controllers
         {
             return View(await _context.CustomerOrders.Where(o => o.CustomerOrderStatus == false).Include(o => o.CustomerOrderDetails).ToListAsync());
         }
+          
 
-        /*
-        public IActionResult AutomaticReorder(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customerOrder = _context.CustomerOrders.Include(r => r.CustomerOrderDetails).ThenInclude(r => r.Book).
-                FirstOrDefault(r => r.CustomerOrderID == id);
-
-            if (customerOrder == null)
-            {
-                return NotFound();
-            }
-
-            //find the product associated with the selected product id
+            /*find the product associated with the selected product id
             Book book = new Book();
 
             _context.Books.Find(SelectedBook);
