@@ -13,7 +13,6 @@
     <Folder Include="Views\Account\" />
     <Folder Include="Views\RoleAdmin\" />
     <Folder Include="Views\CustomerOrderDetails\" />
-    <Folder Include="Views\Reports\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,11 +49,6 @@
     <Content Remove="Views\Account\Index.cshtml" />
     <Content Remove="Views\OrderDetails\Delete.cshtml" />
     <Content Remove="Views\OrderDetails\Details.cshtml" />
-    <Content Remove="Views\Seed %28copy%29\Confirm.cshtml" />
-    <Content Remove="Views\Search %28copy%29\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Views\Seed %28copy%29\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\lib\jquery\jquery-3.3.1.js" />
