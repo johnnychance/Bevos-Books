@@ -21,17 +21,26 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // GET: 
         public async Task<IActionResult> Index()
+=======
+        // GET: List of Reviews
+        public IActionResult Index()
+>>>>>>> parent of e554cca... Merge branch 'master' of https://github.com/mis333k-fall2018/fa18Team28
         {
             return View(await _context.Books.Include(o => o.OrderDetails).ToListAsync());
         }
+<<<<<<< HEAD
 =======
         // GET: List of Reviews
         public IActionResult Index()
         {
             return View();
         }
+
+>>>>>>> parent of e554cca... Merge branch 'master' of https://github.com/mis333k-fall2018/fa18Team28
+=======
 
 >>>>>>> parent of e554cca... Merge branch 'master' of https://github.com/mis333k-fall2018/fa18Team28
 
