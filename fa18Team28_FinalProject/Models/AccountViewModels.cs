@@ -79,17 +79,6 @@ namespace fa18Team28_FinalProject.Models
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
-        //Birthday (Malik)
-        [Display(Name = "Birthday")]
-        public string Birthday { get; set; }
-
-        //SSN (Malik)
-        [Display(Name = "Social Security Number")]
-        public string SSN { get; set; }
-
-        //Middle Initial (Malik)
-        [Display(Name = "Middle Initial")]
-        public string MiddleInitial { get; set; }
     }
     public class ChangePasswordViewModel
     {
