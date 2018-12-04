@@ -19,7 +19,7 @@ namespace fa18Team28_FinalProject.DAL
         public DbSet<ManagerOrder> ManagerOrders { get; set; }
         public DbSet<ManagerOrderDetail> ManagerOrderDetails { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        //public DbSet<User> Users { get; set; }
-        public DbSet<Supplier> Supplier { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }

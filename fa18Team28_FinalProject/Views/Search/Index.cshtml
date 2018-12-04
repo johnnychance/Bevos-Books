@@ -55,7 +55,8 @@
                 @Html.DisplayFor(modelItem => item.Reviews)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.BookID">Details</a>
+                <a asp-action="Details" asp-route-id="@item.BookID">Details</a> |
+                @Html.ActionLink("AddToCart", "AddToCart", "CartItems", null, new { @class = "nav-link" })
             </td>
         </tr>
         }
