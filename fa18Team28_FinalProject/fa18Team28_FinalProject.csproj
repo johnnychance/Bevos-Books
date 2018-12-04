@@ -13,6 +13,7 @@
     <Folder Include="Views\Account\" />
     <Folder Include="Views\RoleAdmin\" />
     <Folder Include="Views\CustomerOrderDetails\" />
+    <Folder Include="Views\Reviews\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -20,11 +20,12 @@ namespace fa18Team28_FinalProject.Controllers
             _context = context;
         }
 
-        // GET: 
-        public async Task<IActionResult> Index()
+        // GET: List of Reviews
+        public IActionResult Index()
         {
-            return View(await _context.Books.Include(o => o.OrderDetails).ToListAsync());
+            return View();
         }
+
 
     }
 }
