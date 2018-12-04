@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,21 +9,16 @@ using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-//*******make this a search controller instead of home controller bc search will not be on home page
-//repositories --> Books (r refers to books)
-//languages --> genres (l refers to genres)
-//Star count is ratings in this case, which is a property under review
-
 namespace fa18Team28_FinalProject.Controllers
 {
-    public enum Classification { Title, Author, MostPopular, NewestFirst, OldestFirst, HighestRated };
+    //search: { Title, Author, MostPopular, NewestFirst, OldestFirst, HighestRated };
+    public enum BookReportClassification { RecentFirst, HighestProfitMargin, LowestProfitMargin, MostPopular };
 
-    public class SearchController : Controller
+    public class ReportsController : Controller
     {
         private AppDbContext _db;
 
-        public SearchController(AppDbContext context)
+        public ReportsController(AppDbContext context)
         {
             _db = context;
         }
@@ -56,11 +51,6 @@ namespace fa18Team28_FinalProject.Controllers
             var query = from r in _db.Books
                         select r;
 
-            if (_db.Books.Count() == 0)//there are not any books yet
-            {
-                return RedirectToAction("Index", "Seed"); //redirects to index seed - tells you if no books 
-            }
-
             //execute the query 
             SelectedBooks = query.Include(r => r.Genre).ToList(); //includes genres
 
@@ -76,14 +66,14 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
         //GET: Detailed Search
-        public ActionResult DetailedSearch()
+        public ActionResult Report()
         {
             ViewBag.AllGenres = GetAllGenres();
             return View();
         }
 
-        //Detailed Search Method
-        public ActionResult DisplaySearchResults(String searchTitle, String searchAuthor, Int32 searchUniqueID, int intRatingOrder, int SelectedGenre, Classification Filter, int intPurchaseCount, DateTime datPublishedDate)
+        //Report Display Method (Display Search Results) 
+        public ActionResult DisplayReports(String searchTitle, String searchAuthor, Int32 searchUniqueID, int intRatingOrder, int SelectedGenre, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
         {
             //Create a list of books, this puts ALL books into a list and then we filter it with a query
             List<Book> SelectedBooks = _db.Books.ToList();
@@ -95,72 +85,34 @@ namespace fa18Team28_FinalProject.Controllers
 
             //start the query
             var queryTwo = from a in _db.Reviews
-                        select a;
+                           select a;
 
-            //Filter query using:
-            //Title only
-            if (searchTitle == null || searchTitle == "") //no selection made
-            {
-                ViewBag.SearchString = "Name search string was null";
-            }
 
-            else //something was selected
-            {
-                query = query.Where(r => r.Title.Contains(searchTitle));
-            }
-
-            //Author only
-            if (searchAuthor == null || searchAuthor == "") //no selection made
-            {
-                ViewBag.Description = "Name description string was null";
-            }
-
-            else //something was selected
-            {
-                query = query.Where(r => r.Author.Contains(searchAuthor));
-            }
-
-            //UniqueID
-            if (searchUniqueID == 0) //no selection made
-            {
-
-                ViewBag.Description = "Unique ID was null";
-
-            }
-
-            else //something was selected
-            {
-                query = query.Where(r => r.UniqueID == searchUniqueID);
-            }
-
-          
-            if (SelectedGenre != 0)
-            {
-                query = query.Where(r => r.Genre.GenreID == SelectedGenre);
-            }
-
+            //update
             //created filter for highest rated books (decending order)
-            if (Filter == Classification.HighestRated )
+            if (Filter == BookReportClassification.RecentFirst)
             {
                 queryTwo = queryTwo.Where(a => a.Rating <= intRatingOrder);
             }
 
-            //created filter for most popular books (decending order)
-            if (Filter == Classification.MostPopular)
-            {
-                query = query.Where(r => r.PurchaseCount <= intPurchaseCount);
-            }
-
+            //update
             //created filter for newest books (decending order)
-            if (Filter == Classification.NewestFirst)
+            if (Filter == BookReportClassification.HighestProfitMargin)
             {
                 query = query.Where(r => r.PublishedDate <= datPublishedDate);
             }
 
-            //created filter for oldest books (ascending order)
-            if (Filter == Classification.OldestFirst)
+            //update
+            //created filter for newest books (decending order)
+            if (Filter == BookReportClassification.LowestProfitMargin)
             {
-                query = query.Where(r => r.PublishedDate >= datPublishedDate);
+                query = query.Where(r => r.PublishedDate <= datPublishedDate);
+            }
+
+            //created filter for most popular books (decending order)
+            if (Filter == BookReportClassification.MostPopular)
+            {
+                query = query.Where(r => r.PurchaseCount <= intPurchaseCount);
             }
 
 
@@ -173,25 +125,14 @@ namespace fa18Team28_FinalProject.Controllers
 
             //repopulate the view bag
             ViewBag.AllGenres = GetAllGenres();
-
-            //created filter for title of books (decending order)
-            if (Filter == Classification.Title)
-            {
-                return View("Index", SelectedBooks.OrderBy(r => r.Title));
-            }
-
-            //created filter for author of books (decending order)
-            else if (Filter == Classification.Author)
-            {
-                return View("Index", SelectedBooks.OrderBy(r => r.Author));
-            }
-
-            else
+        }
+        
+            /*else
             {
                 //returns a redirect view to the index showing the list of filtered books
                 return View("Index", SelectedBooks);
-            }       
-        }
+            }*/
+
 
         //This method gets all genres
         public SelectList GetAllGenres()
@@ -206,4 +147,4 @@ namespace fa18Team28_FinalProject.Controllers
             return AllGenres;
         }
     }
-}*/
+}
