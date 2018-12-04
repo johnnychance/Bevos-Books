@@ -1,7 +1,18 @@
-﻿<h2>Welcome to Bevo's Books</h2>
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 
-<a asp-controller="Books" asp-action="Index" class="btn btn-info">Inventory</a>
+<h2>Welcome to Bevo's Books</h2>
 
-<a asp-controller="CustomerOrders" asp-action="Index" class="btn btn-info">Place an Order</a>
 
 <a asp-controller="Search" asp-action="Index" class="btn btn-info">Browse the Library</a>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-controller="CustomerOrders" asp-action="Index" class="btn btn-info">Place an Order</a>
+
+    if (User.IsInRole("Manager"))
+    {
+        <a asp-controller="Books" asp-action="Index" class="btn btn-info">Inventory</a>
+        <a asp-controller="ManagerOrders" asp-action="Index" class="btn btn-info">Re-stock Orders</a>
+    }
+}
