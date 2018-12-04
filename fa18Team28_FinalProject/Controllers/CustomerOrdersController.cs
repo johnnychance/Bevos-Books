@@ -93,7 +93,7 @@ namespace fa18Team28_FinalProject.Controllers
             //Creating a new order detail
             CustomerOrderDetail cd = new CustomerOrderDetail() { CustomerOrder = cod };
 
-            //ViewBag.AllCustomerBooks = GetAllCustomerBooks();
+            ViewBag.AllCustomerBooks = GetAllCustomerBooks();
             //Change the view to make sure there's no list that requires something to be passed to it
             return View("AddToOrder", cd);
         }
