@@ -21,5 +21,6 @@ namespace fa18Team28_FinalProject.Models
 
         public Book Book { get; set; }
 
+
     }
 }

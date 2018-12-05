@@ -53,6 +53,7 @@ namespace fa18Team28_FinalProject.Models
 
         public List<Review> Reviews { get; set; }
         public List<ProductDetail> ProductDetails { get; set; }
+        public List<CartItem> CartItems { get; set; }
 
 
 

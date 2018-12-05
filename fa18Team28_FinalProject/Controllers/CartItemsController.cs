@@ -22,7 +22,7 @@ namespace fa18Team28_FinalProject.Controllers
         // GET: CartItems
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CartItems.ToListAsync());
+            return View(); //View(await _context.CartItems.ToListAsync());
         }
 
         // GET: CartItems/Details/5
@@ -154,14 +154,15 @@ namespace fa18Team28_FinalProject.Controllers
 
         public const string CartSessionKey = "CartID";
 
-        public IActionResult AddToCart(int id)
+        //int id
+        public IActionResult AddToCart([Bind("BookID,PublishedDate,UniqueID,Title,Author,Description,Price,Cost,Reordered,PurchaseCount,CopiesOnHand,LastOrdered")] Book book)
         {
-            // Retrieve the product from the database.           
+            //Retrieve the product from the database.           
             ShoppingCartID = GetCartID();
 
             var cartItem = _context.CartItems.SingleOrDefault(
                 c => c.CartID == ShoppingCartID
-                && c.Book.BookID == id);
+                && c.Book.BookID == book.BookID);
 
             if (cartItem == null)
             {
@@ -171,7 +172,7 @@ namespace fa18Team28_FinalProject.Controllers
                     ItemID = Guid.NewGuid().ToString(),                    
                     CartID = ShoppingCartID,
                     Book = _context.Books.SingleOrDefault(
-                   p => p.BookID == id),
+                   p => p.BookID == book.BookID),
                     Quantity = 1,
                     DateCreated = DateTime.Now
                 };
@@ -186,7 +187,7 @@ namespace fa18Team28_FinalProject.Controllers
             }
             _context.SaveChanges();
 
-            return View();
+            return View(cartItem);
         }
 
         /*public void Dispose()
