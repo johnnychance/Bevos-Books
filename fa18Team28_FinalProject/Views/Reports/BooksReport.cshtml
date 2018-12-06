@@ -2,14 +2,12 @@
 @using fa18Team28_FinalProject.Controllers
 
 <h2></h2>
-<p> Displaying @ViewBag.TotalBooks Records </p>
-<h2>Detailed Search</h2>
+<p> Displaying @ViewBag.SelectedBooks Records </p>
+<h2>Sort Report</h2>
 <form asp-action="DisplayBookReport" asp-controller="Reports" method="get">
     <div class="form-group">
-        <label>Filters:</label>
-        <input name="StarString" class="form-control" /> <div class="text-danger">@ViewBag.Message</div>
-        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.RecentFirst)Recent First (A to Z)</label>
-        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.HighestProfitMargin)Hightest Profit Margin (A to Z)</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.RecentFirst)Recent First</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.HighestProfitMargin)Hightest Profit Margin</label>
         <label class="radio">@Html.RadioButton("Filter", BookReportClassification.LowestProfitMargin)Lowest Profit Margin</label>
         <label class="radio">@Html.RadioButton("Filter", BookReportClassification.AscendingPrice)Ascending Price</label>
         <label class="radio">@Html.RadioButton("Filter", BookReportClassification.DescendingPrice)Descending Price</label>
@@ -92,9 +90,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.LastOrdered)
                     </td>
-                    <td>
+                    @*<td>
                         <a asp-action="Details" asp-route-id="@item.BookID">Details</a>
-                    </td>
+                    </td>*@
                 </tr>
             }
         </tbody>

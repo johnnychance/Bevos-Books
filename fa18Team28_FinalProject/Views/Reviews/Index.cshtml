@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 ﻿@*@model IEnumerable<fa18Team28_FinalProject.Models.Review>
+=======
+﻿@model IEnumerable<fa18Team28_FinalProject.Models.Review>
+@using Microsoft.AspNetCore.Authorization
+
+>>>>>>> Database3
 @{
     ViewData["Title"] = "Index";
 }
 <h2>Review Repository</h2>
-
+<p>
+    <a asp-action="Create">Write a Review</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -16,31 +24,39 @@
             <th>
                 @Html.DisplayNameFor(model => model.Author)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Approver)
-            </th>
+            @if (User.IsInRole("Manager"))
+    {
+        <th>
+            {@Html.DisplayNameFor(model => model.Approver)}
+        </th>
+}
+
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.FirstName) @Html.DisplayFor(modelItem => item.Author.LastName)
+            </td>
+            @if (User.IsInRole("Manager"))
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReviewText)
+                    @Html.DisplayFor(modelItem => item.Approver.FirstName) @Html.DisplayFor(modelItem => item.Approver.LastName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rating)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Approver)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.ReviewID">Details</a>
-                </td>
-            </tr>
+            }
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ReviewID">Details</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>*@

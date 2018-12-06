@@ -11,6 +11,14 @@
         <dd>@Model.UserName</dd>
         <dt>Email:</dt>
         <dd>@Model.Email</dd>
+        <dt>First Name:</dt>
+        <dd>@Model.FirstName</dd>
+        <dt>Last Name:</dt>
+        <dd>@Model.LastName</dd>
+        <dt>Address:</dt>
+        <dd>@Model.StreetAddress</dd>
+        <dt>Phone Number:</dt>
+        <dd>@Model.PhoneNumber</dd>
         <dt>Password:</dt>
         <dd>
             [
@@ -19,9 +27,10 @@
                 @Html.ActionLink("Change your password", "ChangePassword")
             }
             ]
-
         </dd>
     </dl>
-
+    <p>
+        [<a asp-action="Edit">Edit Your Information</a>]
+    </p>
 </div>
 <hr />
