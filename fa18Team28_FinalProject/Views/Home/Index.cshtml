@@ -10,6 +10,8 @@
 {
     <a asp-controller="CustomerOrders" asp-action="Index" class="btn btn-info">Place an Order</a>
 
+    <a asp-controller="Reviews" asp-action="Index" class="btn btn-info">Wreck a Review</a>
+
     if (User.IsInRole("Manager"))
     {
         <a asp-controller="Books" asp-action="Index" class="btn btn-info">Inventory</a>

@@ -13,6 +13,7 @@ namespace fa18Team28_FinalProject.Models
         [Key]
         public int ReviewID { get; set; }
 
+        [Display(Name = "Review Text")]
         public string ReviewText { get; set; }
 
         [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5")]

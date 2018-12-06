@@ -33,5 +33,6 @@ namespace fa18Team28_FinalProject.Models
         //navigational property
         public CustomerOrder CustomerOrder { get; set; }
         public Book Book { get; set; }
+        public CartItem CartItem { get; set; }
     }
 }

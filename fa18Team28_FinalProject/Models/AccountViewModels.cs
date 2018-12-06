@@ -108,7 +108,31 @@ namespace fa18Team28_FinalProject.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-    }   
+    }
+
+    public class EditViewModel
+    {
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Street Address")]
+        public string StreetAddress { get; set; }
+    }
 
     public class IndexViewModel
     {
@@ -116,5 +140,9 @@ namespace fa18Team28_FinalProject.Models
         public String UserName { get; set; }
         public String Email { get; set; }
         public String UserID { get; set; }
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+        public String StreetAddress { get; set; }
+        public String PhoneNumber { get; set; }
     }
 }

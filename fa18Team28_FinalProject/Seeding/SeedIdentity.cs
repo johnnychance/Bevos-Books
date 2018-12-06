@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
-//TODO: Make these using statements match your project
+
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
 
-//TODO: Change this namespace to match your project
+
 namespace fa18Team28_FinalProject.Seeding
 {
     //add identity data
