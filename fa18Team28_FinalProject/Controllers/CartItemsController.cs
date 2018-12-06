@@ -26,7 +26,7 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
         // GET: CartItems/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
@@ -66,7 +66,7 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
         // GET: CartItems/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace fa18Team28_FinalProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ItemID,CartID,Quantity,DateCreated")] CartItem cartItem)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemID,CartID,Quantity,DateCreated")] CartItem cartItem)
         {
             if (id != cartItem.ItemID)
             {
@@ -117,7 +117,7 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
         // GET: CartItems/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
@@ -145,7 +145,7 @@ namespace fa18Team28_FinalProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CartItemExists(string id)
+        private bool CartItemExists(int id)
         {
             return _context.CartItems.Any(e => e.ItemID == id);
         }
@@ -154,7 +154,7 @@ namespace fa18Team28_FinalProject.Controllers
 
         public const string CartSessionKey = "CartID";
 
-        //int id
+        /*//int id
         public IActionResult AddToCart([Bind("BookID,PublishedDate,UniqueID,Title,Author,Description,Price,Cost,Reordered,PurchaseCount,CopiesOnHand,LastOrdered")] Book book)
         {
             //Retrieve the product from the database.           
@@ -190,7 +190,7 @@ namespace fa18Team28_FinalProject.Controllers
             return View(cartItem);
         }
 
-        /*public void Dispose()
+        public void Dispose()
         {
             if (_context != null)
             {
@@ -226,7 +226,70 @@ namespace fa18Team28_FinalProject.Controllers
             return _context.CartItems.Where(
                 c => c.CartID == ShoppingCartID).ToList();
         }
+
+        //GET: AddToOrder
+        public IActionResult AddToCart(int? id)
+        {
+            /*if (id == null)
+            {
+                return View("Error", new string[] { "You must specify an order to add!" });
+            }*/
+
+            //Creating a new customer order 
+            //Booleans are automatically false
+
+            CustomerOrderDetail cust_ord = new CustomerOrderDetail() { };
+
+            CustomerOrder cod = _context.CustomerOrders.Find(id);
+            if (cod == null)
+            {
+                return View("Error", new string[] { "Order not found!" });
+            }
+
+            //Creating a new order detail
+            CustomerOrderDetail cd = new CustomerOrderDetail() { CustomerOrder = cod };
+
+            //ViewBag.AllCustomerBooks = GetAllCustomerBooks();
+
+            //Change the view to make sure there's no list that requires something to be passed to it
+            return View("AddToOrder", cd);
+        }
+
+        //POST: AddToOrder
+        [HttpPost]
+        public IActionResult AddToCart(CustomerOrderDetail cod, int SelectedBook)
+        {
+            //Change it select the book id from details/the list
+
+            //find the product associated with the selected product id
+            Book book = _context.Books.Find(SelectedBook);
+
+            //set the order detail's book equal to the book we just found
+            cod.Book = book;
+
+            //find the order based on the id and the property is pending
+            //Set this status equal to false
+            //**False will mean "Pending" and True will mean "Finished"
+            CustomerOrder reg = _context.CustomerOrders.Find(cod.CustomerOrder.CustomerOrderID);
+
+            //set the order detail's order equal to the order we just found
+            cod.CustomerOrder = reg;
+
+            //set the book price for this detail equal to the current book fee
+            cod.ProductPrice = cod.Book.Price;
+
+            //add total fees
+            cod.ExtendedPrice = cod.Quantity * cod.ProductPrice;
+
+            if (ModelState.IsValid)
+            {
+                _context.CustomerOrderDetails.Add(cod);
+                _context.SaveChanges();
+                return RedirectToAction("Details", new { id = cod.CustomerOrder.CustomerOrderID });
+            }
+            return View(cod);
+        }
     }
 }
-    
+
 

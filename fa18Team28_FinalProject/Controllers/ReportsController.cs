@@ -16,7 +16,7 @@ namespace fa18Team28_FinalProject.Controllers
 
     public class ReportsController : Controller
     {
-        private readonly AppDbContext _dab;
+        private AppDbContext _dab;
 
         public ReportsController(AppDbContext context)
         {
@@ -80,19 +80,27 @@ namespace fa18Team28_FinalProject.Controllers
 
         public ActionResult DisplayBookReport(String reportRecentFirst, Int32 reportHighestProfitMargin, Int32 reportLowestProfitMargin, Int32 reportAscendingPrice, Int32 reportDescendingPrice, string reportMostPopular, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
         {
+            List<Book> SelectedBooks = new List<Book>();
+           //List<CustomerOrderDetail> orderDetails = _dab.CustomerOrderDetails.ToList();
+
+
             var query = from r in _dab.Books
                         select r;
 
-            List<CustomerOrderDetail> orderDetails = _dab.CustomerOrderDetails.ToList();
-            List<Book> SelectedBooks = new List<Book>();
+            //pull frmo customerorderdetails
+            var queryThree = from o in _dab.CustomerOrderDetails
+                             select o;
 
-           //SelectedBooks = query.ToList();
-           //SelectedBooks = query.Include(r => r.Title).ToList();
+            SelectedBooks = query.Include(r => r.Title).ToList();
+            //SelectedBooks = queryThree.Include(o => o.BookID).ToList();
 
-            foreach (CustomerOrderDetail ord in orderDetails)
+            //SelectedBooks = query.ToList();
+            //SelectedBooks = query.Include(r => r.Title).ToList();
+
+            /*foreach (CustomerOrderDetail ord in orderDetails)
             {
                 SelectedBooks.Add(ord.Book);
-            }
+            }*/
 
             /*//og place ViewBag.TotalBooks = _dab.Books.Count();
             ViewBag.SelectedBooks = SelectedBooks.Count; 

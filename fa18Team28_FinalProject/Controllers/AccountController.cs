@@ -27,12 +27,12 @@ namespace fa18Team28_FinalProject.Controllers
             _db = context;
             _userManager = userManager;
             _signInManager = signIn;
-           
+
             //user manager only has one password validator
             _passwordValidator = (PasswordValidator<AppUser>)userManager.PasswordValidators.FirstOrDefault();
         }
 
-        
+
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -72,7 +72,7 @@ namespace fa18Team28_FinalProject.Controllers
             }
         }
 
-       
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -119,7 +119,7 @@ namespace fa18Team28_FinalProject.Controllers
                     //TODO: Add user to desired role
                     //This will not work until you have seeded Identity OR added the "Customer" role 
                     //by navigating to the RoleAdmin controller and manually added the "Customer" role
-                
+
                     await _userManager.AddToRoleAsync(user, "Customer");
                     //another example
                     await _userManager.AddToRoleAsync(user, "Manager");
@@ -237,7 +237,7 @@ namespace fa18Team28_FinalProject.Controllers
             var result = await _userManager.ChangePasswordAsync(userLoggedIn, model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(userLoggedIn, isPersistent: false); 
+                await _signInManager.SignInAsync(userLoggedIn, isPersistent: false);
                 return RedirectToAction("Index", "Home");
             }
             AddErrors(result);
@@ -258,7 +258,7 @@ namespace fa18Team28_FinalProject.Controllers
             _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-           
+
 
         private void AddErrors(IdentityResult result)
         {

@@ -69,8 +69,6 @@ namespace fa18Team28_FinalProject.Controllers
             return View(customerOrder);
         }
 
-
-        //******took out the int? id for now for testing
         //GET: AddToOrder
         public IActionResult AddToOrder(int? id)
         {
@@ -278,45 +276,45 @@ namespace fa18Team28_FinalProject.Controllers
             return allBooks;
         }
 
-        
+
         //POST: Add a book to the shopping cart
         public async Task<IActionResult> ShoppingCart(int? id)
         {
             return View(await _context.CustomerOrders.Where(o => o.CustomerOrderStatus == false).Include(o => o.CustomerOrderDetails).ToListAsync());
         }
-          
 
-            /*find the product associated with the selected product id
-            Book book = new Book();
 
-            _context.Books.Find(SelectedBook);
+        /*find the product associated with the selected product id
+        Book book = new Book();
 
-            //set the registration detail's course equal to the course we just found
-            cod.Book = book;
+        _context.Books.Find(SelectedBook);
 
-            //find the registration based on the id
-            CustomerOrder reg = _context.CustomerOrders.Find(cod.CustomerOrder.CustomerOrderID);
+        //set the registration detail's course equal to the course we just found
+        cod.Book = book;
 
-            //set the registration detail's registration equal to the registration we just found
-            cod.CustomerOrder = reg;
+        //find the registration based on the id
+        CustomerOrder reg = _context.CustomerOrders.Find(cod.CustomerOrder.CustomerOrderID);
 
-            //set the course fee for this detail equal to the current course fee
-            cod.ProductPrice = cod.Book.Price;
+        //set the registration detail's registration equal to the registration we just found
+        cod.CustomerOrder = reg;
 
-            //add total fees
-            cod.ExtendedPrice = cod.Quantity * cod.ProductPrice;
+        //set the course fee for this detail equal to the current course fee
+        cod.ProductPrice = cod.Book.Price;
 
-            if (ModelState.IsValid)
-            {
-                _context.CustomerOrderDetails.Add(cod);
-                _context.SaveChanges();
-                return RedirectToAction("Details", new { id = cod.CustomerOrder.CustomerOrderID });
-            }
-            return View(cod);
+        //add total fees
+        cod.ExtendedPrice = cod.Quantity * cod.ProductPrice;
+
+        if (ModelState.IsValid)
+        {
+            _context.CustomerOrderDetails.Add(cod);
+            _context.SaveChanges();
+            return RedirectToAction("Details", new { id = cod.CustomerOrder.CustomerOrderID });
         }
+        return View(cod);
+    }
 
-            return View(customerOrder);
-        }*/
+        return View(customerOrder);
+    }*/
 
         /*public IActionResult GenerateCart()
         {

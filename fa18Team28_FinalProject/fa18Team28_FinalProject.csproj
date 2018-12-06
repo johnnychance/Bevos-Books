@@ -13,6 +13,7 @@
     <Folder Include="Views\CustomerOrderDetails\" />
     <Folder Include="Views\Reviews\" />
     <Folder Include="Views\Discounts\" />
+    <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,6 +78,7 @@
     <Compile Remove="Migrations\20181116195140_InitialCreate.cs" />
     <Compile Remove="Migrations\20181116202512_InitialCreate1.cs" />
     <Compile Remove="Migrations\20181204010043_InitialCreate.cs" />
+    <Compile Remove="Controllers\ReportsControllerOld.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\CartItems\AddToCart.cshtml">
