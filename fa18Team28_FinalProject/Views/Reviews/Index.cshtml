@@ -32,10 +32,10 @@
                     @Html.DisplayFor(modelItem => item.Rating)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Author)
+                    @Html.DisplayFor(modelItem => item.Author.FirstName) @Html.DisplayFor(modelItem => item.Author.LastName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Approver)
+                    @Html.DisplayFor(modelItem => item.Approver.FirstName) @Html.DisplayFor(modelItem => item.Approver.LastName)
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.ReviewID">Details</a>
