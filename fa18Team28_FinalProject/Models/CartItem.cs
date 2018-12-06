@@ -9,7 +9,7 @@ namespace fa18Team28_FinalProject.Models
     public class CartItem
     {
         [Key]
-        public string ItemID { get; set; }
+        public int ItemID { get; set; }
 
         public string CartID { get; set; }
 
@@ -17,11 +17,11 @@ namespace fa18Team28_FinalProject.Models
 
         public System.DateTime DateCreated { get; set; }
 
-        //public int BookID { get; set; }
+        public int BookId { get; set; }
 
         
 
-        public List<CustomerOrderDetail> CustomerOrderDetails { get; set; }
+        //public List<CustomerOrderDetail> CustomerOrderDetails { get; set; }
         public Book Book { get; set; }
 
 

@@ -69,8 +69,6 @@ namespace fa18Team28_FinalProject.Controllers
             return View(customerOrder);
         }
 
-
-        //******took out the int? id for now for testing
         //GET: AddToOrder
         public IActionResult AddToOrder(int? id)
         {

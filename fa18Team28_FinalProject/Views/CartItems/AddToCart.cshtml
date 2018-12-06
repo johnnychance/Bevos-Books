@@ -10,7 +10,7 @@
 <div>
     <h4>(Psuedo-Cart)</h4>
 </div>
-<div>
+@*<div>
     <table class="table table-hover table-sm table-striped">
         <thead>
             <tr>
@@ -35,7 +35,7 @@
         </tbody>
     </table>
 </div>
-@*<div>
+<div>
     <table class="table table-sm table-bordered" style="width:30%">
         <tr>
             <th colspan="2" style="text-align:center">Order Summary</th>
@@ -54,8 +54,9 @@
         </tr>
 
     </table>
-</div>*@
+</div>
+
+    <a asp-action="Edit" asp-route-id="@Model.BookID">Edit</a> |*@
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.BookID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
