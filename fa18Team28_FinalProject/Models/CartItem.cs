@@ -19,6 +19,7 @@ namespace fa18Team28_FinalProject.Models
 
         //public int BookID { get; set; }
 
+        public List<CustomerOrderDetail> CustomerOrderDetails { get; set; }
         public Book Book { get; set; }
 
 

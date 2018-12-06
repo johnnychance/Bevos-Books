@@ -54,6 +54,7 @@ namespace fa18Team28_FinalProject.Models
         public AppUser AppUser { get; set; }
         public List<CustomerOrderDetail> CustomerOrderDetails { get; set; }
         public List<DiscountDetail> DiscountDetails { get; set; }
+        public CartItem CartItem { get; set; }
 
         public CustomerOrder()
         {
