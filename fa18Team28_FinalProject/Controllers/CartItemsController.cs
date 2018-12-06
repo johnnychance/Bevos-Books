@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,14 +33,14 @@ namespace fa18Team28_FinalProject.Controllers
                 return NotFound();
             }
 
-            var cartItem = await _context.CartItems
+            /*var cartItem = await _context.CartItems
                 .FirstOrDefaultAsync(m => m.ItemID == id);
             if (cartItem == null)
             {
                 return NotFound();
             }
 
-            return View(cartItem);
+            //return View(cartItem);
         }
 
         // GET: CartItems/Create
@@ -154,7 +154,7 @@ namespace fa18Team28_FinalProject.Controllers
 
         public const string CartSessionKey = "CartID";
 
-        /*//int id
+        //int id
         public IActionResult AddToCart([Bind("BookID,PublishedDate,UniqueID,Title,Author,Description,Price,Cost,Reordered,PurchaseCount,CopiesOnHand,LastOrdered")] Book book)
         {
             //Retrieve the product from the database.           
@@ -197,7 +197,7 @@ namespace fa18Team28_FinalProject.Controllers
                 _context.Dispose();
                 _context = null;
             }
-        }*/
+        }
 
         public string GetCartID()
         {
@@ -230,10 +230,10 @@ namespace fa18Team28_FinalProject.Controllers
         //GET: AddToOrder
         public IActionResult AddToCart(int? id)
         {
-            /*if (id == null)
+            if (id == null)
             {
                 return View("Error", new string[] { "You must specify an order to add!" });
-            }*/
+            }
 
             //Creating a new customer order 
             //Booleans are automatically false
@@ -290,6 +290,6 @@ namespace fa18Team28_FinalProject.Controllers
             return View(cod);
         }
     }
-}
+}*/
 
 

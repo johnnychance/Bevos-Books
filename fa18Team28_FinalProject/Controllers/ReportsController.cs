@@ -81,7 +81,7 @@ namespace fa18Team28_FinalProject.Controllers
         public ActionResult DisplayBookReport(String reportRecentFirst, Int32 reportHighestProfitMargin, Int32 reportLowestProfitMargin, Int32 reportAscendingPrice, Int32 reportDescendingPrice, string reportMostPopular, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
         {
             List<Book> SelectedBooks = new List<Book>();
-           //List<CustomerOrderDetail> orderDetails = _dab.CustomerOrderDetails.ToList();
+            List<CustomerOrderDetail> orderDetails = _dab.CustomerOrderDetails.Include(ord => ord.Book).ToList();
 
 
             var query = from r in _dab.Books
@@ -91,16 +91,16 @@ namespace fa18Team28_FinalProject.Controllers
             var queryThree = from o in _dab.CustomerOrderDetails
                              select o;
 
-            SelectedBooks = query.Include(r => r.Title).ToList();
+            //SelectedBooks = query.Include(r => r.Title).ToList();
             //SelectedBooks = queryThree.Include(o => o.BookID).ToList();
 
             //SelectedBooks = query.ToList();
             //SelectedBooks = query.Include(r => r.Title).ToList();
 
-            /*foreach (CustomerOrderDetail ord in orderDetails)
+            foreach (CustomerOrderDetail ord in orderDetails)
             {
                 SelectedBooks.Add(ord.Book);
-            }*/
+            }
 
             /*//og place ViewBag.TotalBooks = _dab.Books.Count();
             ViewBag.SelectedBooks = SelectedBooks.Count; 

@@ -174,10 +174,10 @@ namespace fa18Team28_FinalProject.Models
             if (ShoppingCartID == null)
             {
                 //a user is logged in, set a cart id to their username
-                
-                    System.DateTime today = System.DateTime.Today;
-                    ShoppingCartID = Convert.ToString(today);
-                
+
+                System.DateTime today = System.DateTime.Today;
+                ShoppingCartID = Convert.ToString(today);
+
             }
             return ShoppingCartID;
         }
