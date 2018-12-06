@@ -46,14 +46,11 @@
         @foreach (var item in Model)
         {
         <tr>
-           <td>
-                @Html.DisplayFor(modelItem => item.PublishedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UniqueID)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseCount)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Author)
@@ -71,16 +68,16 @@
                 @Html.DisplayFor(modelItem => item.Reordered)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PurchaseCount)
+                @Html.DisplayFor(modelItem => item.CopiesOnHand)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CopiesOnHand)
+                @Html.DisplayFor(modelItem => item.PublishedDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastOrdered)
             </td>
             <td>
-            <a asp-action="Details" asp-route-id="@item.BookID">Details</a>
+                <a asp-action="Details" asp-route-id="@item.BookID">Details</a>
             </td>
         </tr>
         }
