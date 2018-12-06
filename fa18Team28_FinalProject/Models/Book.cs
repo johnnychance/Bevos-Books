@@ -46,6 +46,14 @@ namespace fa18Team28_FinalProject.Models
         [DataType(DataType.Date)]
         public DateTime LastOrdered { get; set; }
 
+        //profit margin
+        [Display(Name = "Profit Margin")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal ProfitMargin
+        {
+            get { return Price - Cost; }
+        }
+
         //navigational properties for book
         public Genre Genre { get; set; }
         public List<CustomerOrderDetail> CustomerOrderDetails { get; set; }

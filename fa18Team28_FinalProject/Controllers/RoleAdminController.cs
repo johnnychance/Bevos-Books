@@ -1,4 +1,4 @@
-﻿//TODO: Change this using statement to match your project
+﻿
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,15 +7,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-//TODO: Update these using statements to match your project
+
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
 
-//TODO: Change this namespace to match your project
+
 namespace fa18Team28_FinalProject.Controllers
 {
     //TODO: Uncomment this line once you have roles working correctly
-    //[Authorize(Roles = "Manager")]
+    [Authorize(Roles = "Manager")]
     public class RoleAdminController : Controller
     {
         private AppDbContext _db;

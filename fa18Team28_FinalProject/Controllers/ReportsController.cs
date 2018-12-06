@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace fa18Team28_FinalProject.Controllers
 {
     //search: { Title, Author, MostPopular, NewestFirst, OldestFirst, HighestRated };
-    public enum BookReportClassification { RecentFirst, HighestProfitMargin, LowestProfitMargin, MostPopular };
+    public enum BookReportClassification { RecentFirst, HighestProfitMargin, LowestProfitMargin, AscendingPrice, DescendingPrice, MostPopular };
 
     public class ReportsController : Controller
     {
@@ -41,7 +41,7 @@ namespace fa18Team28_FinalProject.Controllers
             return View(bk);
         }
 
-        /*// GET: Home
+        // GET: Home
         public ActionResult Index() 
         {
             //Create list of required books
@@ -58,55 +58,81 @@ namespace fa18Team28_FinalProject.Controllers
             ViewBag.SelectedBooks = SelectedBooks.Count;
             ViewBag.TotalBooks = _db.Books.Count();
 
-            //populating drop down list
-            ViewBag.AllGenres = GetAllGenres();
+
 
             //send the data back to view
             return View(SelectedBooks); //this needs to be changed - see line below
         }
 
-        //GET: Detailed Search
+        /*//GET: Detailed Search
         public ActionResult Report()
         {
-            ViewBag.AllGenres = GetAllGenres();
+            //ViewBag.AllGenres = GetAllGenres();
             return View();
-        }
+        }*/
 
-        //Report Display Method (Display Search Results) 
-        public ActionResult DisplayReports(String searchTitle, String searchAuthor, Int32 searchUniqueID, int intRatingOrder, int SelectedGenre, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
+        //Report Display Method (Display Search Results)  
+        public ActionResult DisplayBookReport(String reportRecentFirst, Int32 reportHighestProfitMargin, Int32 reportLowestProfitMargin, Int32 reportAscendingPrice, Int32 reportDescendingPrice, string reportMostPopular, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
         {
             //Create a list of books, this puts ALL books into a list and then we filter it with a query
-            List<Book> SelectedBooks = _db.Books.ToList();
+            //List<Book> SelectedBooks = _db.Books.ToList();
+            //ordered books list
+            List<CustomerOrderDetail> OrderedBooks = _db.CustomerOrderDetails.Include(CustomerOrderDetailID).ThenInclude(BookID).ToList();
+
+            //Find the related order detail in the database
+            CustomerOrderDetail OrderedBooks = _context.CustomerOrderDetails.Include(o => o.Book).Include(o => o.CustomerOrder).
+                FirstOrDefault(o => o.CustomerOrderDetailID == orderDetail.CustomerOrderDetailID);
 
             //Start the query
             var query = from r in _db.Books
                         select r;
 
-
             //start the query
             var queryTwo = from a in _db.Reviews
                            select a;
 
+            var queryThree = from o in _db.CustomerOrderDetails
+                             select o;
+
 
             //update
-            //created filter for highest rated books (decending order)
+            //created filter for most recently bought books
+            //created filter for title of books (decending order)
+            /*if (Filter == BookReportClassification.RecentFirst)
+            {
+                return View("Index", OrderedBooks.OrderBy(o => o.Book));
+            }
+
             if (Filter == BookReportClassification.RecentFirst)
             {
-                queryTwo = queryTwo.Where(a => a.Rating <= intRatingOrder);
-            }
+                query = queryThree.Where(o => o.Book );
+            }*/
 
             //update
-            //created filter for newest books (decending order)
+            //created filter for greatest profit margin (ascending order)
             if (Filter == BookReportClassification.HighestProfitMargin)
             {
-                query = query.Where(r => r.PublishedDate <= datPublishedDate);
+                query = query.Where(r => r.ProfitMargin <= reportHighestProfitMargin);
             }
 
             //update
-            //created filter for newest books (decending order)
+            //created filter for lowest profit margin (decending order)
             if (Filter == BookReportClassification.LowestProfitMargin)
             {
-                query = query.Where(r => r.PublishedDate <= datPublishedDate);
+                query = query.Where(r => r.ProfitMargin >= reportLowestProfitMargin);
+            }
+
+            //update
+            //created filter for price (ascending order)
+            if (Filter == BookReportClassification.AscendingPrice)
+            {
+                query = query.Where(r => r.Price <= reportAscendingPrice);
+            }
+
+            //created filter for price (decending order)
+            if (Filter == BookReportClassification.DescendingPrice)
+            {
+                query = query.Where(r => r.Price >= reportDescendingPrice);
             }
 
             //created filter for most popular books (decending order)
@@ -115,23 +141,34 @@ namespace fa18Team28_FinalProject.Controllers
                 query = query.Where(r => r.PurchaseCount <= intPurchaseCount);
             }
 
+            /*else
+            {
+                return View("Index", SelectedBooks);
+            }*/
 
-            SelectedBooks = query.ToList(); //new
-            SelectedBooks = query.Include(r => r.Genre).ToList();
+            OrderedBooks = query.ToList(); //new
+            OrderedBooks = query.Include(r => r.Genre).ToList();
 
 
+            //viewbags for selectedbooks list
             ViewBag.TotalBooks = _db.Books.Count();
-            ViewBag.SelectedBooks = SelectedBooks.Count();
+            ViewBag.SelectedBooks = OrderedBooks.Count();
 
-            //repopulate the view bag
-            ViewBag.AllGenres = GetAllGenres();
-        }
+            //viewbags for orderedbooks list
+            ViewBag.TotalBooks = _db.Books.Count();
+            ViewBag.OrderedBooks = OrderedBooks.Count();
+
+            return View("Index", OrderedBooks);
+
+            /*//repopulate the view bag
+            ViewBag.AllGenres = GetAllGenres();*/
         
             /*else
             {
                 //returns a redirect view to the index showing the list of filtered books
-                return View("Index", SelectedBooks);
-            }//end comments here
+               return View("Index", SelectedBooks);
+            }//end comments here*/
+        }
 
 
         //This method gets all genres
@@ -145,6 +182,6 @@ namespace fa18Team28_FinalProject.Controllers
 
             SelectList AllGenres = new SelectList(Genres.OrderBy(l => l.GenreID), "GenreID", "GenreName");
             return AllGenres;
-        }*/
+        }
     }
 }
