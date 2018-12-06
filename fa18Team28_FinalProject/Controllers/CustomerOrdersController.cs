@@ -60,6 +60,11 @@ namespace fa18Team28_FinalProject.Controllers
             customerOrder.CustomerOrderNumber = GenerateNextOrderNumber.GetNextOrderNumber(_context);
             customerOrder.CustomerOrderDate = System.DateTime.Today;
 
+            //This associates a customer with the order
+            string name = User.Identity.Name;
+            AppUser user = _context.Users.FirstOrDefault(u => u.UserName == name);
+            customerOrder.AppUser = user;
+
             if (ModelState.IsValid)
             {
                 _context.Add(customerOrder);
