@@ -21,9 +21,14 @@ namespace fa18Team28_FinalProject.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            //Creates a list of reviews to view
+            List<Review> Reviews = new List<Review>();
+
+            Reviews = _context.Reviews.Where(r => r.Author.UserName == User.Identity.Name).ToList();
+
+            return View(await _context.Reviews.Include(r => r.Author).ToListAsync());
         }
 
         //GET: Reveiws/Create
@@ -39,6 +44,10 @@ namespace fa18Team28_FinalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ReviewID, ReviewText, Rating")] Review review)
         {
+            string cd = User.Identity.Name;
+            AppUser user = _context.Users.FirstOrDefault(u => u.UserName == cd);
+            review.Author = user;
+
             if (ModelState.IsValid)
             {
                 _context.Add(review);

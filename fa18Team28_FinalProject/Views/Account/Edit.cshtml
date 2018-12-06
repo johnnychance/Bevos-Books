@@ -1,0 +1,31 @@
+﻿@model EditViewModel
+@using (Html.BeginForm("Edit", "Account"))
+
+{
+    <h2>
+        Edit Your Account Information
+    </h2>
+
+    <p></p>
+    @Html.Label("First Name")
+    <br />
+    @Html.EditorFor(model => model.FirstName)
+    <p></p>
+    @Html.Label("Last Name")
+    <br />
+    @Html.EditorFor(model => model.LastName)
+    <p></p>
+    @Html.Label("Email")
+    <br />
+    @Html.EditorFor(model => model.Email)
+    <p></p>
+    @Html.Label("Street Address")
+    <br />
+    @Html.EditorFor(model => model.StreetAddress)
+    <p></p>
+    @Html.Label("Phone Number")
+    <br />
+    @Html.EditorFor(model => model.PhoneNumber)
+    <p></p>
+    <input type="submit" value="Save" />
+}

@@ -152,21 +152,78 @@ namespace fa18Team28_FinalProject.Controllers
             ivm.HasPassword = true;
             ivm.UserID = user.Id;
             ivm.UserName = user.UserName;
+            ivm.FirstName = user.FirstName;
+            ivm.LastName = user.LastName;
+            ivm.StreetAddress = user.StreetAddress;
+            ivm.PhoneNumber = user.PhoneNumber;
 
 
             return View(ivm);
         }
 
+        //Logic for change account information
+        // GET: /Account/ChangeInformation
+        public ActionResult ChangeInformation()
+        {
+            return View();
+        }
 
+        //*****Logic to change account information*****
+        //GET: /Account/Edit
+        public ActionResult Edit()
+        {
+            string username = User.Identity.Name;
 
-        //Logic for change password
+            // Fetch the userprofile
+            AppUser user = _db.Users.FirstOrDefault(u => u.UserName.Equals(username));
+
+            // Construct the viewmodel
+            EditViewModel evm = new EditViewModel();
+
+            //populate the view model
+            evm.FirstName = user.FirstName;
+            evm.LastName = user.LastName;
+            evm.Email = user.Email;
+            evm.PhoneNumber = user.PhoneNumber;
+            evm.StreetAddress = user.StreetAddress;
+
+            return View(evm);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string username = User.Identity.Name;
+
+                // Get the userprofile
+                AppUser user = _db.Users.FirstOrDefault(u => u.UserName.Equals(username));
+
+                // Update fields
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Email = model.Email;
+                user.StreetAddress = model.StreetAddress;
+                user.PhoneNumber = model.PhoneNumber;
+
+                _db.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+                _db.SaveChanges();
+
+                return RedirectToAction("Index", "Home"); // or whatever
+            }
+
+            return View(model);
+        }
+
+        //*****Logic for change password*****
         // GET: /Account/ChangePassword
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        //
         // POST: /Account/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
