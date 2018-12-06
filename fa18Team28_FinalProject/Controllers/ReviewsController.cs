@@ -53,7 +53,7 @@ namespace fa18Team28_FinalProject.Controllers
                 _context.Add(review);
                 await _context.SaveChangesAsync();
             }
-            return View(review);
+            return View("Index");
         }
 
         // GET: Reviews/Details/5
