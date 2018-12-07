@@ -90,12 +90,6 @@
     <Compile Remove="Utilities\GenerateCartID.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Views\CustomerOrders\RemoveFromCart.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\CustomerOrders\AddToCart.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\CustomerOrders\ShoppingCart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
