@@ -101,6 +101,55 @@ namespace fa18Team28_FinalProject.Controllers
             return View(await _context.Reviews.Include(r => r.Author).ToListAsync());
         }
 
+        //GET: Reviews/Edit
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var review = await _context.Reviews.FindAsync(id);
+            if (review == null)
+            {
+                return NotFound();
+            }
+            return View(review);
+        }
+
+        // POST: Reviews/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ReviewID,ReviewText,Rating,ApprovalStatus")] Review review)
+        {
+            if (id != review.ReviewID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(review);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ReviewExists(review.ReviewID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(review);
+        }
+
         private SelectList GetAllPurchasedBooks()
         {
 
@@ -126,6 +175,11 @@ namespace fa18Team28_FinalProject.Controllers
 
             SelectList bookList = new SelectList(boughtBooks, "BookID", "Title");
             return bookList;
+        }
+
+        private bool ReviewExists(int id)
+        {
+            return _context.Reviews.Any(e => e.ReviewID == id);
         }
 
     }
