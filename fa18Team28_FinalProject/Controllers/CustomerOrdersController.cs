@@ -42,6 +42,7 @@ namespace fa18Team28_FinalProject.Controllers
         // GET: CustomerOrders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -60,6 +61,10 @@ namespace fa18Team28_FinalProject.Controllers
         // GET: CustomerOrders/Create
         public IActionResult Create()
         {
+            /*String strEmails = CustomerOrder.Email;
+            String strSubject = "AccountRegistered";
+            String strEmailBody = "You are now registered";
+            EmailMessaging.SendEmail(strEmails, strSubject, strEmailBody);*/
             return View();
         }
 
