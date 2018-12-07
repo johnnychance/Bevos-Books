@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using fa18Team28_FinalProject.Seeding;
 using fa18Team28_FinalProject.DAL;
 
@@ -10,6 +11,7 @@ using fa18Team28_FinalProject.DAL;
 
 namespace fa18Team28_FinalProject.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class SeedController : Controller
     {
         private AppDbContext _db;
