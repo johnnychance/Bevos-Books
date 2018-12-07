@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<fa18Team28_FinalProject.Models.Review>
 @using Microsoft.AspNetCore.Authorization
+@using fa18Team28_FinalProject.Models
+
 
 @{
     ViewData["Title"] = "Index";
@@ -18,14 +20,14 @@
                 @Html.DisplayNameFor(model => model.Rating)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Book.Title)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Author)
             </th>
-            @if (User.IsInRole("Manager"))
-    {
-        <th>
-            {@Html.DisplayNameFor(model => model.Approver)}
-        </th>
-}
+            <th>
+                @if (User.IsInRole("Manager")){@Html.DisplayNameFor(model => model.Approver)}
+            </th>
 
 
         </tr>
@@ -40,15 +42,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
+            <th>
+                @Html.DisplayFor(model => item.Book.Title)
+            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.Author.FirstName) @Html.DisplayFor(modelItem => item.Author.LastName)
             </td>
             @if (User.IsInRole("Manager"))
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => item.Approver.FirstName) @Html.DisplayFor(modelItem => item.Approver.LastName)
-                </td>
-            }
+    {
+        <td>
+            @Html.DisplayFor(modelItem => item.Approver.FirstName) @Html.DisplayFor(modelItem => item.Approver.LastName)
+        </td>
+}
             <td>
                 <a asp-action="Details" asp-route-id="@item.ReviewID">Details</a>
             </td>

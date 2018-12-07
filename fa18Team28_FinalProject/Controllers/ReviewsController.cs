@@ -34,6 +34,8 @@ namespace fa18Team28_FinalProject.Controllers
         //GET: Reveiws/Create
         public IActionResult Create()
         {
+
+            ViewBag.PurchasedBooks = GetAllPurchasedBooks();
             return View();
         }
 
@@ -42,18 +44,33 @@ namespace fa18Team28_FinalProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReviewID, ReviewText, Rating")] Review review)
+        public async Task<IActionResult> Create(int[] SelectedBook, [Bind("ReviewID, ReviewText, Rating")] Review review)
         {
+            //Associates an author to the review
             string cd = User.Identity.Name;
             AppUser user = _context.Users.FirstOrDefault(u => u.UserName == cd);
             review.Author = user;
 
+            //If the review created is legit...
             if (ModelState.IsValid)
             {
+                foreach (int b in SelectedBook)
+                {
+                    //find the selected book
+                    Book dbBook = _context.Books.Find(b);
+                    //Set the found book to the book in the review 
+                    review.Book = dbBook;
+                }
+                //Add the review to the database and save changes
                 _context.Add(review);
                 await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+
             }
-            return View("Index");
+            //Repopulate the view bag 
+            ViewBag.PurchasedBooks = GetAllPurchasedBooks();
+            return View(review);
         }
 
         // GET: Reviews/Details/5
@@ -71,6 +88,21 @@ namespace fa18Team28_FinalProject.Controllers
                 return NotFound();
             }
             return View(review);
+        }
+
+        private SelectList GetAllPurchasedBooks()
+        {
+            List<Book> boughtBooks = new List<Book>();
+
+            List<CustomerOrderDetail> orderDetails = _context.CustomerOrderDetails.Include(ord => ord.Book).ToList();
+
+            foreach (CustomerOrderDetail ord in orderDetails)
+            {
+                boughtBooks.Add(ord.Book);
+            }
+
+            SelectList bookList = new SelectList(boughtBooks, "BookID", "Title");
+            return bookList;
         }
 
     }
