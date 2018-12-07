@@ -60,9 +60,9 @@ namespace fa18Team28_FinalProject
                     defaults: new { controller = "Home", action = "Index" });
                 });
 
-                /*Seeding.SeedIdentity.AddAdmin(service).Wait();
+                Seeding.SeedIdentity.AddAdmin(service).Wait();
                 Seeding.SeedEmployees.AddAdmin(service).Wait();
-                Seeding.SeedCustomers.AddAdmin(service).Wait();*/
+                Seeding.SeedCustomers.AddAdmin(service).Wait();
             }
 
             /*if (env.IsDevelopment())
