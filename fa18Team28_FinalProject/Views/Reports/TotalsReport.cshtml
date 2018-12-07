@@ -1,23 +1,32 @@
 ﻿@model IEnumerable<fa18Team28_FinalProject.Models.CustomerOrderDetail>
 
-<p> Total Profit: @ViewBag.TotalProfit</p>
-@foreach (var item in Model)
-{
+<h2>Totals Report</h2>
 
-    @Html.DisplayFor(modelItem => item.ProductPrice)
-
-
-}
-
-<p> Total Cost:</p>
-@foreach (var item in Model)
-{
-    @Html.DisplayFor(modelItem => item.Book.Cost)
-}
-
-
-    <p> Total Revenue: </p>
-    @foreach (var item in Model)
-    {
-    @Html.DisplayFor(modelItem => item.ProfitMarginTotal)
-}
+<table class="table">
+   <thead>
+        <tr>
+            <th>
+                Total Profit
+            </th>
+            <th>
+                Total Cost
+            </th>
+            <th>
+                Total Revenue
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                $@ViewBag.TotalProfit
+            </td>
+            <td>
+                $@ViewBag.TotalCost
+            </td>
+            <td>
+                $@ViewBag.TotalRevenue
+            </td>
+        </tr>
+    </tbody>
+</table>
