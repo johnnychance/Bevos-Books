@@ -1,4 +1,4 @@
-﻿@model IEnumerable<fa18Team28_FinalProject.Models.Book>
+﻿@model IEnumerable<fa18Team28_FinalProject.Models.CustomerOrderDetail>
 @using fa18Team28_FinalProject.Controllers
 @{
     ViewData["Title"] = "Index";
@@ -11,13 +11,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Book.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CopiesOnHand)
+                @Html.DisplayNameFor(model => model.Book.CopiesOnHand)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cost)
+                @Html.DisplayNameFor(model => model.Book.Cost)
             </th>
 
             <th></th>
@@ -28,13 +28,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.DisplayFor(modelItem => item.Book.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CopiesOnHand)
+                    @Html.DisplayFor(modelItem => item.Book.CopiesOnHand)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cost)
+                    @Html.DisplayFor(modelItem => item.Book.Cost)
                 </td>
             </tr>
         }
