@@ -1,19 +1,34 @@
-﻿@model IEnumerable<fa18Team28_FinalProject.Models.Book>
+﻿@model IEnumerable<fa18Team28_FinalProject.Models.CustomerOrderDetail>
 @using fa18Team28_FinalProject.Controllers
 
 @{
     ViewData["Title"] = "View";
 }
 <h2>Reviews Report</h2>
+<form asp-action="DisplayReviewsReport" asp-controller="Reports" method="get">
+    <div class="form-group">
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.LowestProfitMargin)Employee ID Ascending</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.AscendingPrice)Ascending Number of Approved Reviews</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.DescendingPrice)Descending Number of Approved Reviews Revenue</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.AscendingPrice)Ascending Number of Rejected Reviews</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.DescendingPrice)Descending Number of Rejected Reviews Revenue</label>
+
+    </div>
+
+    <p class="form-group">
+        <button type="submit" class="btn btn-danger">Sort</button>
+    </p>
+
+</form>
 <table class="table">
     <thead>
         <tr>
           
             <th>
-                @Html.DisplayNameFor(model => model.Reviews.Count())
+                @Html.DisplayNameFor(model => model.Book.Reviews)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PurchaseCount)
+                @Html.DisplayNameFor(model => model.Book.PurchaseCount)
             </th>
        
         </tr>
@@ -23,10 +38,10 @@
         {
         <tr>
            <td>
-                @Html.DisplayFor(modelItem => item.Reviews.Count)
+                @Html.DisplayFor(modelItem => item.Book.Reviews.Count)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UniqueID)
+                @Html.DisplayFor(modelItem => item.Book.UniqueID)
             </td>
         </tr>
         }
