@@ -69,7 +69,7 @@ namespace fa18Team28_FinalProject.Controllers
 
             }
             //Repopulate the view bag 
-            ViewBag.PurchasedBooks = GetAllPurchasedBooks();
+            ViewBag.bookList = GetAllPurchasedBooks();
             return View(review);
         }
 
@@ -90,17 +90,38 @@ namespace fa18Team28_FinalProject.Controllers
             return View(review);
         }
 
+        //GET: List of reviews to approve
+        public async Task<IActionResult> Approval()
+        {
+            //Creates a list of reviews to view
+            List<Review> Reviews = new List<Review>();
+
+            Reviews = _context.Reviews.Where(r => r.ApprovalStatus == false).ToList();
+
+            return View(await _context.Reviews.Include(r => r.Author).ToListAsync());
+        }
+
         private SelectList GetAllPurchasedBooks()
         {
-            //List<CustomerOrder> customerOrders = _context.CustomerOrders.Include(co => co.CustomerOrderDetails).Where(o => o.AppUser.UserName == User.Identity.Name).ToList();
 
-            List<CustomerOrderDetail> orderDetails = _context.CustomerOrderDetails.Include(cod => cod.Book).ToList();
+            /*List<CustomerOrder> customerOrders = _context.CustomerOrders.Include(co => co.CustomerOrderDetails).Where(o => o.AppUser.UserName == User.Identity.Name).ToList();
 
-            List <Book> boughtBooks = new List<Book>();
+            List<CustomerOrderDetail> orderDetails = new List<CustomerOrderDetail>();
 
-            foreach (CustomerOrderDetail cod in orderDetails)
+            foreach (CustomerOrder order in customerOrders)
             {
-                boughtBooks.Add(cod.Book);
+                foreach (CustomerOrderDetail detail in order.CustomerOrderDetails)
+                {
+                    orderDetails.Add(detail);
+                }
+            }*/
+
+            List<CustomerOrderDetail> orderDetails = _context.CustomerOrderDetails.Include(ord => ord.Book).ToList();
+            List<Book> boughtBooks = new List<Book>();
+
+            foreach (CustomerOrderDetail detail in orderDetails)
+            {
+                boughtBooks.Add(detail.Book);
             }
 
             SelectList bookList = new SelectList(boughtBooks, "BookID", "Title");

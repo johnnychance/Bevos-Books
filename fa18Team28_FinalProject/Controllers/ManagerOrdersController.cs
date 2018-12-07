@@ -161,15 +161,15 @@ namespace fa18Team28_FinalProject.Controllers
                 return NotFound();
             }
 
-            var customerOrder = _context.ManagerOrders.Include(r => r.ManagerOrderDetails).ThenInclude(r => r.Book).
+            var managerOrder = _context.ManagerOrders.Include(r => r.ManagerOrderDetails).ThenInclude(r => r.Book).
                 FirstOrDefault(r => r.ManagerOrderID == id);
 
-            if (customerOrder == null)
+            if (managerOrder == null)
             {
                 return NotFound();
             }
 
-            return View(customerOrder);
+            return View(managerOrder);
         }
 
         //POST

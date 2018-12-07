@@ -1,0 +1,59 @@
+﻿@model IEnumerable<fa18Team28_FinalProject.Models.Review>
+@using Microsoft.AspNetCore.Authorization
+@using fa18Team28_FinalProject.Models
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>To-Approve-List</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApprovalStatus)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <th>
+                    @Html.DisplayFor(model => item.Book.Title)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author.FirstName) @Html.DisplayFor(modelItem => item.Author.LastName)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(modelItem => item.ApprovalStatus)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ReviewID">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="form-group">
+    <input type="submit" value="Save" class="btn btn-default" />
+</div>
