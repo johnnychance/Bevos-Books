@@ -1,88 +1,42 @@
 ﻿@model IEnumerable<fa18Team28_FinalProject.Models.Book>
 @using fa18Team28_FinalProject.Controllers
-
-<h2></h2>
-<p> Displaying @ViewBag.SelectedBooks out of @ViewBag.TotalBooks Books </p>
-
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Index";
 }
-<h2>Books Report</h2>
+<h2>Inventory Report</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
-
             <th>
                 @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PurchaseCount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reordered)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CopiesOnHand)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastOrdered)
+                @Html.DisplayNameFor(model => model.Cost)
             </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-           <td>
-                @Html.DisplayFor(modelItem => item.PublishedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UniqueID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reordered)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CopiesOnHand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastOrdered)
-            </td>
-            <td>
-            <a asp-action="Details" asp-route-id="@item.BookID">Details</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CopiesOnHand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+            </tr>
         }
     </tbody>
 </table>

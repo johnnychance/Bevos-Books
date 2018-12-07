@@ -260,98 +260,122 @@ namespace fa18Team28_FinalProject.Controllers
                 return View("OrdersReport", OrderList);
             }
 
+        }*/
         }
 
-        ///CUSTOMER REPORT CODE BEGINS HERE
+        //CUSTOMER REPORT CODE BEGINS HERE
         public ActionResult DisplayCustomerReport(String reportRecentFirst, Int32 reportHighestProfitMargin, Int32 reportLowestProfitMargin, Int32 reportAscendingPrice, Int32 reportDescendingPrice, string reportMostPopular, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
         {
-            //creates a list of all customers to be displayed
-            List<CustomerOrder> CustomerList = _dab.CustomerOrders.Include(ord => ord.CustomerOrderID).ToList();
+            CustomerOrder order = new CustomerOrder();
+            Book book = new Book();
 
-            var query = from r in _dab.Books
-                        select r;
+            List<CustomerOrderDetail> orderReportDetails = new List<CustomerOrderDetail>();
+            orderReportDetails = _dab.CustomerOrderDetails.Include(o => o.Book).Include(o => o.CustomerOrder).ThenInclude(o => o.AppUser)
+                               .Where(o => o.CustomerOrder.CustomerOrderStatus == false).ToList();
 
-            //pull from customerorderdetails
-            var queryThree = from o in _dab.CustomerOrderDetails
-                             select o;
-
-            //created filter for greatest profit margin (ascending order)
-            if (Filter == BookReportClassification.HighestProfitMargin)
-            {
-                query = query.Where(r => r.ProfitMargin <= reportHighestProfitMargin);
-                ViewBag.TotalBooks = _dab.Books.Count();
-                ViewBag.CustomerList = CustomerList.Count;
-
-                //return View("BooksReport", SelectedBooks.OrderBy(r => r.Title));
-                return View("CustomersReport", CustomerList);
-            }
-
-            //update
-            //created filter for lowest profit margin (decending order)
-            if (Filter == BookReportClassification.LowestProfitMargin)
-            {
-                query = query.Where(r => r.ProfitMargin >= reportLowestProfitMargin);
-                ViewBag.TotalBooks = _dab.Books.Count();
-                ViewBag.CustomerList = CustomerList.Count;
-
-                //return View("BooksReport", SelectedBooks.OrderBy(r => r.Title));
-                return View("CustomersReport", CustomerList);
-            }
-
-            //update
-            //created filter for price (ascending order)
-            if (Filter == BookReportClassification.AscendingPrice)
-            {
-                query = query.Where(r => r.Price <= reportAscendingPrice);
-                ViewBag.TotalBooks = _dab.Books.Count();
-                ViewBag.CustomerList = CustomerList.Count;
-
-                //return View("BooksReport", SelectedBooks.OrderBy(r => r.Title));
-                return View("CustomersReport", CustomerList);
-            }
-
-            //created filter for price (decending order)
-            if (Filter == BookReportClassification.DescendingPrice)
-            {
-                query = query.Where(r => r.Price >= reportDescendingPrice);
-                ViewBag.TotalBooks = _dab.Books.Count();
-                ViewBag.CustomerList = CustomerList.Count;
-
-                //return View("BooksReport", SelectedBooks.OrderBy(r => r.Title));
-                return View("CustomersReport", CustomerList);
-            }
-
-            //created filter for most popular books (decending order)
-            if (Filter == BookReportClassification.MostPopular)
-            {
-                query = query.Where(r => r.PurchaseCount <= intPurchaseCount);
-                ViewBag.TotalBooks = _dab.Books.Count();
-                ViewBag.CustomerList = CustomerList.Count;
-
-                //return View("BooksReport", SelectedBooks.OrderBy(r => r.Title));
-                return View("CustomersReport", CustomerList);
-            }
-
-            else
-            {
-                return View("CustomersReport", CustomerList);
-            }
+            return View("CustomersReport", orderReportDetails);
 
         }
+        /*//creates a list of all customers to be displayed
+        List<CustomerOrder> CustomerList = _dab.CustomerOrders.Include(ord => ord.CustomerOrderID).ToList();
 
-        public ActionResult DisplayInventory(String reportRecentFirst, Int32 reportHighestProfitMargin, Int32 reportLowestProfitMargin, Int32 reportAscendingPrice, Int32 reportDescendingPrice, string reportMostPopular, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
+        var query = from r in _dab.Books
+                    select r;
+
+        //pull from customerorderdetails
+        var queryThree = from o in _dab.CustomerOrderDetails
+                         select o;
+
+        //created filter for greatest profit margin (ascending order)
+        if (Filter == BookReportClassification.HighestProfitMargin)
         {
-            //creates list of all books to be displayed
-            List<Book> SelectedBooks = _dab.Books.ToList();
-
-            //start the query
-            var query = from r in _dab.Books
-                        select r;
-
+            query = query.Where(r => r.ProfitMargin <= reportHighestProfitMargin);
             ViewBag.TotalBooks = _dab.Books.Count();
-            ViewBag.SelectedBooks = SelectedBooks.Count; 
+            ViewBag.CustomerList = CustomerList.Count;
 
-            if (Filter == BookReportClassification.HighestProfitMargin)
+            //return View("BooksReport", SelectedBooks.OrderBy(r => r.Title));
+            return View("CustomersReport", CustomerList);
+        }
+
+        //update
+        //created filter for lowest profit margin (decending order)
+        if (Filter == BookReportClassification.LowestProfitMargin)
+        {
+            query = query.Where(r => r.ProfitMargin >= reportLowestProfitMargin);
+            ViewBag.TotalBooks = _dab.Books.Count();
+            ViewBag.CustomerList = CustomerList.Count;
+
+            //return View("BooksReport", SelectedBooks.OrderBy(r => r.Title));
+            return View("CustomersReport", CustomerList);
+        }
+
+        //update
+        //created filter for price (ascending order)
+        if (Filter == BookReportClassification.AscendingPrice)
+        {
+            query = query.Where(r => r.Price <= reportAscendingPrice);
+            ViewBag.TotalBooks = _dab.Books.Count();
+            ViewBag.CustomerList = CustomerList.Count;
+
+            //return View("BooksReport", SelectedBooks.OrderBy(r => r.Title));
+            return View("CustomersReport", CustomerList);
+        }
+
+        //created filter for price (decending order)
+        if (Filter == BookReportClassification.DescendingPrice)
+        {
+            query = query.Where(r => r.Price >= reportDescendingPrice);
+            ViewBag.TotalBooks = _dab.Books.Count();
+            ViewBag.CustomerList = CustomerList.Count;
+
+            //return View("BooksReport", SelectedBooks.OrderBy(r => r.Title));
+            return View("CustomersReport", CustomerList);
+        }
+
+        //created filter for most popular books (decending order)
+        if (Filter == BookReportClassification.MostPopular)
+        {
+            query = query.Where(r => r.PurchaseCount <= intPurchaseCount);
+            ViewBag.TotalBooks = _dab.Books.Count();
+            ViewBag.CustomerList = CustomerList.Count;
+
+            //return View("BooksReport", SelectedBooks.OrderBy(r => r.Title));
+            return View("CustomersReport", CustomerList);
+        }
+
+        else
+        {
+            return View("CustomersReport", CustomerList);
+        }*/
+
+
+
+        //ORDER REPORT CODE BEGINS HERE
+        public ActionResult DisplayTotalsReport(String reportRecentFirst, Int32 reportHighestProfitMargin, Int32 reportLowestProfitMargin, Int32 reportAscendingPrice, Int32 reportDescendingPrice, string reportMostPopular, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
+        {
+            CustomerOrder order = new CustomerOrder();
+            Book book = new Book();
+
+            List<CustomerOrderDetail> orderReportDetails = new List<CustomerOrderDetail>();
+            orderReportDetails = _dab.CustomerOrderDetails.Include(o => o.Book).Include(o => o.CustomerOrder).ThenInclude(o => o.AppUser)
+                               .Where(o => o.CustomerOrder.CustomerOrderStatus == false).ToList();
+
+            return View("TotalsReport", orderReportDetails);
+        }
+
+
+        public ActionResult DisplayInventoryReport(String reportRecentFirst, Int32 reportHighestProfitMargin, Int32 reportLowestProfitMargin, Int32 reportAscendingPrice, Int32 reportDescendingPrice, string reportMostPopular, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
+        {
+            CustomerOrder order = new CustomerOrder();
+            Book book = new Book();
+
+            List<CustomerOrderDetail> orderReportDetails = new List<CustomerOrderDetail>();
+            orderReportDetails = _dab.CustomerOrderDetails.Include(o => o.Book).Include(o => o.CustomerOrder).ThenInclude(o => o.AppUser)
+                               .Where(o => o.CustomerOrder.CustomerOrderStatus == false).ToList();
+
+            return View("InventoryReport", orderReportDetails);
+
+            /*if (Filter == BookReportClassification.HighestProfitMargin)
             {
                 query = query.Where(r => r.ProfitMargin <= reportHighestProfitMargin);
                 ViewBag.TotalBooks = _dab.Books.Count();
@@ -402,5 +426,16 @@ namespace fa18Team28_FinalProject.Controllers
 
         }*/
         }
+            public ActionResult DisplayReviewsReport(String reportRecentFirst, Int32 reportHighestProfitMargin, Int32 reportLowestProfitMargin, Int32 reportAscendingPrice, Int32 reportDescendingPrice, string reportMostPopular, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
+            {
+                CustomerOrder order = new CustomerOrder();
+                Book book = new Book();
+
+                List<CustomerOrderDetail> orderReportDetails = new List<CustomerOrderDetail>();
+                orderReportDetails = _dab.CustomerOrderDetails.Include(o => o.Book).Include(o => o.CustomerOrder).ThenInclude(o => o.AppUser)
+                                   .Where(o => o.CustomerOrder.CustomerOrderStatus == false).ToList();
+
+                return View("ReviewsReport", orderReportDetails);
+            }
     }
 }

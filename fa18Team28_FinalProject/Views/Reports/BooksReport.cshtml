@@ -39,7 +39,7 @@
             </th>
             @*<th>
             @Html.DisplayNameFor(model => model.Custom) //enter names 
-        </th>*@
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.ProductPrice)
             </th>
@@ -58,9 +58,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                    <td>
                     @Html.DisplayFor(modelItem => item.Book.Title)
-                </td>
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Quantity)
                     </td>
@@ -77,10 +77,7 @@
                         @Html.DisplayFor(modelItem => item.Book.ProfitMargin)
                     </td>
                     <td>
-                        @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderDate)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="CustomerOrderDetails">Details</a>
+                        @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderDate)
                     </td>
             </tr>
         }

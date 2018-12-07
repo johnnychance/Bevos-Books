@@ -5,13 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-
 using fa18Team28_FinalProject.Utilities;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
-
-
-
 
 namespace fa18Team28_FinalProject.Controllers
 {

@@ -6,7 +6,7 @@
 @{
     ViewData["Title"] = "View";
 }
-<h2>Books Report</h2>
+<h2>Orders Report</h2>
 <table class="table">
     <thead>
         <tr>
@@ -39,32 +39,30 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Book.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Book.Cost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProfitMarginTotal)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderDate)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="CustomerOrderDetails">Details</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderNumber)
+            </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProfitMarginTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderDate)
+            </td>
+
+        </tr>
         
         }
     </tbody>
