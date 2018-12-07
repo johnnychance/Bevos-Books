@@ -24,7 +24,7 @@ namespace fa18Team28_FinalProject.Controllers
         // GET: Discounts
         public IActionResult Index()
         {
-            return View();
+            return View( _context.Discounts.Include(d => d.DiscountDetails).ToList());
         }
 
         // GET: CustomerOrders/Create

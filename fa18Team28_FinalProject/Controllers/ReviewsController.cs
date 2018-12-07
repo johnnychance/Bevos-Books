@@ -22,14 +22,14 @@ namespace fa18Team28_FinalProject.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             //Creates a list of reviews to view
-            List<Review> Reviews = new List<Review>();
+            List<Review> reviews = new List<Review>();
 
-            Reviews = _context.Reviews.Where(r => r.Author.UserName == User.Identity.Name).ToList();
+            reviews = _context.Reviews.Include(r => r.Author).Where(r => r.Author.UserName == User.Identity.Name).ToList();
 
-            return View(await _context.Reviews.Include(r => r.Author).ToListAsync());
+            return View(reviews);
         }
 
         [Authorize(Roles = "Customer")]
