@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace fa18Team28_FinalProject.Controllers
 {
+    [Authorize]
     public class CustomerOrdersController : Controller
     {
         private AppDbContext _context;
