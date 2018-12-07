@@ -145,4 +145,19 @@ namespace fa18Team28_FinalProject.Models
         public String StreetAddress { get; set; }
         public String PhoneNumber { get; set; }
     }
+
+    public class CreditCardViewModel
+    {
+        [Display(Name = "Credit Card 1")]
+        [StringLength(16, ErrorMessage = "Credit Cards must be 16 characters long.", MinimumLength = 16)]
+        public string CreditCard1 { get; set; }
+
+        [Display(Name = "Credit Card 2")]
+        [StringLength(16, ErrorMessage = "Credit Cards must be 16 characters long.", MinimumLength = 16)]
+        public string CreditCard2 { get; set; }
+
+        [Display(Name = "Credit Card 3")]
+        [StringLength(16, ErrorMessage = "Credit Cards must be 16 characters long.", MinimumLength = 16)]
+        public string CreditCard3 { get; set; }
+    }
 }

@@ -23,9 +23,9 @@ namespace fa18Team28_FinalProject.Models
         public string Zipcode { get; set; }
         public string CustomerNumber { get; set; }
         public string Birthday { get; set; }
-        public Int32 CreditCard1 { get; set; }
-        public Int32 CreditCard2 { get; set; }
-        public Int32 CreditCard3 { get; set; }
+        public string CreditCard1 { get; set; }
+        public string CreditCard2 { get; set; }
+        public string CreditCard3 { get; set; }
         public Int32 NumberofOrders { get; set; }
         public bool Active { get; set; }
 

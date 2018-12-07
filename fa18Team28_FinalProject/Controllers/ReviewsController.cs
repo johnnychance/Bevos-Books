@@ -69,7 +69,7 @@ namespace fa18Team28_FinalProject.Controllers
 
             }
             //Repopulate the view bag 
-            ViewBag.PurchasedBooks = GetAllPurchasedBooks();
+            ViewBag.bookList = GetAllPurchasedBooks();
             return View(review);
         }
 
@@ -90,21 +90,96 @@ namespace fa18Team28_FinalProject.Controllers
             return View(review);
         }
 
+        //GET: List of reviews to approve
+        public async Task<IActionResult> Approval()
+        {
+            //Creates a list of reviews to view
+            List<Review> Reviews = new List<Review>();
+
+            Reviews = _context.Reviews.Where(r => r.ApprovalStatus == false).ToList();
+
+            return View(await _context.Reviews.Include(r => r.Author).ToListAsync());
+        }
+
+        //GET: Reviews/Edit
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var review = await _context.Reviews.FindAsync(id);
+            if (review == null)
+            {
+                return NotFound();
+            }
+            return View(review);
+        }
+
+        // POST: Reviews/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ReviewID,ReviewText,Rating,ApprovalStatus")] Review review)
+        {
+            if (id != review.ReviewID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(review);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ReviewExists(review.ReviewID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(review);
+        }
+
         private SelectList GetAllPurchasedBooks()
         {
-            //List<CustomerOrder> customerOrders = _context.CustomerOrders.Include(co => co.CustomerOrderDetails).Where(o => o.AppUser.UserName == User.Identity.Name).ToList();
 
-            List<CustomerOrderDetail> orderDetails = _context.CustomerOrderDetails.Include(cod => cod.Book).ToList();
+            /*List<CustomerOrder> customerOrders = _context.CustomerOrders.Include(co => co.CustomerOrderDetails).Where(o => o.AppUser.UserName == User.Identity.Name).ToList();
 
-            List <Book> boughtBooks = new List<Book>();
+            List<CustomerOrderDetail> orderDetails = new List<CustomerOrderDetail>();
 
-            foreach (CustomerOrderDetail cod in orderDetails)
+            foreach (CustomerOrder order in customerOrders)
             {
-                boughtBooks.Add(cod.Book);
+                foreach (CustomerOrderDetail detail in order.CustomerOrderDetails)
+                {
+                    orderDetails.Add(detail);
+                }
+            }*/
+
+            List<CustomerOrderDetail> orderDetails = _context.CustomerOrderDetails.Include(ord => ord.Book).ToList();
+            List<Book> boughtBooks = new List<Book>();
+
+            foreach (CustomerOrderDetail detail in orderDetails)
+            {
+                boughtBooks.Add(detail.Book);
             }
 
             SelectList bookList = new SelectList(boughtBooks, "BookID", "Title");
             return bookList;
+        }
+
+        private bool ReviewExists(int id)
+        {
+            return _context.Reviews.Any(e => e.ReviewID == id);
         }
 
     }

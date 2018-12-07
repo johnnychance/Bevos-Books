@@ -1,8 +1,8 @@
-﻿@model IEnumerable<fa18Team28_FinalProject.Models.Book>
+﻿@model IEnumerable<fa18Team28_FinalProject.Models.CustomerOrderDetail>
 @using fa18Team28_FinalProject.Controllers
 
 <h2></h2>
-<p> Displaying @ViewBag.SelectedBooks Records </p>
+
 <h2>Sort Report</h2>
 <form asp-action="DisplayBookReport" asp-controller="Reports" method="get">
     <div class="form-group">
@@ -13,87 +13,76 @@
         <label class="radio">@Html.RadioButton("Filter", BookReportClassification.DescendingPrice)Descending Price</label>
         <label class="radio">@Html.RadioButton("Filter", BookReportClassification.MostPopular)Most Popular</label>
     </div>
+
+    <p class= "form-group">
+        <button type="submit" class="btn btn-danger">Sort</button>
+    </p>
+    
 </form>
 
-    @{
-        ViewData["Title"] = "View";
-    }
-    <h2>Books Sold Report</h2>
-    <table class="table">
-        <thead>
-            <tr>
+@{
+    ViewData["Title"] = "View";
+}
+<h2>Books Sold Report</h2>
+<table class="table">
+    <thead>
+        <tr>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PurchaseCount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Author)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cost)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Reordered)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CopiesOnHand)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastOrdered)
-                </th>
-                <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderNumber)
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.Custom) //enter names 
+        </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.ProfitMargin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.Cost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.ProfitMargin)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderDate)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="CustomerOrderDetails">Details</a>
+                    </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PublishedDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UniqueID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Author)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cost)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Reordered)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PurchaseCount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CopiesOnHand)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastOrdered)
-                    </td>
-                    @*<td>
-                        <a asp-action="Details" asp-route-id="@item.BookID">Details</a>
-                    </td>*@
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>

@@ -1,10 +1,12 @@
 ﻿using System;
-
-//TODO: You need to add these using statements to get mail to work
+using System.Linq;
+using fa18Team28_FinalProject.DAL;
+using fa18Team28_FinalProject.Models;
 using System.Net.Mail;
 using System.Net;
 
-namespace SendMailTest
+
+namespace fa18Team28_FinalProject.Utilities
 {
     public static class EmailMessaging
     {
@@ -15,16 +17,16 @@ namespace SendMailTest
             {
                 UseDefaultCredentials = false,
                 //This is the SENDING email address and password
-                Credentials = new NetworkCredential("dummyemail@gmail.com", "Password123"),
+                Credentials = new NetworkCredential("team28bevosbookstore@gmail.com", "MISpassword123"),
                 EnableSsl = true
             };
             //Add anything that you need to the body of the message
             // /n is a new line – this will add some white space after the main body of the message
-            String finalMessage = emailBody + "\n\n This is a disclaimer that will be on all messages.";
+            String finalMessage = emailBody + "\n\n Welcome to Bevos Books! Enjoy your book! \nSincerely, Team 28 at Bevo's Books";
 
 
             //Create an email address object for the sender address
-            MailAddress senderEmail = new MailAddress("dummyemail@gmail.com", "Bevo's Bookstore");
+            MailAddress senderEmail = new MailAddress("team28bevosbookstore@gmail.com", "MISpassword123");
             MailMessage mm = new MailMessage();
             mm.Subject = "Team 28 - " + emailSubject;
             mm.Sender = senderEmail;

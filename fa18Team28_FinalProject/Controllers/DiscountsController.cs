@@ -41,10 +41,10 @@ namespace fa18Team28_FinalProject.Controllers
             {
                 _context.Add(discount);
                 await _context.SaveChangesAsync();
-            }
-            return View("Index");
-        }
 
-        //GET: all discount types 
+                return RedirectToAction(nameof(Index));
+            }
+            return View(discount);
+        }
     }
 }

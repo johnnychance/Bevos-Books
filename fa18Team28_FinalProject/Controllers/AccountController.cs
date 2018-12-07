@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 
+using fa18Team28_FinalProject.Utilities;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
 
@@ -89,6 +90,11 @@ namespace fa18Team28_FinalProject.Controllers
         //TODO: This is the method where you create a new user
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            String strEmails = model.Email;
+            String strSubject = "Account Registered";
+            String strEmailBody = "You are now registered";
+            EmailMessaging.SendEmail(strEmails, strSubject, strEmailBody);
+
             if (ModelState.IsValid)
             {
                 AppUser user = new AppUser
@@ -193,6 +199,7 @@ namespace fa18Team28_FinalProject.Controllers
         [HttpPost]
         public ActionResult Edit(EditViewModel model)
         {
+
             if (ModelState.IsValid)
             {
                 string username = User.Identity.Name;
@@ -238,9 +245,57 @@ namespace fa18Team28_FinalProject.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(userLoggedIn, isPersistent: false);
+                EmailMessaging.SendEmail(User.Identity.Name, "Update: Password Changed", "You have successfully changed your password.");
                 return RedirectToAction("Index", "Home");
+
             }
             AddErrors(result);
+            return View(model);
+        }
+
+
+        public ActionResult AddCreditCard()
+        {
+            string username = User.Identity.Name;
+
+            // Fetch the userprofile
+            AppUser user = _db.Users.FirstOrDefault(u => u.UserName.Equals(username));
+
+            // Construct the viewmodel
+            CreditCardViewModel ccvm = new CreditCardViewModel();
+
+            //populate the view model
+            ccvm.CreditCard1 = user.CreditCard1;
+            ccvm.CreditCard2 = user.CreditCard2;
+            ccvm.CreditCard3 = user.CreditCard3;
+            
+
+            return View(ccvm);
+        }
+
+        [HttpPost]
+        public ActionResult AddCreditCard(CreditCardViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string username = User.Identity.Name;
+
+                // Get the userprofile
+                AppUser user = _db.Users.FirstOrDefault(u => u.UserName.Equals(username));
+
+                // Update fields
+                user.CreditCard1 = model.CreditCard1;
+                user.CreditCard2 = model.CreditCard2;
+                user.CreditCard3 = model.CreditCard3;
+                
+
+                _db.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+                _db.SaveChanges();
+
+                return RedirectToAction("Index", "Home"); // or whatever
+            }
+
             return View(model);
         }
 

@@ -1,0 +1,23 @@
+﻿@model CreditCardViewModel
+@using (Html.BeginForm("AddCreditCard", "Account"))
+
+{
+    <h2>
+        Add Your Credit Card
+    </h2>
+
+    <p></p>
+    @Html.Label("Credit Card 1")
+    <br />
+    @Html.EditorFor(model => model.CreditCard1)
+    <p></p>
+    @Html.Label("Credit Card 2")
+    <br />
+    @Html.EditorFor(model => model.CreditCard2)
+    <p></p>
+    @Html.Label("Credit Card 3")
+    <br />
+    @Html.EditorFor(model => model.CreditCard3)
+    <p></p>
+    <input type="submit" value="Save" />
+}

@@ -34,5 +34,12 @@ namespace fa18Team28_FinalProject.Models
         public CustomerOrder CustomerOrder { get; set; }
         public Book Book { get; set; }
         //public CartItem CartItem { get; set; }
+
+        [Display(Name = "Profit Margin Total")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public Decimal ProfitMarginTotal
+        {
+            get { return (ProductPrice * Quantity) - Book.Cost; }
+        }
     }
 }
