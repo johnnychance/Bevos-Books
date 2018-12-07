@@ -371,11 +371,11 @@ namespace fa18Team28_FinalProject.Controllers
                 orderedBooks.Add(detail.Book);
             }
 
-            decTotalProfit = orderedBooks.Sum(item => item.Price);
+            decTotalProfit = orderedBooks.Sum(item => item.ProfitMargin);
 
             decTotalCost = orderedBooks.Sum(item => item.Cost);
 
-            decTotalRevenue = orderedBooks.Sum(item => item.ProfitMargin);
+            decTotalRevenue = orderedBooks.Sum(item => item.Price);
 
             ViewBag.TotalProfit = decTotalProfit;
             ViewBag.TotalCost = decTotalCost;

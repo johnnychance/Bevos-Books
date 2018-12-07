@@ -413,8 +413,32 @@ namespace fa18Team28_FinalProject.Controllers
             //return the select list
             return AllBooks;
         }
-
+        /*
         //BREAK POINT
+        public IActionResult Checkout(int id, CustomerOrder order)
+        {
+
+            CustomerOrder customerOrder = _context.CustomerOrders.Find(order.CustomerOrderID);
+
+            if (order.CustomerOrderStatus == false)
+            {
+                customerOrder.CustomerOrderStatus = true;
+            }
+
+            //Update the database
+            _context.CustomerOrders.Update(customerOrder);
+
+            //Save changes
+            _context.SaveChanges();
+
+            return RedirectToAction("OrderConfirmed");
+        }
+
+        //GET: Order Confirmed page
+        public IActionResult OrderConfirmed()
+        {
+            return View();
+        }*/
 
         [HttpPost]
         public IActionResult AddToCart(CustomerOrderDetail cod, int SelectedBook)
