@@ -63,7 +63,9 @@ namespace fa18Team28_FinalProject
                 /*Seeding.SeedIdentity.AddAdmin(service).Wait();
                 Seeding.SeedEmployees.AddAdmin(service).Wait();
                 Seeding.SeedCustomers.AddAdmin(service).Wait();*/
+                
             }
+
 
             /*if (env.IsDevelopment())
             {

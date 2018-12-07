@@ -57,7 +57,7 @@
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.BookID">Details</a> |
-                <a asp-controller="AddToOrder" asp-action="CustomerOrder">Add To Order</a>
+                @Html.ActionLink("Add To Cart", "AddToCart", "CustomerOrders", new { id = item.BookID }, null)
             </td>
         </tr>
         }
