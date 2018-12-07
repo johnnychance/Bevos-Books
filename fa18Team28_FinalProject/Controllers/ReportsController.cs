@@ -176,10 +176,18 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
         //ORDER REPORT CODE BEGINS HERE
-        /*public ActionResult DisplayOrderReport(String reportRecentFirst, Int32 reportHighestProfitMargin, Int32 reportLowestProfitMargin, Int32 reportAscendingPrice, Int32 reportDescendingPrice, string reportMostPopular, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
+        public ActionResult DisplayOrderReport(String reportRecentFirst, Int32 reportHighestProfitMargin, Int32 reportLowestProfitMargin, Int32 reportAscendingPrice, Int32 reportDescendingPrice, string reportMostPopular, BookReportClassification Filter, int intPurchaseCount, DateTime datPublishedDate)
         {
+            CustomerOrder order = new CustomerOrder();
+            Book book = new Book();
 
-            List<CustomerOrder> OrderList = _dab.CustomerOrders.Include(ord => ord.CustomerOrderDetails).ToList();
+            List<CustomerOrderDetail> orderReportDetails = new List<CustomerOrderDetail>();
+            orderReportDetails = _dab.CustomerOrderDetails.Include(o => o.Book).Include(o => o.CustomerOrder).ThenInclude(o => o.AppUser)
+                               .Where(o => o.CustomerOrder.CustomerOrderStatus == false).ToList();
+
+            return View("OrdersReport", orderReportDetails);
+
+            /*List<CustomerOrder> OrderList = _dab.CustomerOrders.Include(ord => ord.CustomerOrderDetails).ToList();
 
             //List <CustomerOrderDetail> orderDetails = _dab.CustomerOrderDetails.Include(ord => ord.CustomerOrder).ToList();
 
@@ -393,5 +401,6 @@ namespace fa18Team28_FinalProject.Controllers
             }
 
         }*/
+        }
     }
 }

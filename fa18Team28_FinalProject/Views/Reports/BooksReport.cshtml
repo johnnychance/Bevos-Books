@@ -2,7 +2,7 @@
 @using fa18Team28_FinalProject.Controllers
 
 <h2></h2>
-<p> Displaying @ViewBag.SelectedBooks Records </p>
+
 <h2>Sort Report</h2>
 <form asp-action="DisplayBookReport" asp-controller="Reports" method="get">
     <div class="form-group">
@@ -13,10 +13,11 @@
         <label class="radio">@Html.RadioButton("Filter", BookReportClassification.DescendingPrice)Descending Price</label>
         <label class="radio">@Html.RadioButton("Filter", BookReportClassification.MostPopular)Most Popular</label>
     </div>
+
     <p class= "form-group">
-        <button type="submit" class="btn btn-da
-        nger">Sort</button>
+        <button type="submit" class="btn btn-danger">Sort</button>
     </p>
+    
 </form>
 
 @{
