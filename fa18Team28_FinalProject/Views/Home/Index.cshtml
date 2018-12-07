@@ -1,11 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
-
 <h2>Welcome to Bevo's Books</h2>
 
-
 <a asp-controller="Search" asp-action="Index" class="btn btn-info">Search the Library</a>
-
 @if (User.Identity.IsAuthenticated)
 {
     <a asp-controller="CustomerOrders" asp-action="Index" class="btn btn-info">Place an Order</a>
@@ -14,8 +11,9 @@
 
     if (User.IsInRole("Manager"))
     {
-        <a asp-controller="Books" asp-action="Index" class="btn btn-info">Inventory</a>
+        <a asp-controller="Books" asp-action="Index" class="btn btn-info">Check Inventory</a>
         <a asp-controller="ManagerOrders" asp-action="Index" class="btn btn-info">Re-stock Orders</a>
-        <a asp-controller="Reports" asp-action="Index" class="btn btn-info">Reports</a>
+        <a asp-controller="Reports" asp-action="Index" class="btn btn-info">Read Reports</a>
+        <a asp-controller="Discounts" asp-action="Index" class="btn btn-info">Promotions</a>
     }
 }
