@@ -24,7 +24,7 @@ namespace fa18Team28_FinalProject
         public void ConfigureServices(IServiceCollection services)
         {
             //new
-            var connectionString = "Server=tcp:fa18team28bevosbooksproject.database.windows.net,1433;Initial Catalog=fa18Team28BevosBooksProject;Persist Security Info=False;User ID=MISAdmin;Password=MISpassword123;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            var connectionString = "Server=tcp:fa18team28bevosbooks.database.windows.net,1433;Initial Catalog=fa18team28BevosBooks;Persist Security Info=False;User ID=MISAdmin;Password=MISpassword123;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
             //NOTE: This is where you would change your password requirements

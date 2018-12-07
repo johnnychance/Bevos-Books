@@ -88,5 +88,6 @@
     <Compile Remove="Models\CartItem.cs" />
     <Compile Remove="Models\ShoppingCart.cs" />
     <Compile Remove="Utilities\GenerateCartID.cs" />
+    <Compile Remove="Migrations\20181204231324_InitialCreate.cs" />
   </ItemGroup>
 </Project>

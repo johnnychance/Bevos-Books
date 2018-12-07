@@ -10,8 +10,8 @@ using fa18Team28_FinalProject.DAL;
 namespace fa18Team28_FinalProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20181205034847_NotMyFirstRodeo")]
-    partial class NotMyFirstRodeo
+    [Migration("20181207101417_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,11 +37,11 @@ namespace fa18Team28_FinalProject.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<int>("CreditCard1");
+                    b.Property<string>("CreditCard1");
 
-                    b.Property<int>("CreditCard2");
+                    b.Property<string>("CreditCard2");
 
-                    b.Property<int>("CreditCard3");
+                    b.Property<string>("CreditCard3");
 
                     b.Property<string>("CustomerNumber");
 
@@ -141,26 +141,6 @@ namespace fa18Team28_FinalProject.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("fa18Team28_FinalProject.Models.CartItem", b =>
-                {
-                    b.Property<string>("ItemID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("BookID");
-
-                    b.Property<string>("CartID");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<int>("Quantity");
-
-                    b.HasKey("ItemID");
-
-                    b.HasIndex("BookID");
-
-                    b.ToTable("CartItems");
-                });
-
             modelBuilder.Entity("fa18Team28_FinalProject.Models.CustomerOrder", b =>
                 {
                     b.Property<int>("CustomerOrderID")
@@ -215,14 +195,21 @@ namespace fa18Team28_FinalProject.Migrations
 
             modelBuilder.Entity("fa18Team28_FinalProject.Models.Discount", b =>
                 {
-                    b.Property<string>("DiscountID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("DiscountID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description");
+
+                    b.Property<string>("DiscountCode")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<DateTime>("EndDate");
 
                     b.Property<DateTime>("StartDate");
+
+                    b.Property<int>("Type");
 
                     b.HasKey("DiscountID");
 
@@ -237,7 +224,7 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.Property<int?>("CustomerOrderID");
 
-                    b.Property<string>("DiscountID");
+                    b.Property<int?>("DiscountID");
 
                     b.HasKey("DiscountDetailID");
 
@@ -502,13 +489,6 @@ namespace fa18Team28_FinalProject.Migrations
                     b.HasOne("fa18Team28_FinalProject.Models.Genre", "Genre")
                         .WithMany("Books")
                         .HasForeignKey("GenreID");
-                });
-
-            modelBuilder.Entity("fa18Team28_FinalProject.Models.CartItem", b =>
-                {
-                    b.HasOne("fa18Team28_FinalProject.Models.Book", "Book")
-                        .WithMany("CartItems")
-                        .HasForeignKey("BookID");
                 });
 
             modelBuilder.Entity("fa18Team28_FinalProject.Models.CustomerOrder", b =>

@@ -51,9 +51,9 @@ namespace fa18Team28_FinalProject.Migrations
                     Zipcode = table.Column<string>(nullable: true),
                     CustomerNumber = table.Column<string>(nullable: true),
                     Birthday = table.Column<string>(nullable: true),
-                    CreditCard1 = table.Column<int>(nullable: false),
-                    CreditCard2 = table.Column<int>(nullable: false),
-                    CreditCard3 = table.Column<int>(nullable: false),
+                    CreditCard1 = table.Column<string>(nullable: true),
+                    CreditCard2 = table.Column<string>(nullable: true),
+                    CreditCard3 = table.Column<string>(nullable: true),
                     NumberofOrders = table.Column<int>(nullable: false),
                     Active = table.Column<bool>(nullable: false)
                 },
@@ -66,8 +66,11 @@ namespace fa18Team28_FinalProject.Migrations
                 name: "Discounts",
                 columns: table => new
                 {
-                    DiscountID = table.Column<string>(nullable: false),
+                    DiscountID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DiscountCode = table.Column<string>(maxLength: 20, nullable: false),
                     Description = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false)
                 },
@@ -296,7 +299,7 @@ namespace fa18Team28_FinalProject.Migrations
                     DiscountDetailID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CustomerOrderID = table.Column<int>(nullable: true),
-                    DiscountID = table.Column<string>(nullable: true)
+                    DiscountID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -312,27 +315,6 @@ namespace fa18Team28_FinalProject.Migrations
                         column: x => x.DiscountID,
                         principalTable: "Discounts",
                         principalColumn: "DiscountID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CartItems",
-                columns: table => new
-                {
-                    ItemID = table.Column<string>(nullable: false),
-                    CartID = table.Column<string>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    BookID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CartItems", x => x.ItemID);
-                    table.ForeignKey(
-                        name: "FK_CartItems_Books_BookID",
-                        column: x => x.BookID,
-                        principalTable: "Books",
-                        principalColumn: "BookID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -503,11 +485,6 @@ namespace fa18Team28_FinalProject.Migrations
                 column: "GenreID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartItems_BookID",
-                table: "CartItems",
-                column: "BookID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CustomerOrderDetails_BookID",
                 table: "CustomerOrderDetails",
                 column: "BookID");
@@ -589,9 +566,6 @@ namespace fa18Team28_FinalProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "CartItems");
 
             migrationBuilder.DropTable(
                 name: "CustomerOrderDetails");

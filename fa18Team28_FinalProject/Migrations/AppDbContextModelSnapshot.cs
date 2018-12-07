@@ -35,11 +35,11 @@ namespace fa18Team28_FinalProject.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<int>("CreditCard1");
+                    b.Property<string>("CreditCard1");
 
-                    b.Property<int>("CreditCard2");
+                    b.Property<string>("CreditCard2");
 
-                    b.Property<int>("CreditCard3");
+                    b.Property<string>("CreditCard3");
 
                     b.Property<string>("CustomerNumber");
 
@@ -139,26 +139,6 @@ namespace fa18Team28_FinalProject.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("fa18Team28_FinalProject.Models.CartItem", b =>
-                {
-                    b.Property<string>("ItemID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("BookID");
-
-                    b.Property<string>("CartID");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<int>("Quantity");
-
-                    b.HasKey("ItemID");
-
-                    b.HasIndex("BookID");
-
-                    b.ToTable("CartItems");
-                });
-
             modelBuilder.Entity("fa18Team28_FinalProject.Models.CustomerOrder", b =>
                 {
                     b.Property<int>("CustomerOrderID")
@@ -190,8 +170,6 @@ namespace fa18Team28_FinalProject.Migrations
 
                     b.Property<int?>("BookID");
 
-                    b.Property<string>("CartItemItemID");
-
                     b.Property<int>("CustomerOrderDetailNotes");
 
                     b.Property<int?>("CustomerOrderID");
@@ -207,8 +185,6 @@ namespace fa18Team28_FinalProject.Migrations
                     b.HasKey("CustomerOrderDetailID");
 
                     b.HasIndex("BookID");
-
-                    b.HasIndex("CartItemItemID");
 
                     b.HasIndex("CustomerOrderID");
 
@@ -513,13 +489,6 @@ namespace fa18Team28_FinalProject.Migrations
                         .HasForeignKey("GenreID");
                 });
 
-            modelBuilder.Entity("fa18Team28_FinalProject.Models.CartItem", b =>
-                {
-                    b.HasOne("fa18Team28_FinalProject.Models.Book", "Book")
-                        .WithMany("CartItems")
-                        .HasForeignKey("BookID");
-                });
-
             modelBuilder.Entity("fa18Team28_FinalProject.Models.CustomerOrder", b =>
                 {
                     b.HasOne("fa18Team28_FinalProject.Models.AppUser", "AppUser")
@@ -532,10 +501,6 @@ namespace fa18Team28_FinalProject.Migrations
                     b.HasOne("fa18Team28_FinalProject.Models.Book", "Book")
                         .WithMany("CustomerOrderDetails")
                         .HasForeignKey("BookID");
-
-                    b.HasOne("fa18Team28_FinalProject.Models.CartItem", "CartItem")
-                        .WithMany("CustomerOrderDetails")
-                        .HasForeignKey("CartItemItemID");
 
                     b.HasOne("fa18Team28_FinalProject.Models.CustomerOrder", "CustomerOrder")
                         .WithMany("CustomerOrderDetails")
