@@ -357,7 +357,9 @@ namespace fa18Team28_FinalProject.Controllers
         {
             CustomerOrder order = new CustomerOrder();
             Book book = new Book();
-            decimal decTotalProfit; 
+            decimal decTotalProfit;
+            decimal decTotalCost;
+            decimal decTotalRevenue;
 
             List<CustomerOrderDetail> orderReportDetails = new List<CustomerOrderDetail>();
             orderReportDetails = _dab.CustomerOrderDetails.Include(o => o.Book).Include(o => o.CustomerOrder).ThenInclude(o => o.AppUser)
@@ -371,7 +373,13 @@ namespace fa18Team28_FinalProject.Controllers
 
             decTotalProfit = orderedBooks.Sum(item => item.Price);
 
+            decTotalCost = orderedBooks.Sum(item => item.Cost);
+
+            decTotalRevenue = orderedBooks.Sum(item => item.ProfitMargin);
+
             ViewBag.TotalProfit = decTotalProfit;
+            ViewBag.TotalCost = decTotalCost;
+            ViewBag.TotalRevenue = decTotalRevenue;
             return View("TotalsReport", orderReportDetails);
         }
 
