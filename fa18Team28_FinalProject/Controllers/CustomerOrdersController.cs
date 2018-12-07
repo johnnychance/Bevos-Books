@@ -8,12 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
 using fa18Team28_FinalProject.Utilities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace fa18Team28_FinalProject.Controllers
 {
     public class CustomerOrdersController : Controller
     {
-        private readonly AppDbContext _context;
+        private AppDbContext _context;
 
         public CustomerOrdersController(AppDbContext context)
         {
@@ -21,9 +23,20 @@ namespace fa18Team28_FinalProject.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.CustomerOrders.Include(o => o.CustomerOrderDetails).ToListAsync());
+            List<CustomerOrder> CustomerOrders = new List<CustomerOrder>();
+            if (User.IsInRole("Customer"))
+            {
+                CustomerOrders = _context.CustomerOrders.Include(o => o.CustomerOrderDetails).Where(o => o.AppUser.UserName == User.Identity.Name).ToList();
+            }
+            else
+            {
+                CustomerOrders = _context.CustomerOrders.Include(o => o.CustomerOrderDetails).ToList();
+            }
+
+            return View(CustomerOrders);
+            
         }
 
         // GET: CustomerOrders/Details/5
@@ -146,14 +159,18 @@ namespace fa18Team28_FinalProject.Controllers
                 return NotFound();
             }
 
-            var customerOrder = _context.CustomerOrders
+            string username = User.Identity.Name;
+
+          
+
+            var customerOrder = _context.CustomerOrders.Where(m => m.AppUser.UserName == username)
                                         .Include(r => r.CustomerOrderDetails)
                                             .ThenInclude(r => r.Book)
                                         .FirstOrDefault(r => r.CustomerOrderID == id);
 
             if (customerOrder == null)
             {
-                return NotFound();
+                return View("Error", new string[] { "Not authorized to edit this order!" });
             }
             return View(customerOrder);
 

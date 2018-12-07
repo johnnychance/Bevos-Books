@@ -14,7 +14,7 @@ using fa18Team28_FinalProject.Models;
 
 namespace fa18Team28_FinalProject.Controllers
 {
-    //TODO: Uncomment this line once you have roles working correctly
+    
     [Authorize(Roles = "Manager")]
     public class RoleAdminController : Controller
     {
