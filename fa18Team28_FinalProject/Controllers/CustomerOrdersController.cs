@@ -400,12 +400,8 @@ namespace fa18Team28_FinalProject.Controllers
         {
             List<Book> SelectedBooks = new List<Book>();
 
-            var query = _context.Books.Find(id);
-
-            //add a record for all books
-            var book = new Book() { BookID = id, Title = query.Title };
-            SelectedBooks.Add(book);
-
+            SelectedBooks = _context.Books.Where(o => o.BookID == id).ToList();
+            
             //add a record for all books
             Book SelectNone = new Book() { BookID = 0, Title = "All Books" };
             SelectedBooks.Add(SelectNone);
