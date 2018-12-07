@@ -369,19 +369,21 @@ namespace fa18Team28_FinalProject.Controllers
                 else
                 {
 
-                    foreach (CustomerOrder ord in myOrders)
+                    var query = _context.CustomerOrders.Include(o => o.CustomerOrderDetails).Where(o => o.AppUser.UserName == User.Identity.Name).ToList();
+                    foreach (CustomerOrder ord in query)
                     {
-                        int realID = ord.CustomerOrderID;
-                        var cd = _context.CustomerOrders.Find(realID);
-                        var query = _context.CustomerOrderDetails.Where(o => o.CustomerOrder == cd);
-                        List<CustomerOrderDetail> c_od = query.ToList();
-                        foreach (CustomerOrderDetail codd in c_od)
+                        CustomerOrder myOrder = _context.CustomerOrders.Find(ord.CustomerOrderID);
+                        CustomerOrderDetail cod = new CustomerOrderDetail() { CustomerOrder = myOrder };
+
+                        if (ModelState.IsValid)
                         {
-                            var cod = _context.CustomerOrderDetails.Find(codd.CustomerOrderDetailID);
+                            _context.Add(myOrder);
+                            await _context.SaveChangesAsync();
                             ViewBag.AllBooks = GetAllBooks(id);
-                            return View("AddToCart", cod);
+                            return RedirectToAction("AddToCart", new { id = cod.CustomerOrderDetailID });
                         }
                     }
+                                
 
                     ViewBag.AllBooks = GetAllBooks(id);
                     return View("AddToCart");
