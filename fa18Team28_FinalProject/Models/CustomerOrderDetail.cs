@@ -39,7 +39,7 @@ namespace fa18Team28_FinalProject.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public Decimal ProfitMarginTotal
         {
-            get { return (ProductPrice * Quantity) - Book.Cost; }
+            get { return ProductPrice * Quantity; }
         }
     }
 }

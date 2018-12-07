@@ -6,21 +6,37 @@
 @{
     ViewData["Title"] = "View";
 }
-<h2>Books Report</h2>
+<h2>Orders Report</h2>
+<form asp-action="DisplayBookReport" asp-controller="Reports" method="get">
+    <div class="form-group">
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.RecentFirst)Recent First</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.HighestProfitMargin)Hightest Profit Margin</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.LowestProfitMargin)Lowest Profit Margin</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.AscendingPrice)Ascending Price</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.DescendingPrice)Descending Price</label>
+    </div>
+
+    <p class="form-group">
+        <button type="submit" class="btn btn-danger">Sort</button>
+    </p>
+
+</form>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderNumber)
-            </th>
-            @*<th>
-            @Html.DisplayNameFor(model => model.Custom) //enter names
-            </th>*@
+
             <th>
                 @Html.DisplayNameFor(model => model.Book.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerOrder.AppUser.FirstName) @Html.DisplayNameFor(model => model.CustomerOrder.AppUser.LastName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProductPrice)
@@ -29,11 +45,12 @@
                 @Html.DisplayNameFor(model => model.Book.Cost)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProfitMarginTotal)
+                @Html.DisplayNameFor(model => model.Book.ProfitMargin)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderDate)
             </th>
+
         </tr>
     </thead>
     <tbody>
@@ -41,13 +58,17 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderNumber)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Book.Title)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerOrder.AppUser.FirstName) @Html.DisplayFor(modelItem => item.CustomerOrder.AppUser.LastName)
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductPrice)
@@ -56,16 +77,12 @@
                     @Html.DisplayFor(modelItem => item.Book.Cost)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProfitMarginTotal)
+                    @Html.DisplayFor(modelItem => item.Book.ProfitMargin)
                 </td>
                 <td>
-                    @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderDate)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="CustomerOrderDetails">Details</a>
+                    @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderDate)
                 </td>
             </tr>
-        
         }
     </tbody>
 </table>

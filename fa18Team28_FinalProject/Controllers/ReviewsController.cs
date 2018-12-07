@@ -4,14 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
 
-//Test for github
 namespace fa18Team28_FinalProject.Controllers
 
 {
+    [Authorize]
     public class ReviewsController : Controller
     {
         private readonly AppDbContext _context;
@@ -31,6 +32,7 @@ namespace fa18Team28_FinalProject.Controllers
             return View(await _context.Reviews.Include(r => r.Author).ToListAsync());
         }
 
+        [Authorize(Roles = "Customer")]
         //GET: Reveiws/Create
         public IActionResult Create()
         {
@@ -73,6 +75,7 @@ namespace fa18Team28_FinalProject.Controllers
             return View(review);
         }
 
+        [Authorize(Roles = "Manager, Employee")]
         // GET: Reviews/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -90,6 +93,7 @@ namespace fa18Team28_FinalProject.Controllers
             return View(review);
         }
 
+        [Authorize(Roles = "Manager, Employee")]
         //GET: List of reviews to approve
         public async Task<IActionResult> Approval()
         {
@@ -101,6 +105,7 @@ namespace fa18Team28_FinalProject.Controllers
             return View(await _context.Reviews.Include(r => r.Author).ToListAsync());
         }
 
+        [Authorize(Roles = "Manager, Employee")]
         //GET: Reviews/Edit
         public async Task<IActionResult> Edit(int? id)
         {
@@ -117,6 +122,7 @@ namespace fa18Team28_FinalProject.Controllers
             return View(review);
         }
 
+        [Authorize(Roles = "Manager, Employee")]
         // POST: Reviews/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]

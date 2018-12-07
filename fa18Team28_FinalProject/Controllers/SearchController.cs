@@ -62,7 +62,7 @@ namespace fa18Team28_FinalProject.Controllers
             }
 
             //execute the query 
-            SelectedBooks = query.Include(r => r.Genre).ToList(); //includes genres
+            SelectedBooks = query.Include(r => r.Genre).Include(b => b.Reviews).ToList(); //includes genres and reviews
 
             //get counts for viewbag
             ViewBag.SelectedBooks = SelectedBooks.Count;
