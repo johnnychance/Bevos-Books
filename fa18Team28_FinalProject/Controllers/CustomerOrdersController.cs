@@ -36,7 +36,7 @@ namespace fa18Team28_FinalProject.Controllers
             }
 
             return View(CustomerOrders);
-            
+
         }
 
         // GET: CustomerOrders/Details/5
@@ -166,7 +166,7 @@ namespace fa18Team28_FinalProject.Controllers
 
             string username = User.Identity.Name;
 
-          
+
 
             var customerOrder = _context.CustomerOrders.Where(m => m.AppUser.UserName == username)
                                         .Include(r => r.CustomerOrderDetails)
@@ -307,61 +307,151 @@ namespace fa18Team28_FinalProject.Controllers
         //POST: Add a book to the shopping cart
         public async Task<IActionResult> ShoppingCart(int? id)
         {
-            return View(await _context.CustomerOrders.Where(o => o.CustomerOrderStatus == false).Include(o => o.CustomerOrderDetails).ToListAsync());
-        }
-
-
-        /*find the product associated with the selected product id
-        Book book = new Book();
-
-        _context.Books.Find(SelectedBook);
-
-        //set the registration detail's course equal to the course we just found
-        cod.Book = book;
-
-        //find the registration based on the id
-        CustomerOrder reg = _context.CustomerOrders.Find(cod.CustomerOrder.CustomerOrderID);
-
-        //set the registration detail's registration equal to the registration we just found
-        cod.CustomerOrder = reg;
-
-        //set the course fee for this detail equal to the current course fee
-        cod.ProductPrice = cod.Book.Price;
-
-        //add total fees
-        cod.ExtendedPrice = cod.Quantity * cod.ProductPrice;
-
-        if (ModelState.IsValid)
-        {
-            _context.CustomerOrderDetails.Add(cod);
-            _context.SaveChanges();
-            return RedirectToAction("Details", new { id = cod.CustomerOrder.CustomerOrderID });
-        }
-        return View(cod);
-    }
-
-        return View(customerOrder);
-    }*/
-
-        /*public IActionResult GenerateCart()
-        {
-
-            var query = from o in _context.CustomerOrders
-                        select o;
-
-            query = query.Where(o => o.CustomerOrderStatus == false); 
-
-            if (query.Count() == 0)
+            if (id == null)
             {
-                CustomerOrder co = new CustomerOrder();
-                co.CustomerOrderStatus = false;
-                return View("Index", co);
+                return NotFound();
             }
+
+            var customerOrder = await _context.CustomerOrders.Include(o => o.CustomerOrderDetails).ThenInclude(o => o.Book).FirstOrDefaultAsync(m => m.CustomerOrderID == id);
+
+            if (customerOrder == null)
+            {
+                return NotFound();
+            }
+
+            return View(customerOrder);
+        }
+
+        //GET
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            List<CustomerOrder> myOrders = new List<CustomerOrder>();
+            //logged in
+            if (User.Identity.IsAuthenticated)
+            {
+                myOrders = _context.CustomerOrders.Where(r => r.CustomerOrderStatus == false).Where(r => r.AppUser.UserName == User.Identity.Name).ToList();
+
+                if (myOrders.Count() > 1)
+                {
+                    return View("Error", new string[] { "You have more than one pending order open! Please delete excessive pending orders!" });
+                }
+                else if (myOrders.Count() == 0)
+                {
+                    CustomerOrder customerOrder = new CustomerOrder();
+                    customerOrder.CustomerOrderNumber = GenerateNextOrderNumber.GetNextOrderNumber(_context);
+                    customerOrder.CustomerOrderDate = System.DateTime.Today;
+
+                    //This associates a customer with the order
+                    string name = User.Identity.Name;
+                    AppUser user = _context.Users.FirstOrDefault(u => u.UserName == name);
+                    customerOrder.AppUser = user;
+                    CustomerOrderDetail cd = new CustomerOrderDetail() { CustomerOrder = customerOrder };
+
+                    if (ModelState.IsValid)
+                    {
+                        _context.Add(customerOrder);
+                        await _context.SaveChangesAsync();
+                        ViewBag.AllBooks = GetAllBooks(id);
+                        return RedirectToAction("AddToCart", new { id = cd.CustomerOrderDetailID });
+                    }
+
+                    Book book = _context.Books.Find(id);
+
+                    if (book == null)
+                    {
+                        return View("Error", new string[] { "Book not found!" });
+                    }
+
+                    ViewBag.AllBooks = GetAllBooks(id);
+
+                    return View("AddToCart", cd);
+                }
+                else
+                {
+
+                    var query = _context.CustomerOrders.Include(o => o.CustomerOrderDetails).Where(o => o.AppUser.UserName == User.Identity.Name).ToList();
+                    foreach (CustomerOrder ord in query)
+                    {
+                        CustomerOrder myOrder = _context.CustomerOrders.Find(ord.CustomerOrderID);
+                        CustomerOrderDetail cod = new CustomerOrderDetail() { CustomerOrder = myOrder };
+
+                        if (ModelState.IsValid)
+                        {
+                            _context.Add(myOrder);
+                            await _context.SaveChangesAsync();
+                            ViewBag.AllBooks = GetAllBooks(id);
+                            return RedirectToAction("AddToCart", new { id = cod.CustomerOrderDetailID });
+                        }
+                    }
+                                
+
+                    ViewBag.AllBooks = GetAllBooks(id);
+                    return View("AddToCart");
+                }
+            }
+            //not logged in
             else
             {
-                return View("Index");
+                return RedirectToAction("Index", "Search");
+            }
+        }
+
+        public SelectList GetAllBooks(int id)
+        {
+            List<Book> SelectedBooks = new List<Book>();
+
+            var query = _context.Books.Find(id);
+
+            //add a record for all books
+            var book = new Book() { BookID = id, Title = query.Title };
+            SelectedBooks.Add(book);
+
+            //add a record for all books
+            Book SelectNone = new Book() { BookID = 0, Title = "All Books" };
+            SelectedBooks.Add(SelectNone);
+
+            //convert list to select list
+            SelectList AllBooks = new SelectList(SelectedBooks.OrderBy(m => m.BookID), "BookID", "Name");
+
+            //return the select list
+            return AllBooks;
+        }
+
+        //BREAK POINT
+
+        [HttpPost]
+        public IActionResult AddToCart(CustomerOrderDetail cod, int SelectedBook)
+        {
+            //find the product associated with the selected product id
+            Book book = _context.Books.Find(SelectedBook);
+
+            //set the order detail's book equal to the book we just found
+            cod.Book = book;
+
+            //find the order based on the id and the property is pending
+            //Set this status equal to false
+            //**False will mean "Pending" and True will mean "Finished"
+            CustomerOrder reg = _context.CustomerOrders.Find(cod.CustomerOrder.CustomerOrderID);
+
+            //set the order detail's order equal to the order we just found
+            cod.CustomerOrder = reg;
+
+            //set the book price for this detail equal to the current book fee
+            cod.ProductPrice = cod.Book.Price;
+
+            //add total fees
+            cod.ExtendedPrice = cod.Quantity * cod.ProductPrice;
+
+            if (ModelState.IsValid)
+            {
+                _context.CustomerOrderDetails.Add(cod);
+                _context.SaveChanges();
+                return RedirectToAction("Details", new { id = cod.CustomerOrder.CustomerOrderID });
             }
 
-        }*/
+            //returns a redirect view to the index showing the list of filtered books
+            return View("ShoppingCart", cod);
+
+        }
     }
 }
