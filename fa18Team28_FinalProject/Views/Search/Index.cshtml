@@ -39,27 +39,27 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UniqueID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CopiesOnHand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reviews)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.BookID">Details</a> |
-                <a asp-controller="AddToOrder" asp-action="CustomerOrder">Add To Order</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UniqueID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CopiesOnHand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reviews)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.BookID">Details</a> |
+                    <a asp-controller="CustomerOrders" asp-action="AddToOrder">Add To Order</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

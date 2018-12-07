@@ -253,6 +253,52 @@ namespace fa18Team28_FinalProject.Controllers
             return View(model);
         }
 
+
+        public ActionResult AddCreditCard()
+        {
+            string username = User.Identity.Name;
+
+            // Fetch the userprofile
+            AppUser user = _db.Users.FirstOrDefault(u => u.UserName.Equals(username));
+
+            // Construct the viewmodel
+            CreditCardViewModel ccvm = new CreditCardViewModel();
+
+            //populate the view model
+            ccvm.CreditCard1 = user.CreditCard1;
+            ccvm.CreditCard2 = user.CreditCard2;
+            ccvm.CreditCard3 = user.CreditCard3;
+            
+
+            return View(ccvm);
+        }
+
+        [HttpPost]
+        public ActionResult AddCreditCard(CreditCardViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string username = User.Identity.Name;
+
+                // Get the userprofile
+                AppUser user = _db.Users.FirstOrDefault(u => u.UserName.Equals(username));
+
+                // Update fields
+                user.CreditCard1 = model.CreditCard1;
+                user.CreditCard2 = model.CreditCard2;
+                user.CreditCard3 = model.CreditCard3;
+                
+
+                _db.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+
+                _db.SaveChanges();
+
+                return RedirectToAction("Index", "Home"); // or whatever
+            }
+
+            return View(model);
+        }
+
         //GET:/Account/AccessDenied
         public ActionResult AccessDenied(String ReturnURL)
         {
