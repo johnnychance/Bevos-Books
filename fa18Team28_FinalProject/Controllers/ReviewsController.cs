@@ -92,13 +92,15 @@ namespace fa18Team28_FinalProject.Controllers
 
         private SelectList GetAllPurchasedBooks()
         {
-            List<Book> boughtBooks = new List<Book>();
+            //List<CustomerOrder> customerOrders = _context.CustomerOrders.Include(co => co.CustomerOrderDetails).Where(o => o.AppUser.UserName == User.Identity.Name).ToList();
 
-            List<CustomerOrderDetail> orderDetails = _context.CustomerOrderDetails.Include(ord => ord.Book).ToList();
+            List<CustomerOrderDetail> orderDetails = _context.CustomerOrderDetails.Include(cod => cod.Book).ToList();
 
-            foreach (CustomerOrderDetail ord in orderDetails)
+            List <Book> boughtBooks = new List<Book>();
+
+            foreach (CustomerOrderDetail cod in orderDetails)
             {
-                boughtBooks.Add(ord.Book);
+                boughtBooks.Add(cod.Book);
             }
 
             SelectList bookList = new SelectList(boughtBooks, "BookID", "Title");

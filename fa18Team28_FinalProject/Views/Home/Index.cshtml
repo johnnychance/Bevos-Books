@@ -4,13 +4,13 @@
 <h2>Welcome to Bevo's Books</h2>
 
 
-<a asp-controller="Search" asp-action="Index" class="btn btn-info">Browse the Library</a>
+<a asp-controller="Search" asp-action="Index" class="btn btn-info">Search the Library</a>
 
 @if (User.Identity.IsAuthenticated)
 {
     <a asp-controller="CustomerOrders" asp-action="Index" class="btn btn-info">Place an Order</a>
 
-    <a asp-controller="Reviews" asp-action="Index" class="btn btn-info">Wreck a Review</a>
+    <a asp-controller="Reviews" asp-action="Index" class="btn btn-info">Write a Review</a>
 
     if (User.IsInRole("Manager"))
     {

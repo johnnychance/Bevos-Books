@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<fa18Team28_FinalProject.Models.Book>
 @using fa18Team28_FinalProject.Controllers
+@using fa18Team28_FinalProject.Models
 
 <h2></h2>
 <form asp-action="Index" asp-controller="Search" method="get">
@@ -30,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.CopiesOnHand)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Reviews)
+                Rating
             </th>
             <th></th>
         </tr>
@@ -56,7 +57,7 @@
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.BookID">Details</a> |
-                @Html.ActionLink("AddToCart", "AddToOrder", "CustomerOrders", null, new { @class = "nav-link" })
+                <a asp-controller="AddToOrder" asp-action="CustomerOrder">Add To Order</a>
             </td>
         </tr>
         }
