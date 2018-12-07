@@ -1,52 +1,7 @@
-﻿@model IEnumerable<fa18Team28_FinalProject.Models.CustomerOrder>
-@using fa18Team28_FinalProject.Models
+﻿
 @{
-    ViewData["Title"] = "Shopping Cart";
+    ViewData["Title"] = "ShoppingCart";
 }
-<h2>Your Orders</h2>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerOrderNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerOrderDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerOrderNotes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerOrderTotal)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <th>
-                    @Html.DisplayFor(modelItem => item.CustomerOrderNumber)
-                </th>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerOrderDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerOrderNotes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerOrderTotal)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.CustomerOrderID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.CustomerOrderID">Details</a> |
-                    <a asp-action="AutomaticReorder" asp-route-id="@item.CustomerOrderID">Automatic Reorder</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<h2>ShoppingCart</h2>
+
