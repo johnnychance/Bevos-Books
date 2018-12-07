@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using fa18Team28_FinalProject.DAL;
 using fa18Team28_FinalProject.Models;
@@ -15,7 +14,6 @@ namespace fa18Team28_FinalProject.Controllers
 {
     public enum BookReportClassification { RecentFirst, HighestProfitMargin, LowestProfitMargin, AscendingPrice, DescendingPrice, MostPopular };
 
-    [Authorize(Roles = "Manager")]
     public class ReportsController : Controller
     {
         private AppDbContext _dab;
@@ -49,14 +47,14 @@ namespace fa18Team28_FinalProject.Controllers
                 return View("BooksReport", orderDetails.OrderBy(r => r.Book.PublishedDate));
             }
 
-            //created filter for greatest profit margin (descending order)
+            //created filter for greatest profit margin (ascending order)
             if (Filter == BookReportClassification.HighestProfitMargin)
             {
-                return View("BooksReport", orderDetails.OrderByDescending(r => r.Book.ProfitMargin));
+                return View("BooksReport", orderDetails.OrderBy(r => r.Book.ProfitMargin));
             }
 
             //update
-            //created filter for lowest profit margin (ascending order)
+            //created filter for lowest profit margin (descending order)
             if (Filter == BookReportClassification.LowestProfitMargin)
             {
                 /*query = query.Where(r => r.ProfitMargin >= reportLowestProfitMargin);
@@ -69,14 +67,14 @@ namespace fa18Team28_FinalProject.Controllers
             }
 
             //created filter for greatest price  (ascending order)
-            if (Filter == BookReportClassification.AscendingPrice)
+            if (Filter == BookReportClassification.HighestProfitMargin)
             {
                 return View("BooksReport", orderDetails.OrderBy(r => r.Book.Price));
             }
 
             //update
             //created filter for lowest price  (descending order)
-            if (Filter == BookReportClassification.DescendingPrice)
+            if (Filter == BookReportClassification.LowestProfitMargin)
             {
                 return View("BooksReport", orderDetails.OrderBy(r => r.Book.ProfitMargin));
 
@@ -357,21 +355,11 @@ namespace fa18Team28_FinalProject.Controllers
         {
             CustomerOrder order = new CustomerOrder();
             Book book = new Book();
-            decimal decTotalProfit; 
 
             List<CustomerOrderDetail> orderReportDetails = new List<CustomerOrderDetail>();
             orderReportDetails = _dab.CustomerOrderDetails.Include(o => o.Book).Include(o => o.CustomerOrder).ThenInclude(o => o.AppUser)
                                .Where(o => o.CustomerOrder.CustomerOrderStatus == false).ToList();
-            List<Book> orderedBooks = new List<Book>();
 
-            foreach (CustomerOrderDetail detail in orderReportDetails)
-            {
-                orderedBooks.Add(detail.Book);
-            }
-
-            decTotalProfit = orderedBooks.Sum(item => item.Price);
-
-            ViewBag.TotalProfit = decTotalProfit;
             return View("TotalsReport", orderReportDetails);
         }
 

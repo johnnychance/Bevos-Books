@@ -6,11 +6,11 @@
 <h2>Sort Report</h2>
 <form asp-action="DisplayBookReport" asp-controller="Reports" method="get">
     <div class="form-group">
-        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.RecentFirst)Recent First</label> | 
-        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.HighestProfitMargin)Hightest Profit Margin</label> | 
-        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.LowestProfitMargin)Lowest Profit Margin</label> | 
-        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.AscendingPrice)Ascending Price</label> | 
-        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.DescendingPrice)Descending Price</label> | 
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.RecentFirst)Recent First</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.HighestProfitMargin)Hightest Profit Margin</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.LowestProfitMargin)Lowest Profit Margin</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.AscendingPrice)Ascending Price</label>
+        <label class="radio">@Html.RadioButton("Filter", BookReportClassification.DescendingPrice)Descending Price</label>
         <label class="radio">@Html.RadioButton("Filter", BookReportClassification.MostPopular)Most Popular</label>
     </div>
 
