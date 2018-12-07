@@ -1,5 +1,23 @@
 ﻿@model IEnumerable<fa18Team28_FinalProject.Models.CustomerOrderDetail>
 
-<p> Total Profit: @Html.DisplayNameFor(model => model.Book.Price) </p>
-<p> Total Cost: @Html.DisplayNameFor(model => model.Book.Price) </p>
-<p> Total Revenue: @Html.DisplayNameFor(model => model.Book.Price) </p>
+<p> Total Profit: </p>
+@foreach (var item in Model)
+{
+
+    @Html.DisplayFor(modelItem => item.ProductPrice)
+
+
+}
+
+<p> Total Cost:</p>
+@foreach (var item in Model)
+{
+    @Html.DisplayFor(modelItem => item.Book.Cost)
+}
+
+
+    <p> Total Revenue: </p>
+    @foreach (var item in Model)
+    {
+    @Html.DisplayFor(modelItem => item.ProfitMarginTotal)
+}

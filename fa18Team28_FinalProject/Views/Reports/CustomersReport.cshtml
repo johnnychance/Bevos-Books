@@ -23,74 +23,67 @@
 
 </form>
 
-    <table class="table">
-        <thead>
-            <tr>
+<table class="table">
+    <thead>
+        <tr>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.CustomerOrder.AppUser.FirstName) @Html.DisplayNameFor(model => model.CustomerOrder.AppUser.LastName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Book.PurchaseCount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Book.Author)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Book.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Book.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Book.Cost)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Book.Reordered)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Book.CopiesOnHand)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Book.LastOrdered)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerOrder.AppUser.FirstName) @Html.DisplayNameFor(model => model.CustomerOrder.AppUser.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.ProfitMargin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderDate)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerOrder.AppUser.FirstName) @Html.DisplayFor(modelItem => item.CustomerOrder.AppUser.LastName)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.ProfitMargin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderDate)
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayNameFor(modelItem => item.CustomerOrder.AppUser.FirstName) @Html.DisplayNameFor(modelItem => item.CustomerOrder.AppUser.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.Author)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.Cost)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.Reordered)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.CopiesOnHand)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.PublishedDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Book.LastOrdered)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>

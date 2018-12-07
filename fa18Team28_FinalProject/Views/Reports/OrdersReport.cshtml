@@ -25,17 +25,18 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderNumber)
-            </th>
-            @*<th>
-            @Html.DisplayNameFor(model => model.Custom) //enter names
-            </th>*@
+
             <th>
                 @Html.DisplayNameFor(model => model.Book.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerOrder.AppUser.FirstName) @Html.DisplayNameFor(model => model.CustomerOrder.AppUser.LastName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProductPrice)
@@ -44,41 +45,44 @@
                 @Html.DisplayNameFor(model => model.Book.Cost)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProfitMarginTotal)
+                @Html.DisplayNameFor(model => model.Book.ProfitMargin)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CustomerOrder.CustomerOrderDate)
             </th>
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderNumber)
-            </td>
-            <td>
-            @Html.DisplayFor(modelItem => item.Book.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Book.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProfitMarginTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderDate)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerOrder.AppUser.FirstName) @Html.DisplayFor(modelItem => item.CustomerOrder.AppUser.LastName)
 
-        </tr>
-        
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.ProfitMargin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerOrder.CustomerOrderDate)
+                </td>
+            </tr>
         }
     </tbody>
 </table>
